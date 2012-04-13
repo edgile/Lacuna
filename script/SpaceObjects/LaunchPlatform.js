@@ -1,5 +1,5 @@
 ﻿var LaunchPlatform = SpaceObject.extend({
-    maxForce: 500,
+    maxForce: 1000,
     timeToReachMaxForce: 1500,
 
     init: function (position) {

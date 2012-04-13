@@ -15,7 +15,7 @@
     <script type="text/javascript" src="script/SpaceObjects/star.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/ship.js"></script>
     <script type="text/javascript" src="script/space.js"></script>
-    <script type="text/javascript" src="script/canvas.js"></script>
+    <script type="text/javascript" src="script/main.js"></script>
 </head>
 <body onload="initialize();" style="margin:10px;width:100%;height:100%;text-align:center">
     <canvas id="canvas" width=700 height=500 style="border: 1px;border-color:Orange;border-style:dotted;background-color:Black">This browser does not support canvas.</canvas>
