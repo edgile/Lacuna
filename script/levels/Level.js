@@ -6,6 +6,7 @@
     initialSpace: null,
     currentSpace: null,
     launchPlatform: new LaunchPlatform(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50)),
+    landingZone: new LandingZone(new THREE.Vector2(canvasWidth / 2, 50)),
 
     init: function () {
         this._className = "Level";
@@ -24,6 +25,7 @@
         this.initialSpace = new Space();
         this.initialSpace.generateSpaceObjects(numberOfPlanets, numberOfStars);
         this.launchPlatform = new LaunchPlatform(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+        this.landingZone = new LaunchZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
 
         this.reset();
     },
@@ -49,6 +51,8 @@
         planet.mass = 500;
         this.initialSpace.addSpaceObject(planet);
 
+        this.landingZone = new LaunchZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+
         this.reset();
     },
 
@@ -69,6 +73,8 @@
         this.launchPlatform.position.x = canvasWidth / 2;
         this.launchPlatform.position.y = 50;
 
+        this.landingZone = new LandingZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+        this.landingZone.setDirection(new THREE.Vector2(Math.random(), Math.random()));
 
         this.reset();
     },
@@ -80,6 +86,7 @@
         context2d.font = '20px sans-serif';
         context2d.fillText(this.name, 0, 0);
 
+        if (this.landingZone) this.landingZone.draw(context2d);
         if (this.launchPlatform) this.launchPlatform.draw(context2d);
         if (this.currentSpace) this.currentSpace.draw(context2d);
     }

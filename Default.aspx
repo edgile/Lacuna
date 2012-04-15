@@ -11,6 +11,7 @@
     <script type="text/javascript" src="script/common.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/spaceobject.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/launchplatform.js"></script>
+    <script type="text/javascript" src="script/SpaceObjects/landingzone.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/planet.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/star.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/ship.js"></script>
