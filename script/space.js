@@ -1,18 +1,18 @@
 ﻿var Space = Class.extend({
     init: function () {
-        this.bodies = [];
+        this.spaceObjects = [];
         this.launchPlatform = new LaunchPlatform(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
     },
 
     generateBodies: function (planetCount, starCount) {
         for (var i = 0; i < planetCount; i++) {
             var b = generateRandomPlanet();
-            this.bodies.push(b);
+            this.spaceObjects.push(b);
         }
 
         for (var i = 0; i < starCount; i++) {
             var s = generateRandomStar();
-            this.bodies.push(s);
+            this.spaceObjects.push(s);
         }
         this.mergeCollisions();
     },
@@ -22,62 +22,60 @@
         s.position = position;
         s.direction = direction;
 
-        this.bodies.push(s);
+        this.spaceObjects.push(s);
     },
 
     calculateNewPositions: function (timeLapse) {
         this.mergeCollisions();
         this.applyGavitationalForce();
 
-        for (var i = 0, numberOfBodies = this.bodies.length; i < numberOfBodies; i++) {
-            this.moveToNewPosition(this.bodies[i], timeLapse);
+        for (var i = 0, numberOfBodies = this.spaceObjects.length; i < numberOfBodies; i++) {
+            this.moveToNewPosition(this.spaceObjects[i], timeLapse);
         }
     },
 
     moveToNewPosition: function (body, timeLapse) {
         var timeInSeconds = timeLapse / 1000;
 
-        body.position.x += body.direction.x * timeInSeconds;
-        body.position.y += body.direction.y * timeInSeconds;
+        body.position.addSelf(body.direction.clone().multiplyScalar(timeInSeconds));
     },
 
     applyGavitationalForce: function () {
-        for (var i = 0, numberOfBodies = this.bodies.length; i < numberOfBodies; i++) {
-            var targetBody = this.bodies[i];
+        for (var i = 0, numberOfBodies = this.spaceObjects.length; i < numberOfBodies; i++) {
+            var targetBody = this.spaceObjects[i];
             for (var j = i + 1; j < numberOfBodies; j++) {
-                var sourceBody = this.bodies[j];
+                var sourceBody = this.spaceObjects[j];
                 var force = targetBody.getGravitationalForce(sourceBody);
                 var angleOfForce = targetBody.getAngle(sourceBody);
+                var totalWeight = targetBody.mass + sourceBody.mass;
 
                 if (targetBody.influencedByGravity) {
-                    var forceMassRatio = force / targetBody.mass;
-                    var x = targetBody.direction.x + forceMassRatio * angleOfForce.x;
-                    var y = targetBody.direction.y + forceMassRatio * angleOfForce.y;
+                    var forceMassRatio = force * targetBody.mass / totalWeight;
+                    var delta = angleOfForce.clone().multiplyScalar(forceMassRatio);
+                    var newDirection = targetBody.direction.clone().addSelf(delta);
 
-                    targetBody.direction = { x: x, y: y };
+                    targetBody.direction = newDirection;
                 }
 
                 // Force also works in the oposite direction ...
                 if (sourceBody.influencedByGravity) {
-                    angleOfForce.x *= -1, angleOfForce.y *= -1, angleOfForce.z *= -1;
+                    forceMassRatio = force * sourceBody.mass / totalWeight;
+                    delta = angleOfForce.clone().negate().multiplyScalar(forceMassRatio);
+                    newDirection = sourceBody.direction.clone().addSelf(delta);
 
-                    forceMassRatio = force / sourceBody.mass;
-                    x = sourceBody.direction.x + forceMassRatio * angleOfForce.x;
-                    y = sourceBody.direction.y + forceMassRatio * angleOfForce.y;
-
-                    sourceBody.direction = { x: x, y: y };
+                    sourceBody.direction = newDirection;
                 }
             }
         }
     },
 
     mergeCollisions: function () {
-        for (var i = 0; i < this.bodies.length; i++) {
-            var bodyUnderTest = this.bodies[i];
-            for (var j = i + 1; j < this.bodies.length; j++) {
-                if (bodyUnderTest.collide(this.bodies[j])) {
-                    this.bodies[j] = this.mergeBodies(bodyUnderTest, this.bodies[j]);
-                    this.bodies.pop();
+        for (var i = 0; i < this.spaceObjects.length; i++) {
+            var bodyUnderTest = this.spaceObjects[i];
+            for (var j = i + 1; j < this.spaceObjects.length; j++) {
+                if (bodyUnderTest.collide(this.spaceObjects[j])) {
+                    this.spaceObjects[i] = this.mergeBodies(bodyUnderTest, this.spaceObjects[j]);
+                    this.spaceObjects.splice(j, 1);
                     break;
                 }
             }
@@ -94,16 +92,19 @@
     },
 
     getDirectionAfterCollission: function (body1, body2) {
-        var x = body1.direction.x + body2.direction.x;
-        var y = body1.direction.y + body2.direction.y;
+        var result = new THREE.Vector2();
+        var totalMass = body1.mass + body2.mass;
 
-        return { x: x, y: y };
+        result.add(body1.direction.clone().multiplyScalar(body1.mass / totalMass), body2.direction.clone().multiplyScalar(body2.mass / totalMass));
+
+        return result;
     },
 
     draw: function (context2d) {
         if (this.launchPlatform) this.launchPlatform.draw(context2d);
-        for (var i = 0; i < space.bodies.length; i++) {
-            this.drawSpaceObject(context2d, space.bodies[i]);
+
+        for (var i = 0; i < this.spaceObjects.length; i++) {
+            this.drawSpaceObject(context2d, this.spaceObjects[i]);
         }
     },
 

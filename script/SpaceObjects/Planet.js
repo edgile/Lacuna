@@ -1,4 +1,4 @@
-﻿var maxmassPlanet = 20;
+﻿var maxmassPlanet = 2000;
 var maxInitialSpeedPlanet = 100;
 
 var Planet = SpaceObject.extend({
@@ -6,7 +6,7 @@ var Planet = SpaceObject.extend({
         this._super();
 
         this._className = "Planet";
-        this.density = 1;
+        this.density = 10000;
         this.influencedByGravity = true;
     },
 

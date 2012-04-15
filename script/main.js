@@ -2,8 +2,8 @@
 var stats;
 
 var numberOfPlanets = 0;
-var numberOfStars = 4;
-var timeLapse = 0.1;
+var numberOfStars = 10;
+var timeLapse = 1;
 
 var thisContext;
 var mousePos = new THREE.Vector2(0, 0);

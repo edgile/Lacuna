@@ -1,10 +1,13 @@
 ﻿var SpaceObject = Class.extend({
     _className: "SpaceObject",
 
+    name: "Unknown",
+
     position: new THREE.Vector2(),
     direction: new THREE.Vector2(),
     density: 1,
-    mass: 0,
+    mass: 1,
+
     influencedByGravity: true,
 
     init: function () {

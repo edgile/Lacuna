@@ -1,4 +1,4 @@
-﻿var gravitationalConstant = .1;
+﻿var gravitationalConstant = .01;
 
 var canvasWidth;
 var canvasHeight;
