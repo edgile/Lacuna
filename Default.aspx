@@ -15,6 +15,7 @@
     <script type="text/javascript" src="script/SpaceObjects/star.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/ship.js"></script>
     <script type="text/javascript" src="script/space.js"></script>
+    <script type="text/javascript" src="script/levels/level.js"></script>
     <script type="text/javascript" src="script/main.js"></script>
 </head>
 <body onload="initialize();" style="margin:10px;width:100%;height:100%;text-align:center">

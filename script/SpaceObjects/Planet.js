@@ -10,6 +10,10 @@ var Planet = SpaceObject.extend({
         this.influencedByGravity = true;
     },
 
+    getRadius: function () {
+        return this._super() * 3;
+    },
+
     getGradient: function (context) {
         var gradient = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.getRadius());
         gradient.addColorStop(0, "yellow");

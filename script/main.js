@@ -1,26 +1,30 @@
-﻿var space;
+﻿var level;
 var stats;
 
-var numberOfPlanets = 0;
-var numberOfStars = 10;
 var timeLapse = 1;
 
 var thisContext;
 var mousePos = new THREE.Vector2(0, 0);
-var launchPowerTimer;
+
+function getContext() {
+    if (!thisContext) {
+        var canvas = document.getElementById("canvas");
+        thisContext = canvas.getContext("2d");
+    }
+    return thisContext;
+}
 
 function initialize() {
     var context = getContext();
     canvasWidth = context.canvas.width;
     canvasHeight = context.canvas.height;
 
-    space = new Space();
+    level = new Level();
+    level.random();
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     context.canvas.addEventListener('mousedown', onCanvasMouseDown, false);
     context.canvas.addEventListener('click', onCanvasClick, false);
-
-    space.generateBodies(numberOfPlanets, numberOfStars);
 
     stats = new Stats();
     stats.domElement.style.position = 'absolute';
@@ -31,13 +35,13 @@ function initialize() {
 }
 
 function onCanvasMouseDown(e) {
-    space.launchPlatform.start();
+    level.launchPlatform.start();
 }
 
 function onCanvasClick(e) {
-    space.launchPlatform.stop();
+    level.launchPlatform.stop();
 
-    space.addShip(space.launchPlatform.getPosition(), space.launchPlatform.getLaunchForceVector());
+    level.currentSpace.addShip(level.launchPlatform.getPosition(), level.launchPlatform.getLaunchForceVector());
 }
 
 function onDocumentMouseMove(e) {
@@ -56,24 +60,16 @@ function onDocumentMouseMove(e) {
     x -= context.canvas.offsetLeft;
     y -= context.canvas.offsetTop;
 
-    space.launchPlatform.setPointerLocation(new THREE.Vector2(x, y));
+    level.launchPlatform.setPointerLocation(new THREE.Vector2(x, y));
 }
 
 function animate() {
     requestAnimationFrame(animate);
 
-    space.calculateNewPositions(timeLapse);
+    level.currentSpace.calculateNewPositions(timeLapse);
 
     getContext().clearRect(0, 0, canvasWidth, canvasHeight);
-    space.draw(getContext());
+    level.draw(getContext());
 
     stats.update();
-}
-
-function getContext() {
-    if (!thisContext) {
-        var canvas = document.getElementById("canvas");
-        thisContext = canvas.getContext("2d");
-    }
-    return thisContext;
 }

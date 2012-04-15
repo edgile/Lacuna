@@ -1,10 +1,9 @@
 ﻿var Space = Class.extend({
     init: function () {
         this.spaceObjects = [];
-        this.launchPlatform = new LaunchPlatform(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
     },
 
-    generateBodies: function (planetCount, starCount) {
+    generateSpaceObjects: function (planetCount, starCount) {
         for (var i = 0; i < planetCount; i++) {
             var b = generateRandomPlanet();
             this.spaceObjects.push(b);
@@ -101,8 +100,6 @@
     },
 
     draw: function (context2d) {
-        if (this.launchPlatform) this.launchPlatform.draw(context2d);
-
         for (var i = 0; i < this.spaceObjects.length; i++) {
             this.drawSpaceObject(context2d, this.spaceObjects[i]);
         }
