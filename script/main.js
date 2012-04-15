@@ -1,7 +1,7 @@
 ﻿var level;
 var stats;
 
-var timeLapse = 1;
+var timeLapse = .5;
 
 var thisContext;
 var mousePos = new THREE.Vector2(0, 0);
@@ -20,7 +20,7 @@ function initialize() {
     canvasHeight = context.canvas.height;
 
     level = new Level();
-    level.random();
+    level.levelOneStar();
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     context.canvas.addEventListener('mousedown', onCanvasMouseDown, false);

@@ -16,6 +16,10 @@
         this.mergeCollisions();
     },
 
+    addSpaceObject: function (spaceObject) {
+        this.spaceObjects.push(spaceObject);
+    },
+
     addShip: function (position, direction) {
         var s = new Ship();
         s.position = position;
