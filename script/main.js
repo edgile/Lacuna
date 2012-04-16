@@ -41,7 +41,7 @@ function onCanvasMouseDown(e) {
 function onCanvasClick(e) {
     level.launchPlatform.stop();
 
-    level.currentSpace.addShip(level.launchPlatform.getPosition(), level.launchPlatform.getLaunchForceVector());
+    level.currentSpace.addShip(level.launchPlatform.getPosition().clone(), level.launchPlatform.getLaunchForceVector().clone());
 }
 
 function onDocumentMouseMove(e) {

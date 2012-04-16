@@ -5,7 +5,8 @@
         this._super();
 
         this._className = "Commet";
-        this.density = 1;
+        this.setDensity(1);
+
         this.influencedByGravity = true;
     },
 
@@ -29,10 +30,10 @@
 function generateRandomCommet() {
     var result = new Commet();
 
-    result.mass = 1;
-    result.position = new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight);
-    result.direction = new THREE.Vector2(Math.random(), Math.random());
-    result.direction.setLength(Math.random() * result.maxSpeed)
+    result.setMass(1);
+    result.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    result.setDirection(new THREE.Vector2(Math.random(), Math.random()));
+    result.direction.setLength(Math.random() * result.maxSpeed);
 
     return b;
 };

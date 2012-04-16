@@ -3,7 +3,7 @@
 
     name: "Unknown",
 
-    position: new THREE.Vector2(),
+    position: null,
     direction: new THREE.Vector2(),
     density: 1,
     mass: 1,
@@ -15,6 +15,22 @@
 
     collide: function (body) {
         return this.getDistance(body) < (this.getRadius() + body.getRadius());
+    },
+
+    setPosition: function (position) {
+        this.position = position;
+    },
+
+    setDirection: function (direction) {
+        this.direction = direction;
+    },
+
+    setMass: function (mass) {
+        this.mass = mass;
+    },
+
+    setDensity: function (density) {
+        this.density = density;
     },
 
     getRadius: function () {

@@ -9,6 +9,8 @@
     <script type="text/javascript" src="resources/script/stats.js"></script>
     <script type="text/javascript" src="resources/script/inheritance.js"></script>
     <script type="text/javascript" src="script/common.js"></script>
+    <script type="text/javascript" src="script/core/linesegment.js"></script>
+    <script type="text/javascript" src="script/core/polyline.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/spaceobject.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/launchplatform.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/landingzone.js"></script>

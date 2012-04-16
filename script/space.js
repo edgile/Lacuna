@@ -22,8 +22,8 @@
 
     addShip: function (position, direction) {
         var s = new Ship();
-        s.position = position;
-        s.direction = direction;
+        s.setPosition(position);
+        s.setDirection(direction);
 
         this.spaceObjects.push(s);
     },
@@ -40,7 +40,11 @@
     moveToNewPosition: function (body, timeLapse) {
         var timeInSeconds = timeLapse / 1000;
 
-        body.position.addSelf(body.direction.clone().multiplyScalar(timeInSeconds));
+        var newPosition = new THREE.Vector2(body.position.x, body.position.y);
+        var movement = body.direction.clone().multiplyScalar(timeInSeconds);
+        newPosition.addSelf(movement);
+
+        body.setPosition(newPosition);
     },
 
     applyGavitationalForce: function () {
@@ -57,7 +61,7 @@
                     var delta = angleOfForce.clone().multiplyScalar(forceMassRatio);
                     var newDirection = targetBody.direction.clone().addSelf(delta);
 
-                    targetBody.direction = newDirection;
+                    targetBody.setDirection(newDirection);
                 }
 
                 // Force also works in the oposite direction ...
@@ -66,7 +70,7 @@
                     delta = angleOfForce.clone().negate().multiplyScalar(forceMassRatio);
                     newDirection = sourceBody.direction.clone().addSelf(delta);
 
-                    sourceBody.direction = newDirection;
+                    sourceBody.setDirection(newDirection);
                 }
             }
         }
@@ -88,8 +92,8 @@
     mergeBodies: function (body1, body2) {
         var result = body1.mass > body2.mass ? body1.clone() : body2.clone();
 
-        result.mass = body1.mass + body2.mass;
-        result.direction = this.getDirectionAfterCollission(body1, body2);
+        result.setMass(body1.mass + body2.mass);
+        result.setDirection(this.getDirectionAfterCollission(body1, body2));
 
         return result;
     },

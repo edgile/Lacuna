@@ -35,20 +35,21 @@
 
         this.initialSpace = new Space();
         var star = new Star();
-        star.position = new THREE.Vector2(canvasWidth / 2, canvasHeight / 2);
-        star.mass = 200000;
+        star.setPosition(new THREE.Vector2(canvasWidth / 2, canvasHeight / 2));
+        star.setDirection(new THREE.Vector2());
+        star.setMass(200000);
         this.initialSpace.addSpaceObject(star);
 
         var planet = new Planet();
-        planet.position = new THREE.Vector2(canvasWidth / 2 + 50, canvasHeight / 2);
-        planet.direction = new THREE.Vector2(0, 350);
-        planet.mass = 300;
+        planet.setPosition(new THREE.Vector2(canvasWidth / 2 + 50, canvasHeight / 2));
+        planet.setDirection(new THREE.Vector2(0, 350));
+        planet.setMass(300);
         this.initialSpace.addSpaceObject(planet);
 
         planet = new Planet();
-        planet.position = new THREE.Vector2(canvasWidth / 2 - 100, canvasHeight / 2);
-        planet.direction = new THREE.Vector2(0, 400);
-        planet.mass = 500;
+        planet.setPosition(new THREE.Vector2(canvasWidth / 2 - 100, canvasHeight / 2));
+        planet.setDirection(new THREE.Vector2(0, 400));
+        planet.setMass(500);
         this.initialSpace.addSpaceObject(planet);
 
         this.landingZone = new LaunchZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
@@ -61,20 +62,20 @@
 
         this.initialSpace = new Space();
         var star = new Star();
-        star.position = new THREE.Vector2(canvasWidth / 2, canvasHeight / 2);
-        star.mass = 200000;
+        star.setPosition(new THREE.Vector2(canvasWidth / 2, canvasHeight / 2));
+        star.setMass(200000);
         this.initialSpace.addSpaceObject(star);
 
         star = new Star();
-        star.position = new THREE.Vector2(canvasWidth / 5, 2 * canvasHeight / 3);
-        star.mass = 200000;
+        star.setPosition(new THREE.Vector2(canvasWidth / 5, 2 * canvasHeight / 3));
+        star.setMass(200000);
         this.initialSpace.addSpaceObject(star);
 
         this.launchPlatform.position.x = canvasWidth / 2;
         this.launchPlatform.position.y = 50;
 
         this.landingZone = new LandingZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
-        this.landingZone.setDirection(new THREE.Vector2(Math.random(), Math.random()));
+        this.landingZone.setDirection(new THREE.Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1));
 
         this.reset();
     },

@@ -6,7 +6,8 @@ var Planet = SpaceObject.extend({
         this._super();
 
         this._className = "Planet";
-        this.density = 10000;
+
+        this.setDensity(10000);
         this.influencedByGravity = true;
     },
 
@@ -34,9 +35,9 @@ var Planet = SpaceObject.extend({
 function generateRandomPlanet() {
     var b = new Planet();
 
-    b.mass = Math.random() * maxmassPlanet + 1;
-    b.position = new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight);
-    b.direction = new THREE.Vector2(maxInitialSpeedPlanet * Math.random(), maxInitialSpeedPlanet * Math.random());
+    b.setMass(Math.random() * maxmassPlanet + 1);
+    b.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    b.setDirection(new THREE.Vector2(maxInitialSpeedPlanet * Math.random(), maxInitialSpeedPlanet * Math.random()));
 
     return b;
 };

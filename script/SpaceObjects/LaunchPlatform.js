@@ -6,9 +6,10 @@
         this._super();
 
         this._className = "LaunchPlatform";
-        this.position = position;
-        this.mass = 1;
-        this.density = 1;
+
+        this.setPosition(position);
+        this.setMass(1);
+        this.setDensity(1);
         this.influencedByGravity = false;
         this.pointerLocation = null;
         this.launchForceTimer = null;
@@ -27,7 +28,7 @@
     },
 
     getPosition: function () {
-        return this.position.clone();
+        return this.position;
     },
 
     getLaunchForceDirection: function () {
@@ -39,7 +40,7 @@
     },
 
     getLaunchForceVector: function () {
-        return this.forceVector.clone();
+        return this.forceVector;
     },
 
     getCurrentForce: function () {

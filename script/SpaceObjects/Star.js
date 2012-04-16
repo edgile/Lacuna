@@ -11,7 +11,8 @@ var Star = SpaceObject.extend({
         this._super();
 
         this._className = "Star";
-        this.density = 10000;
+        this.setDensity(10000);
+
         this.influencedByGravity = false;
     },
 
@@ -33,10 +34,10 @@ var Star = SpaceObject.extend({
 function generateRandomStar() {
     var s = new Star();
 
-    s.mass = Math.random() * (maxMassStar - minMassStar) + minMassStar;
-    s.density = Math.random() * (maxStarDensity - minStarDensity) + minStarDensity;
-    s.position = new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight);
-    s.direction = new THREE.Vector2(maxInitialSpeedStar * Math.random(), maxInitialSpeedStar * Math.random());
+    s.setMass(Math.random() * (maxMassStar - minMassStar) + minMassStar);
+    s.setDensity(Math.random() * (maxStarDensity - minStarDensity) + minStarDensity);
+    s.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    s.setDirection(new THREE.Vector2(maxInitialSpeedStar * Math.random(), maxInitialSpeedStar * Math.random()));
 
     return s;
 };
