@@ -1,4 +1,4 @@
-﻿var PolyLine = function () {
+var PolyLine = function () {
     this.points = [];
 }
 

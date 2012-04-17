@@ -1,4 +1,4 @@
-﻿var LineSegment = function (start, end) {
+var LineSegment = function (start, end) {
     this.start = null;
     this.end = null;
 
