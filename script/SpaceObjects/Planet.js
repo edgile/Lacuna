@@ -1,44 +1,39 @@
-﻿var maxmassPlanet = 2000;
-var maxInitialSpeedPlanet = 100;
+﻿var Planet = function(){
+    this._className = "Planet";
 
-var Planet = SpaceObject.extend({
-    init: function () {
-        this._super();
+    this.maxMassPlanet = 2000;
+    this.maxInitialSpeedPlanet = 100;
+    this.influencedByGravity = true;
 
-        this._className = "Planet";
+    this.setDensity(10000);
+}
 
-        this.setDensity(10000);
-        this.influencedByGravity = true;
-    },
+Planet.inheritsFrom(SpaceObject);
 
-    getRadius: function () {
-        return this._super() * 3;
-    },
+Planet.prototype.getRadius = function () {
+    return this._super() * 3;
+}
 
-    getGradient: function (context) {
-        var gradient = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.getRadius());
-        gradient.addColorStop(0, "yellow");
-        gradient.addColorStop(1, "green");
+Planet.prototype.getGradient = function (context) {
+    var gradient = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.getRadius());
+    gradient.addColorStop(0, "yellow");
+    gradient.addColorStop(1, "green");
 
-        return gradient;
-    },
+    return gradient;
+}
 
-    draw: function (context) {
-        context.fillStyle = this.getGradient(context);
-        context.beginPath();
-        context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
-        context.closePath();
-        context.fill();
-    }
-});
+Planet.prototype.setRandomValues = function () {
+    this.baseClass.setRandomValues.call(this);
 
-function generateRandomPlanet() {
-    var b = new Planet();
+    this.setMass(Math.random() * maxmassPlanet + 1);
+    this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(maxInitialSpeedPlanet * Math.random()));
+}
 
-    b.setMass(Math.random() * maxmassPlanet + 1);
-    b.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
-    b.setDirection(new THREE.Vector2(maxInitialSpeedPlanet * Math.random(), maxInitialSpeedPlanet * Math.random()));
-
-    return b;
-};
-
+Planet.prototype.draw = function (context) {
+    context.fillStyle = this.getGradient(context);
+    context.beginPath();
+    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
+    context.closePath();
+    context.fill();
+}

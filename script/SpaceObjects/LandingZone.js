@@ -1,55 +1,61 @@
-﻿var LandingZone = SpaceObject.extend({
-    width: 50,
-    halfWidth: 25,
-    lineSegment: null,
+﻿var LandingZone = function (position) {
+    this._className = "LandingZone";
 
-    init: function (position) {
-        this._super();
+    this.width = 0;
+    this.halfWidth = 0;
+    this.lineSegment = null;
+    this.influencedByGravity = false;
 
-        this._className = "LandingZone";
+    this.setWidth(50);
+    this.setPosition(position);
+    this.setDirection(new THREE.Vector2(1, 1));
+}
 
-        this.setPosition(position);
-        this.setDirection(new THREE.Vector2(1, 1));
-        this.setWidth(50);
-        this.influencedByGravity = false;
-    },
+LandingZone.inheritsFrom(SpaceObject);
 
-    getRadius: function () {
-        return this.width;
-    },
+LandingZone.prototype.getRadius = function () {
+    return this.width;
+}
 
-    setWidth: function (width) {
-        this.width = width;
-        this.halfWidth = this.width / 2;
+LandingZone.prototype.setWidth = function (width) {
+    this.width = width;
+    this.halfWidth = this.width / 2;
 
-        this.setDirection(this.direction);
-    },
+    this.setTargetLineSegment(this.position, this.direction);
+}
 
-    setDirection: function (direction) {
-        this.direction = direction.normalize();
+LandingZone.prototype.setDirection = function (direction) {
+    this.baseClass.setDirection.call(this, direction);
 
-        var start = new THREE.Vector2();
-        start.copy(this.position);
-        start.addSelf(this.direction.clone().setLength(this.halfWidth));
+    this.setTargetLineSegment(this.position, this.direction);
+}
 
-        var end = new THREE.Vector2();
-        end.copy(this.position);
-        end.addSelf(this.direction.clone().negate().setLength(this.halfWidth));
+LandingZone.prototype.setTargetLineSegment = function (position, direction){
+    this.lineSegment = null;
 
-        this.lineSegment = new LineSegment(start, end);
-    },
+    if(!position || !direction) return;
 
-    draw: function (context) {
-        var grd = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.halfWidth);
-        grd.addColorStop(0, "white");
-        grd.addColorStop(1, "black");
+    var start = new THREE.Vector2();
+    start.copy(this.position);
+    start.addSelf(this.direction.clone().setLength(this.halfWidth));
 
-        context.strokeStyle = grd;
-        context.lineWidth = 3;
-        context.beginPath();
-        context.moveTo(this.lineSegment.start.x, this.lineSegment.start.y);
-        context.lineTo(this.lineSegment.end.x, this.lineSegment.end.y);
-        context.closePath();
-        context.stroke();
-    }
-});
+    var end = new THREE.Vector2();
+    end.copy(this.position);
+    end.addSelf(this.direction.clone().negate().setLength(this.halfWidth));
+
+    this.lineSegment = new LineSegment(start, end);
+}
+
+LandingZone.prototype.draw = function (context) {
+    var grd = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.halfWidth);
+    grd.addColorStop(0, "white");
+    grd.addColorStop(1, "black");
+
+    context.strokeStyle = grd;
+    context.lineWidth = 3;
+    context.beginPath();
+    context.moveTo(this.lineSegment.start.x, this.lineSegment.start.y);
+    context.lineTo(this.lineSegment.end.x, this.lineSegment.end.y);
+    context.closePath();
+    context.stroke();
+}

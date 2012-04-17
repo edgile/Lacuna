@@ -17,6 +17,7 @@
     <script type="text/javascript" src="script/SpaceObjects/planet.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/star.js"></script>
     <script type="text/javascript" src="script/SpaceObjects/ship.js"></script>
+    <script type="text/javascript" src="script/SpaceObjects/explosion.js"></script>
     <script type="text/javascript" src="script/space.js"></script>
     <script type="text/javascript" src="script/levels/level.js"></script>
     <script type="text/javascript" src="script/main.js"></script>

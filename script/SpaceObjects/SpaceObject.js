@@ -1,82 +1,85 @@
-﻿var SpaceObject = Class.extend({
-    _className: "SpaceObject",
+﻿var SpaceObject = function () {
+    this._className = "SpaceObject";
 
-    name: "Unknown",
+    this.name = "Unknown";
 
-    position: null,
-    direction: new THREE.Vector2(),
-    density: 1,
-    mass: 1,
+    this.position = null;
+    this.direction = new THREE.Vector2();
+    this.density = 1;
+    this.mass = 1;
 
-    influencedByGravity: true,
+    this.influencedByGravity = true;
+    this.canCollide = true;
+}
 
-    init: function () {
-    },
+SpaceObject.prototype.collide = function (body) {
+    if (!this.canCollide || !body.canCollide) return false;
 
-    collide: function (body) {
-        return this.getDistance(body) < (this.getRadius() + body.getRadius());
-    },
+    return this.getDistance(body) < (this.getRadius() + body.getRadius());
+}
 
-    setPosition: function (position) {
-        this.position = position;
-    },
+SpaceObject.prototype.setRandomValues = function () {
+}
 
-    setDirection: function (direction) {
-        this.direction = direction;
-    },
+SpaceObject.prototype.setPosition = function (position) {
+    this.position = position;
+}
 
-    setMass: function (mass) {
-        this.mass = mass;
-    },
+SpaceObject.prototype.setDirection = function (direction) {
+    this.direction = direction;
+}
 
-    setDensity: function (density) {
-        this.density = density;
-    },
+SpaceObject.prototype.setMass = function (mass) {
+    this.mass = mass;
+}
 
-    getRadius: function () {
-        return Math.pow(0.75 * this.getVolume() * Math.PI, 1 / 3);
-    },
+SpaceObject.prototype.setDensity = function (density) {
+    this.density = density;
+}
 
-    getVolume: function () {
-        return this.mass / this.density;
-    },
+SpaceObject.prototype.getRadius = function () {
+    return Math.pow(0.75 * this.getVolume() * Math.PI, 1 / 3);
+}
 
-    getVelocity: function () {
-        return this.direction.length();
-    },
+SpaceObject.prototype.getVolume = function () {
+    return this.mass / this.density;
+}
 
-    getDistance: function (body) {
-        return this.position.distanceTo(body.position);
-    },
+SpaceObject.prototype.getVelocity = function () {
+    return this.direction.length();
+}
 
-    getGravitationalForce: function (body) {
-        return gravitationalConstant * this.mass * body.mass * this.getDistanceGravitationFactor(this.getDistance(body));
-    },
+SpaceObject.prototype.getDistance = function (body) {
+    return this.position.distanceTo(body.position);
+}
 
-    /* Default but less steep than nature! */
-    getDistanceGravitationFactor: function (distance) {
-        return 1 / Math.pow(distance, 1.5);
-    },
+SpaceObject.prototype.getGravitationalForce = function (body) {
+    return gravitationalConstant * this.mass * body.mass * this.getDistanceGravitationFactor(this.getDistance(body));
+}
 
-    /* Experiment to have gravitational force folow a gaussian curve */
-    getDistanceGravitationFactor1: function (distance) {
-        var deviation = 25;
-        var mean = 0;
+/* Default but less steep than nature! */
+SpaceObject.prototype.getDistanceGravitationFactor = function (distance) {
+    return 1 / Math.pow(distance, 1.5);
+}
 
-        var factor1 = 1 / deviation * Math.sqrt(Math2PI);
-        var factor2 = Math.pow(Math.E, (-1 / 2) * Math.pow((distance - mean) / deviation, 2));
+/* Experiment to have gravitational force folow a gaussian curve */
+SpaceObject.prototype.getDistanceGravitationFactor1 = function (distance) {
+    var deviation = 25;
+    var mean = 0;
 
-        return factor1 * factor2;
-    },
+    var factor1 = 1 / deviation * Math.sqrt(Math2PI);
+    var factor2 = Math.pow(Math.E, (-1 / 2) * Math.pow((distance - mean) / deviation, 2));
 
-    getAngle: function (body) {
-        var result = new THREE.Vector2();
-        result.sub(body.position, this.position);
-        result.normalize();
+    return factor1 * factor2;
+}
 
-        return result;
-    },
+SpaceObject.prototype.getAngle = function (body) {
+    var result = new THREE.Vector2();
+    result.sub(body.position, this.position);
+    result.normalize();
 
-    draw: function (context2d) {
-    }
-});
+    return result;
+}
+
+SpaceObject.prototype.draw = function (context2d) {
+}
