@@ -1,19 +1,8 @@
 ﻿var Space = Class.extend({
+    spaceObjects: null,
+
     init: function () {
         this.spaceObjects = [];
-    },
-
-    generateSpaceObjects: function (planetCount, starCount) {
-        for (var i = 0; i < planetCount; i++) {
-            var b = generateRandomPlanet();
-            this.spaceObjects.push(b);
-        }
-
-        for (var i = 0; i < starCount; i++) {
-            var s = generateRandomStar();
-            this.spaceObjects.push(s);
-        }
-        this.mergeCollisions();
     },
 
     addSpaceObject: function (spaceObject) {
@@ -64,7 +53,7 @@
                     targetBody.setDirection(newDirection);
                 }
 
-                // Force also works in the oposite direction ...
+                // Force also works in the opposite direction ...
                 if (sourceBody.influencedByGravity) {
                     forceMassRatio = force * sourceBody.mass / totalWeight;
                     delta = angleOfForce.clone().negate().multiplyScalar(forceMassRatio);
