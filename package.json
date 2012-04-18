@@ -1,0 +1,20 @@
+{
+  "name": "Lacuna",
+  "description": "Work in progress",
+  "version": "0.0.1",
+  "author": "Diederik Zaaijer <dzaaijer@gmail.com>",
+  "contributors": [
+  	{ "name": "Diederik Zaaijer", "email": "dzaaijer@gmail.com" },
+    { "name": "Ewoud van den Boom", "email": "ewoudj@gmail.com" }
+  ],
+  "keywords": ["game", "node.js", "javascript", "webgl", "canvas"],
+  "repository" : { 
+    "type" : "git"
+  , "url" : "git://github.com/edgile/Lacuna.git"
+  },
+  "main": "server.js",
+  "engines": { "node": ">= 0.4.1" },
+  "dependencies": {
+  	"connect": "1.x.x"
+  }
+}
