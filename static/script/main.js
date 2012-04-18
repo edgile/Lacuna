@@ -66,10 +66,10 @@ function onDocumentMouseMove(e) {
 function animate() {
     requestAnimationFrame(animate);
 
-    level.currentSpace.calculateNewPositions(timeLapse);
+    level.currentSpace.update(timeLapse);
 
     getContext().clearRect(0, 0, canvasWidth, canvasHeight);
-    level.draw(getContext());
+    level.render(getContext());
 
     stats.update();
 }

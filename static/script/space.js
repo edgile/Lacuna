@@ -14,6 +14,21 @@ Space.prototype.addShip = function (position, direction) {
     this.spaceObjects.push(s);
 }
 
+Space.prototype.update = function (timeLapse) {
+    this.removeFinishedObjects();
+    this.calculateNewPositions(timeLapse);
+}
+
+Space.prototype.removeFinishedObjects = function () {
+    var newList = [];
+    for (var i = 0, numberOfObjects = this.spaceObjects.length; i < numberOfObjects; i++) {
+        if (!this.spaceObjects[i].isFinished()) {
+            newList.push(this.spaceObjects[i]);
+        }
+    }
+    this.spaceObjects = newList;
+}
+
 Space.prototype.calculateNewPositions = function (timeLapse) {
     this.mergeCollisions();
     this.applyGavitationalForce();

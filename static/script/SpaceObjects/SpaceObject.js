@@ -1,4 +1,5 @@
 ﻿var SpaceObject = function () {
+
     this._className = "SpaceObject";
 
     this.name = "Unknown";
@@ -7,10 +8,13 @@
     this.direction = new THREE.Vector2();
     this.density = 1;
     this.mass = 1;
+    this.status = this.statusEnum.active;
 
     this.influencedByGravity = true;
     this.canCollide = true;
 }
+
+SpaceObject.prototype.statusEnum = { dead: 0, active: 1 };
 
 SpaceObject.prototype.collide = function (body) {
     if (!this.canCollide || !body.canCollide) return false;
@@ -35,6 +39,18 @@ SpaceObject.prototype.setMass = function (mass) {
 
 SpaceObject.prototype.setDensity = function (density) {
     this.density = density;
+}
+
+SpaceObject.prototype.getStatus = function () {
+    return this.status;
+}
+
+SpaceObject.prototype.setStatus = function (value) {
+    this.status = value;
+}
+
+SpaceObject.prototype.isFinished = function () {
+    return this.getStatus() === this.statusEnum.dead;
 }
 
 SpaceObject.prototype.getRadius = function () {

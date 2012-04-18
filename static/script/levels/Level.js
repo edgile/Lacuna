@@ -90,7 +90,7 @@ Level.prototype.levelOneStar = function () {
     this.reset();
 }
 
-Level.prototype.draw = function (context2d) {
+Level.prototype.render = function (context2d) {
     context2d.fillStyle = "white";
     context2d.lineWidth = 1;
     context2d.textBaseline = 'top';
