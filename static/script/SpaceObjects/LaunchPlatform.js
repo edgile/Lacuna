@@ -71,7 +71,7 @@ LaunchPlatform.prototype.setPointerLocation = function (location) {
     this.pointerLocation = location;
 }
 
-LaunchPlatform.prototype.draw = function (context) {
+LaunchPlatform.prototype.render = function (context) {
     context.strokeStyle = "red";
     context.lineWidth = 2;
     context.beginPath();

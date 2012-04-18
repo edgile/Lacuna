@@ -46,7 +46,7 @@ LandingZone.prototype.setTargetLineSegment = function (position, direction){
     this.lineSegment = new LineSegment(start, end);
 }
 
-LandingZone.prototype.draw = function (context) {
+LandingZone.prototype.render = function (context) {
     var grd = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.halfWidth);
     grd.addColorStop(0, "white");
     grd.addColorStop(1, "black");

@@ -97,7 +97,7 @@ Level.prototype.render = function (context2d) {
     context2d.font = '20px sans-serif';
     context2d.fillText(this.name, 0, 0);
 
-    if (this.landingZone) this.landingZone.draw(context2d);
-    if (this.launchPlatform) this.launchPlatform.draw(context2d);
-    if (this.currentSpace) this.currentSpace.draw(context2d);
+    if (this.landingZone) this.landingZone.render(context2d);
+    if (this.launchPlatform) this.launchPlatform.render(context2d);
+    if (this.currentSpace) this.currentSpace.render(context2d);
 }

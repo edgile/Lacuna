@@ -8,13 +8,16 @@
     this.direction = new THREE.Vector2();
     this.density = 1;
     this.mass = 1;
-    this.status = this.statusEnum.active;
+    this.setStatus(this.statusEnum.active);
 
     this.influencedByGravity = true;
     this.canCollide = true;
 }
 
-SpaceObject.prototype.statusEnum = { dead: 0, active: 1 };
+SpaceObject.prototype.statusEnum = {finished: 0, active: 1};
+
+SpaceObject.prototype.update = function (body) {
+}
 
 SpaceObject.prototype.collide = function (body) {
     if (!this.canCollide || !body.canCollide) return false;
@@ -50,7 +53,7 @@ SpaceObject.prototype.setStatus = function (value) {
 }
 
 SpaceObject.prototype.isFinished = function () {
-    return this.getStatus() === this.statusEnum.dead;
+    return this.getStatus() === this.statusEnum.finished;
 }
 
 SpaceObject.prototype.getRadius = function () {
@@ -97,5 +100,5 @@ SpaceObject.prototype.getAngle = function (body) {
     return result;
 }
 
-SpaceObject.prototype.draw = function (context2d) {
+SpaceObject.prototype.render = function (context2d) {
 }

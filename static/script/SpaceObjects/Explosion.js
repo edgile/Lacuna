@@ -11,7 +11,7 @@
 
 Explosion.inheritsFrom(SpaceObject)
 
-Explosion.prototype.draw = function (context) {
+Explosion.prototype.render = function (context) {
     var currentStatus = this.getStatus();
     if (currentStatus > 0) {
 
@@ -32,7 +32,7 @@ Explosion.prototype.draw = function (context) {
         context.arc(this.position.x, this.position.y, currentStatus / 3, 0, Math2PI, true);
         context.stroke();
         context.closePath();
-
+        
         this.setStatus(currentStatus - 1);
     }
 }

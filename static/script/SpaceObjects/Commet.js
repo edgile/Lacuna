@@ -25,7 +25,7 @@ Commet.prototype.setRandomValues = function () {
     this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(Math.random() * result.maxSpeed));
 }
 
-Commet.prototype.draw = function (context) {
+Commet.prototype.render = function (context) {
     context.fillStyle = this.getGradient(context);
     context.beginPath();
     context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);

@@ -15,8 +15,16 @@ Space.prototype.addShip = function (position, direction) {
 }
 
 Space.prototype.update = function (timeLapse) {
+    this.updateSpaceObjects();
     this.removeFinishedObjects();
+    this.handleCollisions();
     this.calculateNewPositions(timeLapse);
+}
+
+Space.prototype.updateSpaceObjects = function() {
+    for (var i = 0, numberOfObjects = this.spaceObjects.length; i < numberOfObjects; i++) {
+        this.spaceObjects[i].update();
+    }
 }
 
 Space.prototype.removeFinishedObjects = function () {
@@ -30,7 +38,6 @@ Space.prototype.removeFinishedObjects = function () {
 }
 
 Space.prototype.calculateNewPositions = function (timeLapse) {
-    this.mergeCollisions();
     this.applyGavitationalForce();
 
     for (var i = 0, numberOfBodies = this.spaceObjects.length; i < numberOfBodies; i++) {
@@ -77,7 +84,7 @@ Space.prototype.applyGavitationalForce = function () {
     }
 }
 
-Space.prototype.mergeCollisions = function () {
+Space.prototype.handleCollisions = function () {
     for (var i = 0; i < this.spaceObjects.length; i++) {
         var bodyUnderTest = this.spaceObjects[i];
         for (var j = i + 1; j < this.spaceObjects.length; j++) {
@@ -85,7 +92,7 @@ Space.prototype.mergeCollisions = function () {
                 this.spaceObjects[i] = this.mergeBodies(bodyUnderTest, this.spaceObjects[j]);
                 this.spaceObjects[j] = new Explosion(bodyUnderTest.position.clone());
                 break;
-            }
+            } 
         }
     }
 }
@@ -108,12 +115,12 @@ Space.prototype.getDirectionAfterCollission = function (body1, body2) {
     return result;
 }
 
-Space.prototype.draw = function (context2d) {
+Space.prototype.render = function (context2d) {
     for (var i = 0; i < this.spaceObjects.length; i++) {
-        this.drawSpaceObject(context2d, this.spaceObjects[i]);
+        this.renderSpaceObject(context2d, this.spaceObjects[i]);
     }
 }
 
-Space.prototype.drawSpaceObject = function (context2d, body) {
-    body.draw(context2d);
+Space.prototype.renderSpaceObject = function (context2d, body) {
+    body.render(context2d);
 }

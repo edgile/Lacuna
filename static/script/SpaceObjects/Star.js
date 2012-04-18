@@ -24,7 +24,7 @@ Star.prototype.setRandomValues = function () {
     this.setDirection(new THREE.Vector2(maxInitialSpeedStar * Math.random(), maxInitialSpeedStar * Math.random()));
 }
 
-Star.prototype.draw = function (context) {
+Star.prototype.render = function (context) {
     var radius = this.getRadius();
 
     var grd = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, radius);

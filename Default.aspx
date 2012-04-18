@@ -10,13 +10,13 @@
     <script type="text/javascript" src="static/script/common.js"></script>
     <script type="text/javascript" src="static/script/core/linesegment.js"></script>
     <script type="text/javascript" src="static/script/core/polyline.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/spaceobject.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/launchplatform.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/landingzone.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/planet.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/star.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/ship.js"></script>
-    <script type="text/javascript" src="static/script/SpaceObjects/explosion.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/spaceobject.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/launchplatform.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/landingzone.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/planet.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/star.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/ship.js"></script>
+    <script type="text/javascript" src="static/script/spaceobjects/explosion.js"></script>
     <script type="text/javascript" src="static/script/space.js"></script>
     <script type="text/javascript" src="static/script/levels/level.js"></script>
     <script type="text/javascript" src="static/script/main.js"></script>
