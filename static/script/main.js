@@ -1,8 +1,8 @@
 ﻿var level;
 var stats;
 
-var timeLapse = .5;
-
+var timeFactor = 10;
+var clock = new THREE.Clock();
 var thisContext;
 var mousePos = new THREE.Vector2(0, 0);
 
@@ -66,7 +66,8 @@ function onDocumentMouseMove(e) {
 function animate() {
     requestAnimationFrame(animate);
 
-    level.currentSpace.update(timeLapse);
+    var delta = clock.getDelta();
+    level.currentSpace.update(delta * timeFactor);
 
     getContext().clearRect(0, 0, canvasWidth, canvasHeight);
     level.render(getContext());

@@ -1,16 +1,15 @@
-﻿var Ship = function () {
-    this._className = "Ship";
-
+﻿function Ship() {
     this.maxTailLength = 250;
     this.tail = new PolyLine();
     this.influencedByGravity = true;
 
-    this.setStatus(this.statusEnum.accelerating);
+    this.setStatus(Ship.statusEnum.accelerating);
     this.setMass(3000);
     this.setDensity(1);
 }
 
-Ship.prototype.statusEnum = { finished: 0, accelerating: 1, flying: 2, craching: 3, landing: 4, landed: 5 };
+Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, craching: 3, landing: 4, landed: 5 };
+Ship.statusTimespan = { accelerating: 50, craching: 5, landing: 10 };
 
 Ship.inheritsFrom(SpaceObject);
 
@@ -30,25 +29,30 @@ Ship.prototype.setPosition = function (position) {
     }
 }
 
-Ship.prototype.update = function () {
+Ship.prototype.update = function (timeLapse) {
     this.baseClass.update.call(this);
 
     var status = this.getStatus();
-    if (status == this.statusEnum.accelerating && this.frameCounter >= 50) {
-        this.setStatus(this.statusEnum.flying);
+    if (status == Ship.statusEnum.accelerating && this.elapsedTime >= Ship.statusTimespan.accelerating) {
+        this.setStatus(Ship.statusEnum.flying);
     }
-    else if (status == this.statusEnum.craching && this.frameCounter >= 50) {
-        this.setStatus(this.statusEnum.finished);
+    else if (status == Ship.statusEnum.craching && this.elapsedTime >= Ship.statusTimespan.craching) {
+        this.setStatus(Ship.statusEnum.finished);
     }
-    else if (status == this.statusEnum.landing && this.frameCounter >= 50) {
-        this.setStatus(this.statusEnum.landed);
+    else if (status == Ship.statusEnum.craching) {
+        this.getDirection().setLength(((Ship.statusTimespan.craching - this.elapsedTime) / Ship.statusTimespan.craching) * this.getDirection().length());
     }
+    else if (status == Ship.statusEnum.landing && this.elapsedTime >= Ship.statusTimespan.landing) {
+        this.setStatus(Ship.statusEnum.landed);
+    }
+    this.elapsedTime += timeLapse;
 }
 
 Ship.prototype.setStatus = function (status) {
     this.baseClass.setStatus.call(this, status);
 
-    this.frameCounter = 0;
+    this.influencedByGravity = status == Ship.statusEnum.flying || status == Ship.statusEnum.accelerating;
+    this.elapsedTime = 0;
 }
 
 Ship.prototype.getRadius = function () {
@@ -64,13 +68,38 @@ Ship.prototype.getGradient = function (context) {
 }
 
 Ship.prototype.render = function (context) {
-    context.fillStyle = this.getGradient(context);
+    if(this.getStatus() == Ship.statusEnum.craching) {
+        this.renderCrache(context);
+    }
+    else {
+        context.fillStyle = this.getGradient(context);
+        context.beginPath();
+        context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
+        context.fill();
+        context.closePath();
+
+        this.renderTail(context);
+    }
+}
+
+Ship.prototype.renderCrache = function (context) {
+    context.strokeStyle = "gray";
     context.beginPath();
-    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
-    context.fill();
+    context.arc(this.position.x, this.position.y, Math.max(0, Ship.statusTimespan.craching - this.elapsedTime) * 2, 0, Math2PI, true);
+    context.stroke();
     context.closePath();
 
-    this.renderTail(context);
+    context.strokeStyle = "gray";
+    context.beginPath();
+    context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.craching - this.elapsedTime)), 0, Math2PI, true);
+    context.stroke();
+    context.closePath();
+
+    context.strokeStyle = "white";
+    context.beginPath();
+    context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.craching - this.elapsedTime) * 2 / 3), 0, Math2PI, true);
+    context.stroke();
+    context.closePath();
 }
 
 Ship.prototype.renderTail = function (context) {

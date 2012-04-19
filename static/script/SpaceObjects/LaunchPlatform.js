@@ -1,6 +1,4 @@
 ﻿function LaunchPlatform(position) {
-    this._className = "LaunchPlatform";
-
     this.maxForce = 10000;
     this.timeToReachMaxForce = 1500;
     this.influencedByGravity = false;

@@ -15,15 +15,15 @@ Space.prototype.addShip = function (position, direction) {
 }
 
 Space.prototype.update = function (timeLapse) {
-    this.updateSpaceObjects();
+    this.updateSpaceObjects(timeLapse);
     this.removeFinishedObjects();
     this.handleCollisions();
     this.calculateNewPositions(timeLapse);
 }
 
-Space.prototype.updateSpaceObjects = function() {
+Space.prototype.updateSpaceObjects = function (timeLapse) {
     for (var i = 0, numberOfObjects = this.spaceObjects.length; i < numberOfObjects; i++) {
-        this.spaceObjects[i].update();
+        this.spaceObjects[i].update(timeLapse);
     }
 }
 
@@ -48,11 +48,8 @@ Space.prototype.calculateNewPositions = function (timeLapse) {
 Space.prototype.moveToNewPosition = function (body, timeLapse) {
     var timeInSeconds = timeLapse / 1000;
 
-    var newPosition = new THREE.Vector2(body.position.x, body.position.y);
     var movement = body.direction.clone().multiplyScalar(timeInSeconds);
-    newPosition.addSelf(movement);
-
-    body.setPosition(newPosition);
+    body.setPosition(body.getPosition().addSelf(movement));
 }
 
 Space.prototype.applyGavitationalForce = function () {
@@ -85,34 +82,17 @@ Space.prototype.applyGavitationalForce = function () {
 }
 
 Space.prototype.handleCollisions = function () {
+    var newObjects = [];
     for (var i = 0; i < this.spaceObjects.length; i++) {
-        var bodyUnderTest = this.spaceObjects[i];
         for (var j = i + 1; j < this.spaceObjects.length; j++) {
-            if (bodyUnderTest.collide(this.spaceObjects[j])) {
-                this.spaceObjects[i] = this.mergeBodies(bodyUnderTest, this.spaceObjects[j]);
-                this.spaceObjects[j] = new Explosion(bodyUnderTest.position.clone());
-                break;
-            } 
+            var cd = new CollisionHandler(this.spaceObjects[i], this.spaceObjects[j]);
+            var result = cd.handle();
+            if (result) {
+                newObjects.push(result);
+            }
         }
     }
-}
-
-Space.prototype.mergeBodies = function (body1, body2) {
-    var result = body1.mass > body2.mass ? body1.clone() : body2.clone();
-
-    result.setMass(body1.mass + body2.mass);
-    result.setDirection(this.getDirectionAfterCollission(body1, body2));
-
-    return result;
-}
-
-Space.prototype.getDirectionAfterCollission = function (body1, body2) {
-    var result = new THREE.Vector2();
-    var totalMass = body1.mass + body2.mass;
-
-    result.add(body1.direction.clone().multiplyScalar(body1.mass / totalMass), body2.direction.clone().multiplyScalar(body2.mass / totalMass));
-
-    return result;
+    this.spaceObjects = this.spaceObjects.concat(newObjects);
 }
 
 Space.prototype.render = function (context2d) {

@@ -1,6 +1,4 @@
-﻿var Planet = function(){
-    this._className = "Planet";
-
+﻿function Planet(){
     this.maxMassPlanet = 2000;
     this.maxInitialSpeedPlanet = 100;
     this.influencedByGravity = true;

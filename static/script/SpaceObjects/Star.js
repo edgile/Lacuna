@@ -1,6 +1,4 @@
-﻿var Star = function () {
-    this._className = "Star";
-
+﻿function Star() {
     this.minMassStar = 200000;
     this.maxMassStar = 200000;
 

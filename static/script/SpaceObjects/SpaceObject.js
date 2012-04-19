@@ -1,26 +1,24 @@
-﻿var SpaceObject = function () {
-
-    this._className = "SpaceObject";
-
+﻿function SpaceObject() {
     this.name = "Unknown";
 
     this.position = null;
     this.direction = new THREE.Vector2();
     this.density = 1;
     this.mass = 1;
-    this.setStatus(this.statusEnum.active);
+    this.setStatus(SpaceObject.statusEnum.active);
 
     this.influencedByGravity = true;
     this.canCollide = true;
 }
 
-SpaceObject.prototype.statusEnum = {finished: 0, active: 1};
+SpaceObject.statusEnum = {finished: 0, active: 1};
 
-SpaceObject.prototype.update = function (body) {
+SpaceObject.prototype.update = function (timeLapse) {
 }
 
 SpaceObject.prototype.collide = function (body) {
     if (!this.canCollide || !body.canCollide) return false;
+    if (this.isFinished() || body.isFinished()) return false;
 
     return this.getDistance(body) < (this.getRadius() + body.getRadius());
 }
@@ -28,8 +26,16 @@ SpaceObject.prototype.collide = function (body) {
 SpaceObject.prototype.setRandomValues = function () {
 }
 
+SpaceObject.prototype.getPosition = function (position) {
+    return this.position;
+}
+
 SpaceObject.prototype.setPosition = function (position) {
     this.position = position;
+}
+
+SpaceObject.prototype.getDirection = function () {
+    return this.direction;
 }
 
 SpaceObject.prototype.setDirection = function (direction) {
@@ -53,7 +59,7 @@ SpaceObject.prototype.setStatus = function (value) {
 }
 
 SpaceObject.prototype.isFinished = function () {
-    return this.getStatus() === this.statusEnum.finished;
+    return this.getStatus() === SpaceObject.statusEnum.finished;
 }
 
 SpaceObject.prototype.getRadius = function () {

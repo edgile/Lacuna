@@ -1,6 +1,4 @@
-﻿var Commet = function () {
-    this._className = "Commet";
-
+﻿function Commet() {
     this.maxSpeed = 1000;
 
     this.setDensity(1);

@@ -1,6 +1,5 @@
-﻿var Explosion = function (position) {
+﻿function Explosion(position) {
     this.startStatus = 50;
-    this._className = "Explosion";
 
     this.influencedByGravity = false;
     this.canCollide = false;

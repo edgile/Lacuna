@@ -1,6 +1,4 @@
-﻿var LandingZone = function (position) {
-    this._className = "LandingZone";
-
+﻿function LandingZone(position) {
     this.width = 0;
     this.halfWidth = 0;
     this.lineSegment = null;
