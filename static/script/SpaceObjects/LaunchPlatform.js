@@ -16,17 +16,17 @@ LaunchPlatform.inheritsFrom(SpaceObject);
 LaunchPlatform.prototype.start = function () {
     this.launchForceTimer = new THREE.Clock(false);
     this.launchForceTimer.start();
-}
+};
 
 LaunchPlatform.prototype.stop = function () {
     this.launchForceTimer.stop();
 
-    this.forceVector = this.getCurrentForceVector()
-}
+    this.forceVector = this.getCurrentForceVector();
+};
 
 LaunchPlatform.prototype.getPosition = function () {
     return this.position;
-}
+};
 
 LaunchPlatform.prototype.getLaunchForceDirection = function () {
     var forceVector = this.getLaunchForceVector();
@@ -34,11 +34,11 @@ LaunchPlatform.prototype.getLaunchForceDirection = function () {
         return new THREE.Vector2();
     }
     return forceVector.normalize();
-}
+};
 
 LaunchPlatform.prototype.getLaunchForceVector = function () {
     return this.forceVector;
-}
+};
 
 LaunchPlatform.prototype.getCurrentForce = function () {
     if (this.launchForceTimer) {
@@ -46,11 +46,11 @@ LaunchPlatform.prototype.getCurrentForce = function () {
         return forcePercentageOfMaximum * this.maxForce;
     }
     return 0;
-}
+};
 
 LaunchPlatform.prototype.getCurrentForceVector = function () {
     return this.getCurrentForceDirection().setLength(this.getCurrentForce());
-}
+};
 
 LaunchPlatform.prototype.getCurrentForceDirection = function () {
     var result = new THREE.Vector2(0, 0);
@@ -59,15 +59,15 @@ LaunchPlatform.prototype.getCurrentForceDirection = function () {
     result.sub(this.pointerLocation, this.position).normalize();
 
     return result;
-}
+};
 
 LaunchPlatform.prototype.getRadius = function () {
     return 40;
-}
+};
 
 LaunchPlatform.prototype.setPointerLocation = function (location) {
     this.pointerLocation = location;
-}
+};
 
 LaunchPlatform.prototype.render = function (context) {
     context.strokeStyle = "red";
@@ -122,4 +122,4 @@ LaunchPlatform.prototype.render = function (context) {
         context.closePath();
         context.stroke();
     }
-}
+};
