@@ -1,6 +1,8 @@
 var connect = require('connect');
+var port = 8001;
 
 var server = connect()
 	.use(connect.static(__dirname + '/static')
 );
-server.listen(8001);
+server.listen(port);
+console.log('Server running at http://127.0.0.1:' + port);
