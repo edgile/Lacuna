@@ -223,12 +223,7 @@ rules.prototype.keyboardHandler = function (evt) {
 //    }
     // M: Toggle menu
     if (keyCode === 77) {
-    	if(this.menu.currentItems === introMenu){
-    		this.menu.gotoRoot();
-    	}
-    	else{
-    		this.toggleMenu();
-    	}
+		this.toggleMenu();
     }
 };
 
