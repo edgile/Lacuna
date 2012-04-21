@@ -46,14 +46,50 @@ engine.rendering.canvas.renderer = function(){
 			this.context.lineTo(this.fixX(position, config.end), this.fixY(position, config.end));
 			this.context.stroke();
 		},
+		'polyline': function(position,config){
+		    var points = config.points;
+		    if (points.points.length > 1) {
+		    	this.context.strokeStyle = "white";
+		    	this.context.lineWidth = Math.ceil(config.width * this.scale);
+		    	this.context.beginPath();
+		    	this.context.moveTo( this.fixX(position, points.points[0]), this.fixY(position,  points.points[0]));
+			    for (var i = 1, l = points.points.length; i < l; i++) {
+			    	this.context.lineTo( this.fixX(position, points.points[i]), this.fixY(position, points.points[i]));
+			    }
+			    this.context.stroke();
+			    this.context.closePath();
+		    }
+		},
 		'arc': function(position, config){
-		    this.context.strokeStyle = config.color;
+		    if(config.fill){
+		    	drawingFunctions.arcFill.apply(this, [position, config]);
+		    }
+		    else{
+		    	drawingFunctions.arcStroke.apply(this, [position, config]);
+		    }
+		},
+		'circle': function(position, config){
+			config.start = 0;
+			config.end = Math.PI * 2;
+			config.close = true;
+			drawingFunctions.arc.apply(this, [position, config]);
+		},
+		'arcStroke': function(position, config){
+			this.context.strokeStyle = config.color;
 		    this.context.lineWidth = config.width;
 		    this.context.beginPath();
 		    this.context.arc(this.fixX(position, config.center), this.fixY(position, config.center), config.radius * this.scale, config.start , config.end, config.close);
 		    this.context.closePath();
 		    this.context.stroke();
+		},
+		'arcFill': function(position, config){
+			this.context.fillStyle = config.color;
+			this.context.beginPath();
+			this.context.arc(this.fixX(position, config.center), this.fixY(position, config.center), config.radius * this.scale, config.start , config.end, config.close);
+			this.context.fill();
+			this.context.closePath();
 		}
+		
 	};
 	
 	var renderer = function(config){

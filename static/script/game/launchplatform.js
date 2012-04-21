@@ -5,25 +5,27 @@ if(typeof(require) !== 'undefined'){
 	var helpers = require("./helpers").helpers;
 	var entity = require("./entity").entity;
 }
-
+	
 var LaunchPlatform = function(config){
 	helpers.apply(config, this);
+	// Game logic fields
 	this.type = 'launchplatform';
 	this.position = this.position || {x:this.engine.width / 2, y: 50};
 	this.angle = this.angle || 0;
-	this.modelIndex = 1;
     this.maxForce = 10000;
     this.timeToReachMaxForce = 1500;
     this.influencedByGravity = false;
     this.pointerLocation = null;
     this.launchForceTimer = null;
     this.forceVector = null;
+    // Visible elements fields 
+    this.modelIndex = 1;
 	this.aimLine = {type: 'line', width: 3, color: 'gray', start: {x: 0, y: 39}, end: {x: 0, y: 48}};
 	this.forceLine = {type: 'line', width: 3, color: 'green', start: {x: 0, y: 0}, end: {x: 0, y: 0}};
 	this.shapes = [
 	    {type: 'line', width: 2, color: 'red', start: {x: 0, y: 5}, end: {x: 0, y: -5}},
 	    {type: 'line', width: 2, color: 'red', start: {x: 5, y: 0}, end: {x: -5, y: 0}},
-	    {type: 'arc', width: 1, color: 'gray', center: {x: 0, y: 0}, radius: 40, start: 0, end:  Math.PI * 2, close: true},
+	    {type: 'circle', width: 1, color: 'gray', center: {x: 0, y: 0}, radius: 40},
 	    this.aimLine,
 	    this.forceLine
 	];
@@ -32,16 +34,15 @@ var LaunchPlatform = function(config){
 LaunchPlatform.prototype = new entity();
 
 LaunchPlatform.prototype.update = function(time){
-	if(this.engine.mode !== 'client'){
-		// Check button state, set launchForceTimer
+	if(this.engine.mode !== 'client'){   
+		// Start or stop the launchForceTimer depending on the button state
 		this.engine.buttonDown ? this.start() : this.stop();
+		// Update the aim line
 		this.aimLine.start = this.getCurrentForceDirection().setLength(39);
 		this.aimLine.end = this.getCurrentForceDirection().setLength(48);
+		// Update the force line
 	    if (this.launchForceTimer && this.launchForceTimer.running) {	    	
-	        var forceVector = this.getCurrentForceVector();
-	        var force = forceVector.length();
-	        forceVector.normalize().multiplyScalar(48 * force / this.maxForce);
-	        this.forceLine.end = this.getCurrentForceDirection().setLength(48 * force / this.maxForce);
+	        this.forceLine.end = this.getCurrentForceDirection().setLength(48 * this.getCurrentForceVector().length() / this.maxForce);
 	    }
 	    else{
 	    	this.forceLine.end = {x:0, y:0};
