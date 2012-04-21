@@ -19,7 +19,14 @@ function initialize() {
     canvasWidth = context.canvas.width;
     canvasHeight = context.canvas.height;
 
-    level = new Level();
+    var rules = [];
+    rules.push(new UpdateRule());
+    rules.push(new GravitationRule());
+    rules.push(new MotionRule());
+    rules.push(new CollisionRule());
+    rules.push(new LandingRule());
+
+    level = new Level(rules);
     level.levelOneStar();
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
@@ -35,13 +42,21 @@ function initialize() {
 }
 
 function onCanvasMouseDown(e) {
-    level.launchPlatform.start();
+    level.getLaunchPlatform().start();
 }
 
 function onCanvasClick(e) {
-    level.launchPlatform.stop();
+    level.getLaunchPlatform().stop();
 
-    level.currentSpace.addShip(level.launchPlatform.getPosition().clone(), level.launchPlatform.getLaunchForceVector().clone());
+    addShip(level.getLaunchPlatform().getPosition().clone(), level.getLaunchPlatform().getLaunchForceVector().clone());
+}
+
+function addShip(position, direction) {
+    var s = new Ship();
+    s.setPosition(position);
+    s.setDirection(direction);
+
+    level.currentSpace.addSpaceObject(s);
 }
 
 function onDocumentMouseMove(e) {
@@ -60,7 +75,7 @@ function onDocumentMouseMove(e) {
     x -= context.canvas.offsetLeft;
     y -= context.canvas.offsetTop;
 
-    level.launchPlatform.setPointerLocation(new THREE.Vector2(x, y));
+    level.getLaunchPlatform().setPointerLocation(new THREE.Vector2(x, y));
 }
 
 function animate() {

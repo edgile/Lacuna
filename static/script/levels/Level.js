@@ -1,18 +1,28 @@
-﻿var Level = function(){
-    this._className = "Level";
-
+﻿var Level = function (rules) {
     this.name = "Level name";
     this.world = 0;
     this.levelNumber = 0;
 
+    this.rules = rules;
     this.initialSpace = null;
     this.currentSpace = null;
-    this.launchPlatform = new LaunchPlatform(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
-    this.landingZone = new LandingZone(new THREE.Vector2(canvasWidth / 2, 50));
+}
+
+Level.prototype.getLaunchPlatform = function () {
+    if(!(this.currentSpace && this.currentSpace.spaceObjects)) return null;
+
+    for (var i = 0; i < this.currentSpace.spaceObjects.length; i++) {
+        var object = this.currentSpace.spaceObjects[i];
+        if (object instanceof LaunchPlatform) {
+            return object;
+        }
+    }
+    return null;
 }
 
 Level.prototype.reset = function () {
     this.currentSpace = this.initialSpace.clone();
+    this.currentSpace.setRules(this.rules);
 }
 
 Level.prototype.random = function () {
@@ -34,8 +44,11 @@ Level.prototype.random = function () {
         this.initialSpace.addSpaceObject(star);
     }
 
-    this.launchPlatform = new LaunchPlatform(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
-    this.landingZone = new LaunchZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    var launchPlatform = new LaunchPlatform(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.initialSpace.addSpaceObject(launchPlatform);
+
+    var landingZone = new LandingZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.initialSpace.addSpaceObject(landingZone);
 
     this.reset();
 }
@@ -62,7 +75,11 @@ Level.prototype.levelOneStarWithPlanets = function () {
     planet.setMass(500);
     this.initialSpace.addSpaceObject(planet);
 
-    this.landingZone = new LaunchZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    var launchPlatform = new LaunchPlatform(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.initialSpace.addSpaceObject(launchPlatform);
+
+    var landingZone = new LandingZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.initialSpace.addSpaceObject(landingZone);
 
     this.reset();
 }
@@ -81,11 +98,14 @@ Level.prototype.levelOneStar = function () {
     star.setMass(200000);
     this.initialSpace.addSpaceObject(star);
 
-    this.launchPlatform.position.x = canvasWidth / 2;
-    this.launchPlatform.position.y = 50;
+    var launchPlatform = new LaunchPlatform();
+    launchPlatform.setPosition(new THREE.Vector2(canvasWidth / 2, 50));
+    this.initialSpace.addSpaceObject(launchPlatform);
 
-    this.landingZone = new LandingZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
-    this.landingZone.setDirection(new THREE.Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1));
+    var landingZone = new LandingZone();
+    landingZone.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    landingZone.setDirection(new THREE.Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1));
+    this.initialSpace.addSpaceObject(landingZone);
 
     this.reset();
 }
@@ -97,7 +117,5 @@ Level.prototype.render = function (context2d) {
     context2d.font = '20px sans-serif';
     context2d.fillText(this.name, 0, 0);
 
-    if (this.landingZone) this.landingZone.render(context2d);
-    if (this.launchPlatform) this.launchPlatform.render(context2d);
     if (this.currentSpace) this.currentSpace.render(context2d);
 }

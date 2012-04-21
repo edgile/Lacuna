@@ -1,12 +1,16 @@
-﻿function LaunchPlatform(position) {
+﻿function LaunchPlatform() {
     this.maxForce = 10000;
     this.timeToReachMaxForce = 1500;
+
+    this.canCollide = false;
     this.influencedByGravity = false;
+    this.influencesGravitationalField = false;
+
     this.pointerLocation = null;
     this.launchForceTimer = null;
     this.forceVector = null;
 
-    this.setPosition(position);
+    this.setPosition(new THREE.Vector2());
     this.setMass(1);
     this.setDensity(1);
 }

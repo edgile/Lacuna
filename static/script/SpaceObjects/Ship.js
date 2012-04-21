@@ -1,7 +1,9 @@
 ﻿function Ship() {
     this.maxTailLength = 250;
     this.tail = new PolyLine();
+
     this.influencedByGravity = true;
+    this.influencesGravitationalField = false;
 
     this.setStatus(Ship.statusEnum.accelerating);
     this.setMass(3000);
@@ -52,6 +54,7 @@ Ship.prototype.setStatus = function (status) {
     this.baseClass.setStatus.call(this, status);
 
     this.influencedByGravity = status == Ship.statusEnum.flying || status == Ship.statusEnum.accelerating;
+    this.canCollide = this.influencedByGravity;
     this.elapsedTime = 0;
 }
 

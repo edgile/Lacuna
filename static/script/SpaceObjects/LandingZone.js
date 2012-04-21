@@ -1,11 +1,14 @@
-﻿function LandingZone(position) {
+﻿function LandingZone() {
     this.width = 0;
     this.halfWidth = 0;
     this.lineSegment = null;
+
+    this.canCollide = false;
     this.influencedByGravity = false;
+    this.influencesGravitationalField = false;
 
     this.setWidth(50);
-    this.setPosition(position);
+    this.setPosition(new THREE.Vector2());
     this.setDirection(new THREE.Vector2(1, 1));
 }
 

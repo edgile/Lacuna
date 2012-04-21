@@ -1,26 +1,20 @@
 ﻿function SpaceObject() {
     this.name = "Unknown";
 
-    this.position = null;
-    this.direction = new THREE.Vector2();
-    this.density = 1;
-    this.mass = 1;
     this.setStatus(SpaceObject.statusEnum.active);
-
-    this.influencedByGravity = true;
-    this.canCollide = true;
 }
 
-SpaceObject.statusEnum = {finished: 0, active: 1};
+SpaceObject.prototype.position = null;
+SpaceObject.prototype.direction = new THREE.Vector2();
+SpaceObject.prototype.density = 1;
+SpaceObject.prototype.mass = 1;
+SpaceObject.prototype.influencesGravitationalField = true;
+SpaceObject.prototype.influencedByGravity = true;
+SpaceObject.prototype.canCollide = true;
+
+SpaceObject.statusEnum = { finished: 0, active: 1 };
 
 SpaceObject.prototype.update = function (timeLapse) {
-}
-
-SpaceObject.prototype.collide = function (body) {
-    if (!this.canCollide || !body.canCollide) return false;
-    if (this.isFinished() || body.isFinished()) return false;
-
-    return this.getDistance(body) < (this.getRadius() + body.getRadius());
 }
 
 SpaceObject.prototype.setRandomValues = function () {
@@ -63,7 +57,7 @@ SpaceObject.prototype.isFinished = function () {
 }
 
 SpaceObject.prototype.getRadius = function () {
-    return Math.pow(0.75 * this.getVolume() * Math.PI, 1 / 3);
+    return 2.5 * Math.pow(0.75 * this.getVolume() * Math.PI, 1 / 3);
 }
 
 SpaceObject.prototype.getVolume = function () {
@@ -76,26 +70,6 @@ SpaceObject.prototype.getVelocity = function () {
 
 SpaceObject.prototype.getDistance = function (body) {
     return this.position.distanceTo(body.position);
-}
-
-SpaceObject.prototype.getGravitationalForce = function (body) {
-    return gravitationalConstant * this.mass * body.mass * this.getDistanceGravitationFactor(this.getDistance(body));
-}
-
-/* Default but less steep than nature! */
-SpaceObject.prototype.getDistanceGravitationFactor = function (distance) {
-    return 1 / Math.pow(distance, 1.5);
-}
-
-/* Experiment to have gravitational force folow a gaussian curve */
-SpaceObject.prototype.getDistanceGravitationFactor1 = function (distance) {
-    var deviation = 25;
-    var mean = 0;
-
-    var factor1 = 1 / deviation * Math.sqrt(Math2PI);
-    var factor2 = Math.pow(Math.E, (-1 / 2) * Math.pow((distance - mean) / deviation, 2));
-
-    return factor1 * factor2;
 }
 
 SpaceObject.prototype.getAngle = function (body) {
