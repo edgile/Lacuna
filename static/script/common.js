@@ -15,8 +15,8 @@ Object.prototype.clone = function () {
 };
 
 Function.prototype.inheritsFrom = function (parentClassOrObject) {
-    if (parentClassOrObject.constructor == Function ) { //Normal Inheritance
-        this.prototype = new parentClassOrObject();
+    if (parentClassOrObject.constructor == Function) { //Normal Inheritance
+        this.prototype = new parentClassOrObject;
         this.prototype.constructor = this;
         this.prototype.baseClass = parentClassOrObject.prototype;
     }
@@ -26,4 +26,4 @@ Function.prototype.inheritsFrom = function (parentClassOrObject) {
         this.prototype.baseClass = parentClassOrObject;
     }
     return this;
-}
+};
