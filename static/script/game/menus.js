@@ -15,8 +15,7 @@ var mainMenu = {
             //entity.engine.rules.toggleSettings();
         	entity.engine.rules.menu.setItems(settingsMenu);
         }
-    }//,
-    //'CREDITS': {}
+    }
 };
 
 var settingsMenu = {
