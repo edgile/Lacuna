@@ -210,7 +210,7 @@ engine.rendering.canvas.renderer = function(){
 		if(e.texts){
 			for(var j = 0, l = e.texts.length; j < l; j++ ){
 				var t = e.texts[j];
-				this.context.font = Math.ceil(50 * this.scale) + 'px CBM64';
+				this.context.font = Math.ceil(50 * this.scale) + 'px HeavyDataRegular';
 				this.context.fillStyle = t.color;
 				this.context.fillText(t.text, Math.ceil(t.position.x * this.scale) + this.offsetLeft, Math.ceil(t.position.y * this.scale) + this.offsetTop);
 			}
