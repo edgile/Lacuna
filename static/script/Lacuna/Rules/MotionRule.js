@@ -9,8 +9,10 @@ MotionRule.prototype.apply = function (spaceObjects, timeLapse) {
     var timeInSeconds = timeLapse / 1000;
 
     for (var i = 0, numberOfObjects = spaceObjects.length; i < numberOfObjects; i++) {
-        var movement = spaceObjects[i].direction.clone().multiplyScalar(timeInSeconds);
-
-        spaceObjects[i].setPosition(spaceObjects[i].getPosition().addSelf(movement));
+        var object = spaceObjects[i];
+        if (!object.static) {
+            var movement = object.direction.clone().multiplyScalar(timeInSeconds);
+            spaceObjects[i].setPosition(object.getPosition().addSelf(movement));
+        }
     }
 }
