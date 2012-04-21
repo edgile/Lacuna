@@ -6,15 +6,15 @@ LandingRule.inheritsFrom(RuleBase);
 LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
     if (!spaceObjects) return;
 
+    var landingPlatform = this.getLandingZone(spaceObjects);
+    if (!landingPlatform) return;
+
     var landingShips = this.getLandingShips(spaceObjects);
     if (landingShips && landingShips.length > 0) {
         for (var i = 0; i < landingShips.length; i++) {
-            // landingShips
+            this.steerShips(landingShips, landingPlatform.getPosition());
         }
     }
-
-    var landingPlatform = this.getLandingZone(spaceObjects);
-    if (!landingPlatform) return;
 
     var ships = this.getFlyingShips(spaceObjects);
     if (!ships || ships.length == 0) return;
@@ -29,6 +29,24 @@ LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
                 ship.setStatus(Ship.statusEnum.landing);
             }
         }
+    }
+}
+
+LandingRule.prototype.steerShips = function (ships, targetPosition) {
+    for (var i = 0, numberOfShips = ships.length; i < numberOfShips; i++) {
+        var ship = ships[i];
+        if (ship.getPosition().distanceTo(targetPosition) < 2) {
+            ship.setPosition(targetPosition.clone());
+            ship.setStatus(Ship.statusEnum.landed);
+            continue;
+        }
+
+        var directionToHome = new THREE.Vector2();
+        directionToHome.copy(targetPosition);
+        var brakePower = Math.max(ship.getDirection().length() / 8, 100);
+        directionToHome.subSelf(ship.getPosition()).setLength(brakePower);
+
+        ship.getDirection().addSelf(directionToHome).multiplyScalar(.95);
     }
 }
 

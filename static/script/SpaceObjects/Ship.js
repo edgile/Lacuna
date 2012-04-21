@@ -13,7 +13,7 @@
 Ship.inheritsFrom(SpaceObject);
 
 Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, craching: 3, landing: 4, landed: 5 };
-Ship.statusTimespan = { accelerating: 0, craching: 5, landing: 10 };
+Ship.statusTimespan = { accelerating: 0, craching: 5 };
 
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
@@ -34,7 +34,7 @@ Ship.prototype.setPosition = function (position) {
 };
 
 Ship.prototype.getPreviousPosition = function () {
-    if (this.tail && this.tail.points.length > 0) return this.tail.points[this.tail.points.length - 2];
+    if (this.tail && this.tail.points.length > 1) return this.tail.points[this.tail.points.length - 2];
 };
 
 Ship.prototype.update = function (timeLapse) {
@@ -50,9 +50,6 @@ Ship.prototype.update = function (timeLapse) {
     else if (status == Ship.statusEnum.craching) {
         this.getDirection().setLength(((Ship.statusTimespan.craching - this.elapsedTime) / Ship.statusTimespan.craching) * this.getDirection().length());
     }
-    else if (status == Ship.statusEnum.landing && this.elapsedTime >= Ship.statusTimespan.landing) {
-        this.setStatus(Ship.statusEnum.finished);
-    }
     this.elapsedTime += timeLapse;
 };
 
@@ -61,6 +58,7 @@ Ship.prototype.setStatus = function (status) {
 
     this.influencedByGravity = status == Ship.statusEnum.flying || status == Ship.statusEnum.accelerating;
     this.canCollide = this.influencedByGravity;
+    this.static = this.status == Ship.statusEnum.landed;
     this.elapsedTime = 0;
 };
 
@@ -83,6 +81,12 @@ Ship.prototype.render = function (context) {
     else if (this.getStatus() == Ship.statusEnum.landing) {
         this.renderLanding(context);
     }
+    else if (this.getStatus() == Ship.statusEnum.landed) {
+        this.renderLanded(context);
+    }
+    else if (this.getStatus() == Ship.statusEnum.finished) {
+        // Do nothing ...
+    }
     else {
         context.fillStyle = this.getGradient(context);
         context.beginPath();
@@ -100,8 +104,14 @@ Ship.prototype.renderLanding = function(context){
         context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
         context.fill();
         context.closePath();
+};
 
-        this.renderTail(context);
+Ship.prototype.renderLanded = function (context) {
+    context.fillStyle = "green";
+    context.beginPath();
+    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
+    context.fill();
+    context.closePath();
 };
 
 Ship.prototype.renderCrache = function (context) {
