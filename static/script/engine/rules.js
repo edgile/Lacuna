@@ -52,6 +52,9 @@ rules.prototype.initialize = function(){
 		}
 	}
 	if(this.engine.mode !== 'client'){
+		this.engine.add ( this.engine.launchPlatform = new LaunchPlatform({
+			engine: this.engine
+		}) );
 //		this.engine.add( this.engine.gameState.player1Ship = new ship({
 //			name        : 'Player 1',
 //			type		: this.engine.mode == 'standalone' ? (this.engine.playerCount === 0 ? 'computer' : 'player') : (this.engine.player1 ? 'player' : 'computer'),

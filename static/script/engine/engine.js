@@ -344,7 +344,7 @@ engine.getItem = function(key, defaultValue) {
 
 // Configuration options, still need to make this nice
 engine.rendering = {};
-engine.renderer = engine.getItem("renderer",'canvas');
+engine.renderer = 'canvas';//engine.getItem("renderer",'canvas');
 engine.effectsVolume = parseInt(engine.getItem("effectsVolume", 10));
 engine.musicVolume = parseInt(engine.getItem("musicVolume", 40));
 
