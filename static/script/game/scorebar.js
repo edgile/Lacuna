@@ -36,12 +36,11 @@ scorebar.prototype.addScoreBarItem = function(text, color, offsetLeft){
 scorebar.prototype.setScore = function(player1Score, player2Score){
 	if(!this.texts){
 		this.texts = [];
-		this.addScoreBarItem("0", "#F00", 20);
-		this.addScoreBarItem(" 0", "#FF0", this.engine.width - 95);
-		this.addScoreBarItem("LASER WAR", "#FFF", 230);
+		this.addScoreBarItem("0", "white", 20);
+		this.addScoreBarItem("0", "white", this.engine.width - 95);
 	}
-	this.texts[0].text = player1Score;
-	this.texts[1].text = (player2Score < 10 ? ' ' : '') + player2Score;
+	this.texts[0].text = ''; //player1Score;
+	this.texts[1].text = player1Score;//(player2Score < 10 ? ' ' : '') + player2Score;
 };
 
 
