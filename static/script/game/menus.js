@@ -1,16 +1,14 @@
 var mainMenu = {
-    '    SINGLE PLAYER': {
+    'LACUNA': {
+    	size: 200
+    },
+    '':{},
+    'Start Game': {
         onMousePlaneUp: function (entity, evt) {
             entity.engine.rules.startSinglePlayerGame();
         }
     },
-    '    MULTI  PLAYER': {
-        onMousePlaneUp: function (entity, evt) {
-            entity.engine.rules.startMultiPlayerGame();
-        }
-    },
-    '':{},
-    '    SETTINGS': {
+    'SETTINGS': {
         onMousePlaneUp: function (entity, evt) {
             //entity.engine.rules.toggleSettings();
         	entity.engine.rules.menu.setItems(settingsMenu);
@@ -36,10 +34,10 @@ var settingsMenu = {
         getText: function(menu){
         	var result;
         	if(engine.getItem("effectsVolume",'0') === '0'){
-        		result = '      AUDIO: OFF';
+        		result = 'AUDIO: OFF';
         	}
         	else{
-        		result = '      AUDIO:  ON';
+        		result = 'AUDIO: ON';
         	}
         	return result; 
         }
@@ -72,16 +70,16 @@ var settingsMenu = {
         getText: function(menu){
         	var result;
         	if(engine.getItem("renderer",'classic') === 'classic'){
-        		result = '      VIDEO:  2D';
+        		result = 'VIDEO: 2D';
         	}
         	else{
-        		result = '      VIDEO:  3D';
+        		result = 'VIDEO: 3D';
         	}
         	return result; 
         }
     },
     '': {},
-    '      MAIN MENU': {
+    'MAIN MENU': {
         onMousePlaneUp: function (entity, evt) {
             entity.engine.rules.menu.setItems(mainMenu);
         }
