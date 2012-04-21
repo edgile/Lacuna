@@ -8,17 +8,19 @@
     this.setStatus(Ship.statusEnum.accelerating);
     this.setMass(3000);
     this.setDensity(1);
-}
-
-Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, craching: 3, landing: 4, landed: 5 };
-Ship.statusTimespan = { accelerating: 50, craching: 5, landing: 10 };
+};
 
 Ship.inheritsFrom(SpaceObject);
+
+Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, craching: 3, landing: 4, landed: 5 };
+Ship.statusTimespan = { accelerating: 0, craching: 5, landing: 10 };
 
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
     if (this.position) {
-        this.tail.addPoint(this.position.clone());
+        if (this.tail.points.length == 0 || (this.tail.points.length > 0 && this.position.distanceTo(this.tail.points[this.tail.points.length - 1]) > 3)) {
+            this.tail.addPoint(this.position.clone());
+        }
     }
 
     this.baseClass.setPosition.call(this, position);
@@ -29,7 +31,11 @@ Ship.prototype.setPosition = function (position) {
             this.tail.removePoint(0);
         }
     }
-}
+};
+
+Ship.prototype.getPreviousPosition = function () {
+    if (this.tail && this.tail.points.length > 0) return this.tail.points[this.tail.points.length - 2];
+};
 
 Ship.prototype.update = function (timeLapse) {
     this.baseClass.update.call(this);
@@ -45,10 +51,10 @@ Ship.prototype.update = function (timeLapse) {
         this.getDirection().setLength(((Ship.statusTimespan.craching - this.elapsedTime) / Ship.statusTimespan.craching) * this.getDirection().length());
     }
     else if (status == Ship.statusEnum.landing && this.elapsedTime >= Ship.statusTimespan.landing) {
-        this.setStatus(Ship.statusEnum.landed);
+        this.setStatus(Ship.statusEnum.finished);
     }
     this.elapsedTime += timeLapse;
-}
+};
 
 Ship.prototype.setStatus = function (status) {
     this.baseClass.setStatus.call(this, status);
@@ -56,11 +62,11 @@ Ship.prototype.setStatus = function (status) {
     this.influencedByGravity = status == Ship.statusEnum.flying || status == Ship.statusEnum.accelerating;
     this.canCollide = this.influencedByGravity;
     this.elapsedTime = 0;
-}
+};
 
 Ship.prototype.getRadius = function () {
     return 4;
-}
+};
 
 Ship.prototype.getGradient = function (context) {
     var gradient = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.getRadius());
@@ -68,11 +74,14 @@ Ship.prototype.getGradient = function (context) {
     gradient.addColorStop(1, "yellow");
 
     return gradient;
-}
+};
 
 Ship.prototype.render = function (context) {
-    if(this.getStatus() == Ship.statusEnum.craching) {
+    if (this.getStatus() == Ship.statusEnum.craching) {
         this.renderCrache(context);
+    }
+    else if (this.getStatus() == Ship.statusEnum.landing) {
+        this.renderLanding(context);
     }
     else {
         context.fillStyle = this.getGradient(context);
@@ -83,7 +92,17 @@ Ship.prototype.render = function (context) {
 
         this.renderTail(context);
     }
-}
+};
+
+Ship.prototype.renderLanding = function(context){
+        context.fillStyle = "red";
+        context.beginPath();
+        context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
+        context.fill();
+        context.closePath();
+
+        this.renderTail(context);
+};
 
 Ship.prototype.renderCrache = function (context) {
     context.strokeStyle = "gray";
@@ -103,7 +122,7 @@ Ship.prototype.renderCrache = function (context) {
     context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.craching - this.elapsedTime) * 2 / 3), 0, Math2PI, true);
     context.stroke();
     context.closePath();
-}
+};
 
 Ship.prototype.renderTail = function (context) {
     var localTail = this.tail;
@@ -119,4 +138,4 @@ Ship.prototype.renderTail = function (context) {
     }
     context.stroke();
     context.closePath();
-}
+};

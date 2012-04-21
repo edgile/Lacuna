@@ -9,7 +9,7 @@
     this.influencedByGravity = false;
 
     this.setDensity(10000);
-}
+};
 
 Star.inheritsFrom(SpaceObject);
 
@@ -20,7 +20,7 @@ Star.prototype.setRandomValues = function () {
     this.setDensity(Math.random() * (maxStarDensity - minStarDensity) + minStarDensity);
     this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
     this.setDirection(new THREE.Vector2(maxInitialSpeedStar * Math.random(), maxInitialSpeedStar * Math.random()));
-}
+};
 
 Star.prototype.render = function (context) {
     var radius = this.getRadius();
@@ -34,5 +34,5 @@ Star.prototype.render = function (context) {
     context.arc(this.position.x, this.position.y, radius, 0, Math2PI, true);
     context.closePath();
     context.fill();
-}
+};
 

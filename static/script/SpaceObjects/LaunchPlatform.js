@@ -1,10 +1,11 @@
-﻿function LaunchPlatform() {
+﻿LaunchPlatform = function () {
     this.maxForce = 10000;
     this.timeToReachMaxForce = 1500;
 
     this.canCollide = false;
     this.influencedByGravity = false;
     this.influencesGravitationalField = false;
+    this.static = true;
 
     this.pointerLocation = null;
     this.launchForceTimer = null;

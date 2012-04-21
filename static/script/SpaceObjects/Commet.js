@@ -3,7 +3,7 @@
 
     this.setDensity(1);
     this.influencedByGravity = true;
-}
+};
 
 Commet.inheritsFrom(SpaceObject);
 
@@ -13,7 +13,7 @@ Commet.prototype.getGradient = function (context) {
     gradient.addColorStop(1, "lightgrey");
 
     return gradient;
-}
+};
 
 Commet.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);
@@ -21,7 +21,7 @@ Commet.prototype.setRandomValues = function () {
     this.setMass(1);
     this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
     this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(Math.random() * result.maxSpeed));
-}
+};
 
 Commet.prototype.render = function (context) {
     context.fillStyle = this.getGradient(context);
@@ -29,4 +29,4 @@ Commet.prototype.render = function (context) {
     context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
     context.closePath();
     context.fill();
-}
+};
