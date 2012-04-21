@@ -22,7 +22,7 @@ LineSegment.prototype.getLength = function () {
 }
 
 /* Return THREE.Vector2 if the LineSegments intersect otherwise returns null */
-LineSegment.prototype.intersect = function (segment1, segment2) {
+LineSegment.intersect = function (segment1, segment2) {
     var denominator = (segment2.end.y - segment2.start.y) * (segment1.end.x - segment1.start.x) - (segment2.end.x - segment2.start.x) * (segment1.end.y - segment2.start.y);
 
     // Parallel lines
@@ -32,7 +32,7 @@ LineSegment.prototype.intersect = function (segment1, segment2) {
     var ub = ((segment1.end.x - segment1.start.x) * (segment1.start.y - segment2.start.y) - (segment1.end.y - segment1.start.y) * (segment1.start.x - segment2.start.x)) / denominator;
 
     // Intersection on both line segments?
-    if (0 <= ua <= 1 && 0 <= ub <= 1) {
+    if (0 <= ua && ua <= 1 && 0 <= ub && ub <= 1) {
         var result = new THREE.Vector2();
         result.x = segment1.start.x + ua * (segment1.end.x - segment1.start.x);
         result.y = segment1.start.y + ua * (segment1.end.y - segment1.start.y);
@@ -43,5 +43,5 @@ LineSegment.prototype.intersect = function (segment1, segment2) {
 }
 
 LineSegment.prototype.intersectSelf = function (segment) {
-    return this.intersect(this, segment);
+    return LineSegment.intersect(this, segment);
 }
