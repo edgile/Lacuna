@@ -1,11 +1,12 @@
-﻿function Explosion(position) {
-    this.startStatus = 50;
+﻿function Explosion(position, direction) {
+    this.startStatus = 35;
 
     this.influencedByGravity = false;
     this.canCollide = false;
 
     this.setStatus(this.startStatus);
     this.setPosition(position);
+    this.setDirection(direction);
 };
 
 Explosion.inheritsFrom(SpaceObject);

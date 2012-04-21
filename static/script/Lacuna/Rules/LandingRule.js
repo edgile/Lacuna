@@ -6,6 +6,13 @@ LandingRule.inheritsFrom(RuleBase);
 LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
     if (!spaceObjects) return;
 
+    var landingShips = this.getLandingShips(spaceObjects);
+    if (landingShips && landingShips.length > 0) {
+        for (var i = 0; i < landingShips.length; i++) {
+            // landingShips
+        }
+    }
+
     var landingPlatform = this.getLandingZone(spaceObjects);
     if (!landingPlatform) return;
 
@@ -42,6 +49,21 @@ LandingRule.prototype.getFlyingShips = function (spaceObjects) {
         if (object instanceof Ship) {
             if (object.getStatus() == Ship.statusEnum.accelerating ||
                                     object.getStatus() == Ship.statusEnum.flying) {
+                result.push(object);
+            }
+        }
+    }
+    return result;
+}
+
+LandingRule.prototype.getLandingShips = function (spaceObjects) {
+    if (!spaceObjects) return;
+
+    var result = [];
+    for (var i = 0, numberOfObjects = spaceObjects.length; i < numberOfObjects; i++) {
+        var object = spaceObjects[i];
+        if (object instanceof Ship) {
+            if (object.getStatus() == Ship.statusEnum.landing) {
                 result.push(object);
             }
         }

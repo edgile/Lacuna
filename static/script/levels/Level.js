@@ -34,10 +34,13 @@ Level.prototype.random = function () {
 
     this.initialSpace = new Space();
 
-    var launchPlatform = new LaunchPlatform(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    var launchPlatform = new LaunchPlatform();
+    launchPlatform.setPosition(new THREE.Vector2(canvasWidth / 2, 50));
     this.initialSpace.addSpaceObject(launchPlatform);
 
-    var landingZone = new LandingZone(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    var landingZone = new LandingZone(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
+    landingZone.setPosition(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
+    landingZone.setDirection(new THREE.Vector2(1, 0));
     this.initialSpace.addSpaceObject(landingZone);
 
     for (var i = 1; i <= numberOfPlanets; i++) {
@@ -45,6 +48,31 @@ Level.prototype.random = function () {
         planet.setRandomValues();
         this.initialSpace.addSpaceObject(planet);
     }
+
+    for (var i = 1; i <= numberOfStars; i++) {
+        var star = new Star();
+        star.setRandomValues();
+        this.initialSpace.addSpaceObject(star);
+    }
+
+    this.reset();
+}
+
+Level.prototype.randomStartsOnly = function () {
+    this.name = "Random: Stars only ..."
+
+    var numberOfStars = Math.floor(Math.random() * 10);
+
+    this.initialSpace = new Space();
+
+    var launchPlatform = new LaunchPlatform();
+    launchPlatform.setPosition(new THREE.Vector2(canvasWidth / 2, 50));
+    this.initialSpace.addSpaceObject(launchPlatform);
+
+    var landingZone = new LandingZone(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
+    landingZone.setPosition(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
+    landingZone.setDirection(new THREE.Vector2(1, 0));
+    this.initialSpace.addSpaceObject(landingZone);
 
     for (var i = 1; i <= numberOfStars; i++) {
         var star = new Star();

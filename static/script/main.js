@@ -1,7 +1,7 @@
 ﻿var level;
 var stats;
 
-var timeFactor = 10;
+var timeFactor = 20;
 var clock = new THREE.Clock();
 var thisContext;
 var mousePos = new THREE.Vector2(0, 0);
@@ -27,7 +27,9 @@ function initialize() {
     rules.push(new LandingRule());
 
     level = new Level(rules);
-    level.levelOneStar();
+    //level.random();
+    level.randomStartsOnly();
+    //level.levelOneStar();
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     context.canvas.addEventListener('mousedown', onCanvasMouseDown, false);

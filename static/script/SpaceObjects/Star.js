@@ -16,10 +16,10 @@ Star.inheritsFrom(SpaceObject);
 Star.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);
 
-    this.setMass(Math.random() * (maxMassStar - minMassStar) + minMassStar);
-    this.setDensity(Math.random() * (maxStarDensity - minStarDensity) + minStarDensity);
+    this.setMass(Math.random() * (this.maxMassStar - this.minMassStar) + this.minMassStar);
+    this.setDensity(Math.random() * (this.maxStarDensity - this.minStarDensity) + this.minStarDensity);
     this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
-    this.setDirection(new THREE.Vector2(maxInitialSpeedStar * Math.random(), maxInitialSpeedStar * Math.random()));
+    this.setDirection(new THREE.Vector2(this.maxInitialSpeedStar * Math.random(), this.maxInitialSpeedStar * Math.random()));
 };
 
 Star.prototype.render = function (context) {

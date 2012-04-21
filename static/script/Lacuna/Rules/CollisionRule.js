@@ -37,23 +37,23 @@ CollisionRule.prototype.applyRule = function (object1, object2) {
         ship.setStatus(Ship.statusEnum.craching);
     }
     else {
-        return this.mergeSpaceObjects();
+        return this.mergeSpaceObjects(object1, object2);
     }
 }
 
-CollisionRule.mergeSpaceObjects = function (object1, object2) {
+CollisionRule.prototype.mergeSpaceObjects = function (object1, object2) {
     var surviver = object1.mass > object2.mass ? object1 : object2;
     var victim = object1.mass > object2.mass ? object2 : object1;
 
     surviver.setMass(object1.mass + object2.mass);
-    surviver.setDirection(getDirectionAfterCollission(surviver, victim));
+    surviver.setDirection(this.getDirectionAfterCollission(surviver, victim));
 
-    victim.setStatus(victim.statusEnum.finished);
+    victim.setStatus(SpaceObject.statusEnum.finished);
 
-    return new Explosion(victim.getPosition().clone());
+    return new Explosion(victim.getPosition().clone(), victim.getDirection().clone());
 }
 
-CollisionRule.getDirectionAfterCollission = function (object1, object2) {
+CollisionRule.prototype.getDirectionAfterCollission = function (object1, object2) {
     var result = new THREE.Vector2();
     var totalMass = object1.mass + object2.mass;
 

@@ -13,15 +13,24 @@ Space.prototype.setRules = function(rules) {
 
 Space.prototype.update = function (timeLapse) {
     this.removeFinishedObjects();
-    this.applyRules(timeLapse);
+
+    var result = this.applyRules(timeLapse);
+    if (result && result.length > 0) {
+        this.spaceObjects = this.spaceObjects.concat(result);
+    }
 }
 
 Space.prototype.applyRules = function (timeLapse) {
-    if(!this.rules) return;
+    if (!this.rules) return;
 
-    for(var i = 0; i < this.rules.length; i++){
-        this.rules[i].apply(this.spaceObjects, timeLapse);
+    var newObjects = [];
+    for (var i = 0; i < this.rules.length; i++) {
+        var result = this.rules[i].apply(this.spaceObjects, timeLapse);
+        if (result && result.length > 0) {
+            newObjects = newObjects.concat(result);
+        }
     }
+    return newObjects;
 }
 
 Space.prototype.removeFinishedObjects = function () {

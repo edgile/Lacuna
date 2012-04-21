@@ -132,8 +132,9 @@ Ship.prototype.renderTail = function (context) {
     context.strokeStyle = "white";
     context.lineWidth = 2;
     context.beginPath();
-    context.moveTo(localTail.points[0].x, localTail.points[0].y);
-    for (var i = 1, numberOfPoints = localTail.points.length; i < numberOfPoints; i++) {
+    var currentPosition = this.getPosition().clone();
+    context.moveTo(currentPosition.x, currentPosition.y);
+    for (var numberOfPoints = localTail.points.length, i = numberOfPoints - 1; i >= 0; i--) {
         context.lineTo(localTail.points[i].x, localTail.points[i].y);
     }
     context.stroke();

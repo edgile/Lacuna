@@ -9,7 +9,7 @@
 Planet.inheritsFrom(SpaceObject);
 
 Planet.prototype.getRadius = function () {
-    return this._super() * 3;
+    return this.baseClass.getRadius.call(this);
 };
 
 Planet.prototype.getGradient = function (context) {
@@ -23,9 +23,9 @@ Planet.prototype.getGradient = function (context) {
 Planet.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);
 
-    this.setMass(Math.random() * maxmassPlanet + 1);
+    this.setMass(Math.random() * this.maxMassPlanet + 1);
     this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
-    this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(maxInitialSpeedPlanet * Math.random()));
+    this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(this.maxInitialSpeedPlanet * Math.random()));
 };
 
 Planet.prototype.render = function (context) {
