@@ -41,12 +41,13 @@ menu.prototype.setItems = function(items){
 			text = items[s].getText(this);
 		}
 		var config = helpers.apply(items[s],{
-			font: '50px CBM64', 
+			font: '50px CBM64',
+			size: (items[s].size || 50),
 			color: this.color,
 			engine: this.engine,
 			text: text, 
 			position: { 
-				x: 0, // this.engine.width / 5, 
+				x: this.engine.width / 2, 
 				y: (this.engine.height / 3) + ( i * 60),
 				z: this.mousePlaneOffset
 			}
