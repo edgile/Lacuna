@@ -37,6 +37,25 @@ engine.rendering.canvas = function(suspend){
 // Class for canvas renderer
 engine.rendering.canvas.renderer = function(){
 
+	var drawingFunctions = {
+		'line': function(position, config){
+			this.context.strokeStyle = config.color;
+			this.context.lineWidth = Math.ceil(config.width * this.scale);
+			this.context.beginPath();
+			this.context.moveTo(this.fixX(position, config.start), this.fixY(position, config.start));
+			this.context.lineTo(this.fixX(position, config.end), this.fixY(position, config.end));
+			this.context.stroke();
+		},
+		'arc': function(position, config){
+		    this.context.strokeStyle = config.color;
+		    this.context.lineWidth = config.width;
+		    this.context.beginPath();
+		    this.context.arc(this.fixX(position, config.center), this.fixY(position, config.center), config.radius * this.scale, config.start , config.end, config.close);
+		    this.context.closePath();
+		    this.context.stroke();
+		}
+	};
+	
 	var renderer = function(config){
 		helpers.apply(config, this);
 		this.canvas = document.createElement('canvas');
@@ -48,6 +67,14 @@ engine.rendering.canvas.renderer = function(){
 		window.onmousemove = this.onmousemove.bind(this);
 		window.onresize = this.resize.bind(this);
 		this.resize();
+	};
+	
+	renderer.prototype.fixX = function(position, point){
+		return Math.ceil((position.x + point.x) * this.scale) + this.offsetLeft;
+	};
+	
+	renderer.prototype.fixY = function(position, point){
+		return Math.ceil((position.y + point.y) * this.scale) + this.offsetTop;
 	};
 	
 	renderer.prototype.suspend = function(suspend){
@@ -150,6 +177,12 @@ engine.rendering.canvas.renderer = function(){
 				this.context.font = Math.ceil(50 * this.scale) + 'px CBM64';
 				this.context.fillStyle = t.color;
 				this.context.fillText(t.text, Math.ceil(t.position.x * this.scale) + this.offsetLeft, Math.ceil(t.position.y * this.scale) + this.offsetTop);
+			}
+		}
+		if(e.shapes){
+			for(var j = 0, l = e.shapes.length; j < l; j++ ){
+				var s = e.shapes[j];
+				drawingFunctions[s.type].apply(this, [e.position, s]);
 			}
 		}
 	};
