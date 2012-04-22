@@ -61,11 +61,14 @@ rules.prototype.initialize = function(){
 		this.engine.add ( this.engine.launchPlatform = new LaunchPlatform({
 			engine: this.engine
 		}) );
-		var star = new Star({
-			engine: this.engine
-		});
-		star.setRandomValues();
-	    this.engine.add( star );
+	    var numberOfStars = Math.floor(Math.random() * 10);
+	    for (var i = 1; i <= numberOfStars; i++) {
+	        var star = new Star({
+				engine: this.engine
+			});
+	        star.setRandomValues();
+	        this.engine.add(star);
+	    }
 	    var landingZone = new LandingZone(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
 	    landingZone.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
 	    landingZone.setDirection(new THREE.Vector2(1, 0));
