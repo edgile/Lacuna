@@ -1,4 +1,6 @@
-﻿function GravitationRule() {
+﻿var gravitationalConstant = .01;
+
+function GravitationRule() {
 }
 
 GravitationRule.inheritsFrom(RuleBase);

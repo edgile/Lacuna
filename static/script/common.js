@@ -1,6 +1,4 @@
-﻿var gravitationalConstant = .01;
-
-var canvasWidth;
+﻿var canvasWidth;
 var canvasHeight;
 var Math2PI = Math.PI * 2;
 
