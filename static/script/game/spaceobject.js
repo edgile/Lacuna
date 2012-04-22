@@ -25,6 +25,7 @@ SpaceObject.prototype.update = function (timeLapse) {
 };
 
 SpaceObject.prototype = new entity();
+SpaceObject.prototype.direction = new THREE.Vector2();
 
 SpaceObject.prototype.collide = function (body) {
     if (!this.canCollide || !body.canCollide) return false;
