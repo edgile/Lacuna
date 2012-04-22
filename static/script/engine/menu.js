@@ -37,29 +37,31 @@ menu.prototype.setItems = function(items){
 	var i = 0;
 	for(var s in items){
 		var text = s;
-		if(items[s].getText){
-			text = items[s].getText(this);
-		}
-		var config = helpers.apply(items[s],{
-			font: '50px CBM64',
-			size: (items[s].size || 50),
-			color: this.color,
-			engine: this.engine,
-			text: text, 
-			position: { 
-				x: this.engine.width / 2, 
-				y: (this.engine.height / 3) + ( i * 60),
-				z: this.mousePlaneOffset
+		if(items.hasOwnProperty(s)){
+			if(items[s].getText){
+				text = items[s].getText(this);
 			}
-		});
-		if(config.submenu){
-			var self = this;
-			config.onMousePlaneUp = function(entity, hit){
-				self.setItems(entity.submenu);
-			};
+			var config = helpers.apply(items[s],{
+				font: '50px CBM64',
+				size: (items[s].size || 50),
+				color: this.color,
+				engine: this.engine,
+				text: text, 
+				position: { 
+					x: this.engine.width / 2, 
+					y: (this.engine.height / 3) + ( i * 60),
+					z: this.mousePlaneOffset
+				}
+			});
+			if(config.submenu){
+				var self = this;
+				config.onMousePlaneUp = function(entity, hit){
+					self.setItems(entity.submenu);
+				};
+			}
+			this.texts.push(config);
+			i++;
 		}
-		this.texts.push(config);
-		i++;
 	}
 };
 
