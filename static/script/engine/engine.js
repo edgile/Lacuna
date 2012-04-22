@@ -107,6 +107,9 @@ engine.prototype.add = function(entity){
 	}
 	this.entities.push(entity);
 	entity.engine = this;
+	if(this.physics && entity.physicsEntity){
+		this.physics.addSpaceObject(entity);
+	}
 };
 
 engine.prototype.contains = function(entity){
@@ -153,6 +156,13 @@ engine.prototype.update = function(){
 	time = new Date().getTime() - this.startTime;
 	if(this.mode !== "client"){
 		this.calculateCollisions();
+		if(this.physics){
+			// Using timelapse (current physics does that) is suboptimal
+			this.lastTime = this.lastTime || new Date().getTime();
+			var timeLapse = (new Date().getTime()) - this.lastTime;
+			this.lastTime = new Date().getTime();
+			this.physics.update((timeLapse / 20));
+		}
 	}
 	else if(this.mode === "client"){
 		this.sendControllerStateToServer(time);
