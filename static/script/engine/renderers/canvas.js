@@ -39,6 +39,7 @@ engine.rendering.canvas.renderer = function(){
 
 	var drawingFunctions = {
 		'line': function(position, config){
+			position = config.position || position;
 			this.context.strokeStyle = config.color;
 			this.context.lineWidth = Math.ceil(config.width * this.scale);
 			this.context.beginPath();
@@ -48,6 +49,7 @@ engine.rendering.canvas.renderer = function(){
 		},
 		'polyline': function(position,config){
 		    var points = config.points;
+		    position = config.position || position;
 		    if (points.points.length > 1) {
 		    	this.context.strokeStyle = "white";
 		    	this.context.lineWidth = Math.ceil(config.width * this.scale);
@@ -106,11 +108,11 @@ engine.rendering.canvas.renderer = function(){
 	};
 	
 	renderer.prototype.fixX = function(position, point){
-		return Math.ceil((position.x + point.x) * this.scale) + this.offsetLeft;
+		return ((position.x + point.x) * this.scale) + this.offsetLeft;
 	};
 	
 	renderer.prototype.fixY = function(position, point){
-		return Math.ceil((position.y + point.y) * this.scale) + this.offsetTop;
+		return ((position.y + point.y) * this.scale) + this.offsetTop;
 	};
 	
 	renderer.prototype.suspend = function(suspend){
