@@ -75,6 +75,11 @@ LaunchPlatform.prototype.start = function () {
 LaunchPlatform.prototype.stop = function () {
 	if(this.launchForceTimer && this.launchForceTimer.running){
 		this.launchForceTimer.stop();
+		var v = this.getLaunchForceVector();
+	    var s = new Ship({engine: this.engine});
+	    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
+	    s.setDirection(this.getLaunchForceVector().clone());
+		this.engine.add(s);
 	}
 
     this.forceVector = this.getCurrentForceVector();

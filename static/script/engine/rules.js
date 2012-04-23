@@ -52,9 +52,27 @@ rules.prototype.initialize = function(){
 		}
 	}
 	if(this.engine.mode !== 'client'){
+		this.engine.physics = new Space([
+            new GravitationRule(),
+            new MotionRule(),
+            new CollisionRule(),
+            new LandingRule()
+        ]);
 		this.engine.add ( this.engine.launchPlatform = new LaunchPlatform({
 			engine: this.engine
 		}) );
+	    var numberOfStars = Math.floor(Math.random() * 10);
+	    for (var i = 1; i <= numberOfStars; i++) {
+	        var star = new Star({
+				engine: this.engine
+			});
+	        star.setRandomValues();
+	        this.engine.add(star);
+	    }
+	    var landingZone = new LandingZone(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
+	    landingZone.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
+	    landingZone.setDirection(new THREE.Vector2(1, 0));
+	    this.engine.add(landingZone);
 //		this.engine.add( this.engine.gameState.player1Ship = new ship({
 //			name        : 'Player 1',
 //			type		: this.engine.mode == 'standalone' ? (this.engine.playerCount === 0 ? 'computer' : 'player') : (this.engine.player1 ? 'player' : 'computer'),
