@@ -1,7 +1,17 @@
-﻿var Space = function (rules) {
-    this.spaceObjects = [];
-    this.rules = rules;
+﻿var Space = function (config) {
+    helpers.apply(config, this);
+
+    if (!this.spaceObjects) this.spaceObjects = [];
+    if (!this.rules) this.rules = Space.getDefaultRules();
 }
+
+Space.getDefaultRules = function () {
+    return [new UpdateRule(),
+                new GravitationRule(),
+                new MotionRule(),
+                new CollisionRule(),
+                new LandingRule()];
+};
 
 Space.prototype.addSpaceObject = function (spaceObject) {
     this.spaceObjects.push(spaceObject);

@@ -19,17 +19,10 @@ function initialize() {
     canvasWidth = context.canvas.width;
     canvasHeight = context.canvas.height;
 
-    var rules = [];
-    rules.push(new UpdateRule());
-    rules.push(new GravitationRule());
-    rules.push(new MotionRule());
-    rules.push(new CollisionRule());
-    rules.push(new LandingRule());
-
-    level = new Level(rules);
-    //level.random();
-    level.randomStartsOnly();
-    //level.levelOneStar();
+//    level = Levels.load("randomlevel");
+//    level = Levels.load("landinglevel");
+//    level = Levels.load("randomstarsonlylevel");
+    level = Levels.load("onestarlevel");
 
     document.addEventListener('mousemove', onDocumentMouseMove, false);
     context.canvas.addEventListener('mousedown', onCanvasMouseDown, false);
@@ -58,7 +51,7 @@ function addShip(position, direction) {
     s.setPosition(position);
     s.setDirection(direction);
 
-    level.currentSpace.addSpaceObject(s);
+    level.space.addSpaceObject(s);
 }
 
 function onDocumentMouseMove(e) {
@@ -84,7 +77,7 @@ function animate() {
     requestAnimationFrame(animate);
 
     var delta = clock.getDelta();
-    level.currentSpace.update(delta * timeFactor);
+    level.space.update(delta * timeFactor);
 
     getContext().clearRect(0, 0, canvasWidth, canvasHeight);
     level.render(getContext());
