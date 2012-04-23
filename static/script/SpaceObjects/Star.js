@@ -1,6 +1,6 @@
 ﻿function Star() {
-    this.minMassStar = 200000;
-    this.maxMassStar = 200000;
+    this.minMassStar = 300000;
+    this.maxMassStar = 50000;
 
     this.maxStarDensity = 10000;
     this.minStarDensity = 10000;

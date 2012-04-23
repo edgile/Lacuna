@@ -1,5 +1,5 @@
 ﻿LaunchPlatform = function () {
-    this.maxForce = 10000;
+    this.maxForce = 13000;
     this.timeToReachMaxForce = 1500;
 
     this.canCollide = false;

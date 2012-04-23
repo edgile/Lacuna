@@ -12,8 +12,8 @@
 
 Ship.inheritsFrom(SpaceObject);
 
-Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, craching: 3, landing: 4, landed: 5 };
-Ship.statusTimespan = { accelerating: 0, craching: 5 };
+Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, crashing: 3, landing: 4, landed: 5 };
+Ship.statusTimespan = { accelerating: 0, crashing: 5 };
 
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
@@ -44,11 +44,11 @@ Ship.prototype.update = function (timeLapse) {
     if (status == Ship.statusEnum.accelerating && this.elapsedTime >= Ship.statusTimespan.accelerating) {
         this.setStatus(Ship.statusEnum.flying);
     }
-    else if (status == Ship.statusEnum.craching && this.elapsedTime >= Ship.statusTimespan.craching) {
+    else if (status == Ship.statusEnum.crashing && this.elapsedTime >= Ship.statusTimespan.crashing) {
         this.setStatus(Ship.statusEnum.finished);
     }
-    else if (status == Ship.statusEnum.craching) {
-        this.getDirection().setLength(((Ship.statusTimespan.craching - this.elapsedTime) / Ship.statusTimespan.craching) * this.getDirection().length());
+    else if (status == Ship.statusEnum.crashing) {
+        this.getDirection().setLength(((Ship.statusTimespan.crashing - this.elapsedTime) / Ship.statusTimespan.crashing) * this.getDirection().length());
     }
     this.elapsedTime += timeLapse;
 };
@@ -75,7 +75,7 @@ Ship.prototype.getGradient = function (context) {
 };
 
 Ship.prototype.render = function (context) {
-    if (this.getStatus() == Ship.statusEnum.craching) {
+    if (this.getStatus() == Ship.statusEnum.crashing) {
         this.renderCrache(context);
     }
     else if (this.getStatus() == Ship.statusEnum.landing) {
@@ -117,19 +117,19 @@ Ship.prototype.renderLanded = function (context) {
 Ship.prototype.renderCrache = function (context) {
     context.strokeStyle = "gray";
     context.beginPath();
-    context.arc(this.position.x, this.position.y, Math.max(0, Ship.statusTimespan.craching - this.elapsedTime) * 2, 0, Math2PI, true);
+    context.arc(this.position.x, this.position.y, Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime) * 2, 0, Math2PI, true);
     context.stroke();
     context.closePath();
 
     context.strokeStyle = "gray";
     context.beginPath();
-    context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.craching - this.elapsedTime)), 0, Math2PI, true);
+    context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.crashing - this.elapsedTime)), 0, Math2PI, true);
     context.stroke();
     context.closePath();
 
     context.strokeStyle = "white";
     context.beginPath();
-    context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.craching - this.elapsedTime) * 2 / 3), 0, Math2PI, true);
+    context.arc(this.position.x, this.position.y, Math.max(0, (Ship.statusTimespan.crashing - this.elapsedTime) * 2 / 3), 0, Math2PI, true);
     context.stroke();
     context.closePath();
 };

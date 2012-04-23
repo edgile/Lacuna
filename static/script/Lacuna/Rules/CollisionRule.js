@@ -27,14 +27,14 @@ CollisionRule.prototype.applyRule = function (object1, object2) {
     if (!this.isCollision(object1, object2)) return null;
 
     if (object1 instanceof Ship && object2 instanceof Ship) {
-        object1.setStatus(Ship.statusEnum.craching);
-        object2.setStatus(Ship.statusEnum.craching);
+        object1.setStatus(Ship.statusEnum.crashing);
+        object2.setStatus(Ship.statusEnum.crashing);
     }
     else if (object1 instanceof Ship || object2 instanceof Ship) {
         var ship = object1 instanceof Ship ? object1 : object2;
         var spaceObject = object1 instanceof Ship ? object2 : object1;
 
-        ship.setStatus(Ship.statusEnum.craching);
+        ship.setStatus(Ship.statusEnum.crashing);
     }
     else {
         return this.mergeSpaceObjects(object1, object2);

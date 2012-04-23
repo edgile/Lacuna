@@ -1,12 +1,14 @@
 ﻿var Level = function (rules) {
-    this.name = "Level name";
-    this.world = 0;
-    this.levelNumber = 0;
-
     this.rules = rules;
     this.initialSpace = null;
     this.currentSpace = null;
 };
+
+Level.prototype.name = "Level name";
+Level.prototype.world = 0;
+Level.prototype.number = 0;
+Level.prototype.thumbnail = "";
+Level.prototype.backgroundImage = "";
 
 Level.prototype.getLaunchPlatform = function () {
     if (!(this.currentSpace && this.currentSpace.spaceObjects)) return null;
@@ -24,7 +26,7 @@ Level.prototype.getLaunchPlatform = function () {
 Level.prototype.reset = function () {
     this.currentSpace = this.initialSpace;
     this.currentSpace.setRules(this.rules);
-}
+};
 
 Level.prototype.random = function () {
     this.name = "Randomly generated level"
@@ -56,7 +58,7 @@ Level.prototype.random = function () {
     }
 
     this.reset();
-}
+};
 
 Level.prototype.randomStartsOnly = function () {
     this.name = "Random: Stars only ..."
@@ -81,7 +83,7 @@ Level.prototype.randomStartsOnly = function () {
     }
 
     this.reset();
-}
+};
 
 Level.prototype.levelOneStarWithPlanets = function () {
     this.name = "Sun with planets";
@@ -114,7 +116,7 @@ Level.prototype.levelOneStarWithPlanets = function () {
     this.initialSpace.addSpaceObject(planet);
 
     this.reset();
-}
+};
 
 Level.prototype.levelLanding = function () {
     this.name = "Landing";
@@ -131,7 +133,7 @@ Level.prototype.levelLanding = function () {
     this.initialSpace.addSpaceObject(landingZone);
 
     this.reset();
-}
+};
 
 Level.prototype.levelOneStar = function () {
     this.name = "Sun";
@@ -158,7 +160,7 @@ Level.prototype.levelOneStar = function () {
     this.initialSpace.addSpaceObject(star);
 
     this.reset();
-}
+};
 
 Level.prototype.render = function (context2d) {
     context2d.fillStyle = "white";
@@ -168,4 +170,4 @@ Level.prototype.render = function (context2d) {
     context2d.fillText(this.name, 0, 0);
 
     if (this.currentSpace) this.currentSpace.render(context2d);
-}
+};
