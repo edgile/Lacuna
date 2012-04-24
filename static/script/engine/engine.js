@@ -21,6 +21,7 @@ var engine = function(config){
 		document.body.style.background = this.pageColor;
 		// Initialize the settings UI
 		engine.settings.initialize();
+		this.initializeControllers();
 	}
 	this.buttonDown = false;
 	this.mousePosition = {x: 0, y: 0};
@@ -53,7 +54,6 @@ var engine = function(config){
 				};
 			})();
 		}
-		this.initializeControllers();
 		var self = this;
 		if(this.socket){
 			this.socket.on('game state', function(msg){
@@ -74,6 +74,8 @@ engine.prototype.initializeControllers = function(){
 	this.controllers.push( this.touchController );
 	this.mouseController = new mouseController({engine: this});
 	this.controllers.push( this.mouseController );
+	this.keyboardController = new keyboardController({engine: this});
+	this.controllers.push( this.keyboardController );
 };
 
 engine.prototype.serverUpdateLoop = function(){
@@ -123,24 +125,6 @@ engine.prototype.contains = function(entity){
 	return result;
 };
 
-engine.prototype.calculateCollisions = function(){
-	for(var i = 0, l = this.entities.length; i < l; i++){
-		var e1 = this.entities[i];
-		e1.collisions = [];
-		for(var j = 0; j < l; j++){
-			var e2 = this.entities[j];
-			var e2 = this.entities[j];
-			if(e1 != e2 && e1.collidesWith(e2)){
-				e1.collisions.push(e2);
-				if(!e2.collisions){
-					e2.collisions = [];
-				}
-				e2.collisions.push(e1);
-			}
-		}
-	}
-};
-
 engine.prototype.reset = function(menu){
 	this.entities = menu ? [menu] : [];
 	this.startTime = new Date().getTime();
@@ -155,7 +139,6 @@ engine.prototype.reset = function(menu){
 engine.prototype.update = function(){
 	time = new Date().getTime() - this.startTime;
 	if(this.mode !== "client"){
-		this.calculateCollisions();
 		if(this.physics){
 			// Using timelapse (current physics does that) is suboptimal
 			this.lastTime = this.lastTime || new Date().getTime();
