@@ -9,19 +9,9 @@ var rules = function(config){
 	this.initialized = false;
 	this.engineId = 0; // This is important, if it is not 0 an new rules object gets created on the client
 	this.name = 'rules';
-	if(this.engine.mode !== 'server'){
-		var uphandler = this.keyboardHandler.bind(this);
-		if(document.addEventListener) { // Opera - Firefox - Google Chrome
-			document.addEventListener("keyup", uphandler, false);
-		}
-		else if(document.attachEvent) { // Internet Explorer
-			document.attachEvent("onkeyup", uphandler);
-		}
-		else if(!document.onkeydown && !document.onkeyup) {
-			document.onkeyup = uphandler;
-		}
-	}
+	this.engine.keyboardController.upListeners.push(this.keyboardHandler.bind(this));
 };
+
 rules.prototype = new entity();
 
 rules.prototype.initialize = function(){
@@ -73,13 +63,6 @@ rules.prototype.initialize = function(){
 	    landingZone.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
 	    landingZone.setDirection(new THREE.Vector2(1, 0));
 	    this.engine.add(landingZone);
-//		this.engine.add( this.engine.gameState.player1Ship = new ship({
-//			name        : 'Player 1',
-//			type		: this.engine.mode == 'standalone' ? (this.engine.playerCount === 0 ? 'computer' : 'player') : (this.engine.player1 ? 'player' : 'computer'),
-//			direction   : 1,
-//			colorIndex  : 0,
-//			position    : { x: 10, y : 10 }
-//		}) );
 	}
 };
 
@@ -204,13 +187,7 @@ rules.prototype.hideMenu = function () {
     return this.menu.hide();
 };
 
-rules.prototype.toggleSettings = function () {
-    DAT.GUI.toggleHide();
-};
-
-rules.prototype.keyboardHandler = function (evt) {
-	var evt = evt || window.event;
-	var keyCode = evt.keyCode || evt.which;
+rules.prototype.keyboardHandler = function (keyCode) {
     // 1: Restart game single player mode, standalone (all runs on the client)
     if (keyCode == 49) {
         this.startSinglePlayerGame();
@@ -235,10 +212,6 @@ rules.prototype.keyboardHandler = function (evt) {
     if (keyCode == 54) {
     	this.startZeroPlayerGame();
     }
-//    // F8: Toggle settings
-//    if (keyCode === 119 || keyCode === 192) {
-//        DAT.GUI.toggleHide();
-//    }
     // M: Toggle menu
     if (keyCode === 77) {
 		this.toggleMenu();
