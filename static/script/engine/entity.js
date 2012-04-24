@@ -15,10 +15,6 @@ entity.prototype.render = function(){
 entity.prototype.update = function(time){
 };
 
-entity.prototype.collidesWith = function(o){
-	return helpers.rectInRect(this.position, this.collisionRect, o.position, o.collisionRect);
-};
-
 if(typeof(exports) !== 'undefined'){
 	exports.entity = entity;
 }
