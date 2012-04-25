@@ -1,41 +1,39 @@
 
-engine.rendering.canvas = function(suspend){
+Engine.rendering.canvas = function(suspend){
 	if(!this.canvasRenderer){
-		this.canvasRenderer = new engine.rendering.canvas.renderer({
+		this.canvasRenderer = new Engine.rendering.canvas.renderer({
 			engine: this
 		});
 	}
 	this.canvasRenderer.suspend(suspend);
 	if(!this.canvasRenderer.suspended){
-		this.canvasRenderer.context.fillStyle = this.canvasColor;
+		this.canvasRenderer.context.fillStyle = this.backgroundColor;
 		this.canvasRenderer.context.fillRect(0, 0, window.innerWidth, window.innerHeight);
 		// Render
-		if(this.mode == 'standalone' || this.mode == 'client'){
-			var topMost = [];
-			for(var i = 0, l = this.entities.length; i < l; i++){
-				var e = this.entities[i];
-				if(e.topMost){
-					topMost.push(e);
-				}
-				else {
-					this.canvasRenderer.renderEntity(e);
-				}
+		var topMost = [];
+		for(var i = 0, l = this.entities.length; i < l; i++){
+			var e = this.entities[i];
+			if(e.topMost){
+				topMost.push(e);
 			}
-			for(var i = 0, l = topMost.length; i < l; i++){
-				this.canvasRenderer.renderEntity(topMost[i]);
+			else {
+				this.canvasRenderer.renderEntity(e);
 			}
-			for(var i = 0, l = this.controllers.length; i < l; i++){
-				var controller = this.controllers[i];
-				if(controller.render){
-					controller.render(this.canvasRenderer.context);
-				}
+		}
+		for(var i = 0, l = topMost.length; i < l; i++){
+			this.canvasRenderer.renderEntity(topMost[i]);
+		}
+		for(var i = 0, l = this.controllers.length; i < l; i++){
+			var controller = this.controllers[i];
+			if(controller.render){
+				controller.render(this.canvasRenderer.context);
 			}
 		}
 	}
 };
 
 // Class for canvas renderer
-engine.rendering.canvas.renderer = function(){
+Engine.rendering.canvas.renderer = function(){
 
 	var drawingFunctions = {
 		'line': function(position, config){

@@ -1,86 +1,60 @@
-﻿var level;
-var stats;
+﻿function Engine(config){
+	// Defaults
+	helpers.apply({
+		level: null,
+		timeFactor : 20,
+		clock: new THREE.Clock(),
+		width : 800,
+		height : 600,
+		renderer: "canvas",
+		backgroundColor: '#000',
+		mousePosition: new THREE.Vector2(0,0)
+	}, this);
+	// Process config
+	helpers.apply(config, this);
+	if(this.showStats){
+		this.createStats();
+	}
+	this.initializeControllers();
+	this.level = Levels.load({
+		name: this.levelName || 'onestarlevel',
+		engine: this
+	});
+	this.animate();
+}
 
-var timeFactor = 20;
-var clock = new THREE.Clock();
-var thisContext;
-var mousePos = new THREE.Vector2(0, 0);
+Engine.prototype.createStats = function(){
+	this.stats = new Stats();
+	this.stats.domElement.style.position = 'absolute';
+	this.stats.domElement.style.top = '0px';
+    document.body.appendChild(this.stats.domElement);
+};
 
-function getContext() {
-    if (!thisContext) {
-        var canvas = document.getElementById("canvas");
-        thisContext = canvas.getContext("2d");
+
+Engine.prototype.animate = function() {
+    requestAnimationFrame(this.animate.bind(this));
+    var delta = this.clock.getDelta();
+    this.level.space.update(delta * this.timeFactor);
+    this.entities = this.level.space.spaceObjects;
+    Engine.rendering[this.renderer].apply(this);
+    if(this.showStats){
+    	this.stats.update();
     }
-    return thisContext;
-}
+};
 
-function initialize() {
-    var context = getContext();
-    canvasWidth = context.canvas.width;
-    canvasHeight = context.canvas.height;
+Engine.prototype.initializeControllers = function(){
+	this.buttonDown = false;
+	this.mousePosition = {x: 0, y: 0};
+	this.buttonDown2 = false;
+	this.mousePosition2 = {x: 0, y: 0};
+	this.controllers = [];
+	this.touchController = new touchController({engine: this});
+	this.controllers.push( this.touchController );
+	this.mouseController = new mouseController({engine: this});
+	this.controllers.push( this.mouseController );
+	this.keyboardController = new keyboardController({engine: this});
+	this.controllers.push( this.keyboardController );
+};
 
-//    level = Levels.load("randomlevel");
-//    level = Levels.load("landinglevel");
-//    level = Levels.load("randomstarsonlylevel");
-    level = Levels.load("onestarlevel");
-
-    document.addEventListener('mousemove', onDocumentMouseMove, false);
-    context.canvas.addEventListener('mousedown', onCanvasMouseDown, false);
-    context.canvas.addEventListener('click', onCanvasClick, false);
-
-    stats = new Stats();
-    stats.domElement.style.position = 'absolute';
-    stats.domElement.style.top = '0px';
-    document.body.appendChild(stats.domElement);
-
-    animate();
-}
-
-function onCanvasMouseDown(e) {
-    level.getLaunchPlatform().start();
-}
-
-function onCanvasClick(e) {
-    level.getLaunchPlatform().stop();
-
-    addShip(level.getLaunchPlatform().getPosition().clone(), level.getLaunchPlatform().getLaunchForceVector().clone());
-}
-
-function addShip(position, direction) {
-    var s = new Ship();
-    s.setPosition(position);
-    s.setDirection(direction);
-
-    level.space.addSpaceObject(s);
-}
-
-function onDocumentMouseMove(e) {
-    var x;
-    var y;
-
-    if (e.pageX || e.pageY) {
-        x = e.pageX; y = e.pageY;
-    }
-    else {
-        x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-
-    }
-    var context = getContext();
-    x -= context.canvas.offsetLeft;
-    y -= context.canvas.offsetTop;
-
-    level.getLaunchPlatform().setPointerLocation(new THREE.Vector2(x, y));
-}
-
-function animate() {
-    requestAnimationFrame(animate);
-
-    var delta = clock.getDelta();
-    level.space.update(delta * timeFactor);
-
-    getContext().clearRect(0, 0, canvasWidth, canvasHeight);
-    level.render(getContext());
-
-    stats.update();
-}
+// Registration point for rendering
+Engine.rendering = {};

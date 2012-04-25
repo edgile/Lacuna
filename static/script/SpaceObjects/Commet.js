@@ -1,4 +1,5 @@
-﻿function Commet() {
+﻿function Commet(config) {
+	helpers.apply(this, config);
     this.maxSpeed = 1000;
 
     this.setDensity(1);
@@ -19,7 +20,7 @@ Commet.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);
 
     this.setMass(1);
-    this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.setPosition(new THREE.Vector2(Math.random() * this.engine.width, Math.random() * this.engine.height));
     this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(Math.random() * result.maxSpeed));
 };
 

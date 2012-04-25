@@ -1,4 +1,5 @@
-﻿var LandingLevel = function () {
+﻿var LandingLevel = function (config) {
+	helpers.apply(this, config);
     var result = new Level(
         {
             identifier: "landinglevel",
@@ -16,15 +17,15 @@ LandingLevel.prototype.getSpaceObjects = function () {
     var result = [];
 
     var launchPlatform = new LaunchPlatform();
-    launchPlatform.setPosition(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
+    launchPlatform.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
     result.push(launchPlatform);
 
     var landingZone = new LandingZone();
-    landingZone.setPosition(new THREE.Vector2(canvasWidth / 2, 50));
+    landingZone.setPosition(new THREE.Vector2(this.engine.width / 2, 50));
     landingZone.setDirection(new THREE.Vector2(1, 0));
     result.push(landingZone);
 
     return result;
-}
+};
 
 Levels.register("landinglevel", LandingLevel);

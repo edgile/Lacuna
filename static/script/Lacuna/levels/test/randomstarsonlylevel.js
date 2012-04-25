@@ -1,4 +1,5 @@
-﻿var RandomStarsOnlyLevel = function () {
+﻿var RandomStarsOnlyLevel = function (config) {
+	helpers.apply(this, config);
     var result = new Level(
         {
             identifier: "randomstarslevel",
@@ -18,11 +19,11 @@ RandomStarsOnlyLevel.prototype.getSpaceObjects = function () {
     var numberOfStars = Math.floor(Math.random() * 10);
 
     var launchPlatform = new LaunchPlatform();
-    launchPlatform.setPosition(new THREE.Vector2(canvasWidth / 2, 50));
+    launchPlatform.setPosition(new THREE.Vector2(this.engine.width / 2, 50));
     result.push(launchPlatform);
 
-    var landingZone = new LandingZone(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
-    landingZone.setPosition(new THREE.Vector2(canvasWidth / 2, canvasHeight - 50));
+    var landingZone = new LandingZone(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
+    landingZone.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
     landingZone.setDirection(new THREE.Vector2(1, 0));
     result.push(landingZone);
 

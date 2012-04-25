@@ -1,4 +1,5 @@
-﻿function Planet(){
+﻿function Planet(config){
+	helpers.apply(config, this);
     this.maxMassPlanet = 2000;
     this.maxInitialSpeedPlanet = 100;
     this.influencedByGravity = true;
@@ -24,7 +25,7 @@ Planet.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);
 
     this.setMass(Math.random() * this.maxMassPlanet + 1);
-    this.setPosition(new THREE.Vector2(Math.random() * canvasWidth, Math.random() * canvasHeight));
+    this.setPosition(new THREE.Vector2(Math.random() * this.engine.width, Math.random() * this.engine.height));
     this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(this.maxInitialSpeedPlanet * Math.random()));
 };
 

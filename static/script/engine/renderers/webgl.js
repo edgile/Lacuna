@@ -1,7 +1,7 @@
 /*
  *   WebGL rendering
  */
-engine.rendering.webgl = function(suspend){
+Engine.rendering.webgl = function(suspend){
 	if(!this.webglRenderer){
 		this.webglRenderer = true;
 		var self = this;
@@ -35,7 +35,7 @@ engine.rendering.webgl = function(suspend){
 	}
 };
 
-engine.rendering.webgl.webglRenderer = function(){
+Engine.rendering.webgl.webglRenderer = function(){
 	var webglRenderer = function(config){
 		helpers.apply({
 			camera: new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 ), 

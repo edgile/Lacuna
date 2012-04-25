@@ -28,11 +28,5 @@ Level.prototype.reset = function () {
 };
 
 Level.prototype.render = function (context2d) {
-    context2d.fillStyle = "white";
-    context2d.lineWidth = 1;
-    context2d.textBaseline = 'top';
-    context2d.font = '20px sans-serif';
-    context2d.fillText(this.name, 0, 0);
 
-    if (this.space) this.space.render(context2d);
 };

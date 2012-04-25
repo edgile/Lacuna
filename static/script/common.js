@@ -1,6 +1,4 @@
-﻿var canvasWidth;
-var canvasHeight;
-var Math2PI = Math.PI * 2;
+﻿var Math2PI = Math.PI * 2;
 
 //Object.prototype.clone = function () {
 //    var newObj = (this instanceof Array) ? [] : {};

@@ -1,4 +1,8 @@
-﻿LaunchPlatform = function () {
+﻿var LaunchPlatform = function(config){
+	helpers.apply(config, this);
+	// Game logic fields
+	this.type = 'launchplatform';
+	this.position = this.position || {x:this.engine.width / 2, y: 50};
     this.maxForce = 13000;
     this.timeToReachMaxForce = 1500;
 
@@ -14,18 +18,62 @@
     this.setPosition(new THREE.Vector2());
     this.setMass(1);
     this.setDensity(1);
-}
+    
+    // Visible elements fields 
+    this.modelIndex = 1;
+	this.aimLine = {type: 'line', width: 3, color: 'gray', start: {x: 0, y: 39}, end: {x: 0, y: 48}};
+	this.forceLine = {type: 'line', width: 3, color: 'green', start: {x: 0, y: 0}, end: {x: 0, y: 0}};
+	this.shapes = [
+	    {type: 'line', width: 2, color: 'red', start: {x: 0, y: 5}, end: {x: 0, y: -5}},
+	    {type: 'line', width: 2, color: 'red', start: {x: 5, y: 0}, end: {x: -5, y: 0}},
+	    {type: 'circle', width: 1, color: 'gray', center: {x: 0, y: 0}, radius: 40},
+	    this.aimLine,
+	    this.forceLine
+	];
+};
 
 LaunchPlatform.inheritsFrom(SpaceObject);
 
+LaunchPlatform.prototype.update = function(time){
+	if(this.engine.mode !== 'client'){   
+		// Start or stop the launchForceTimer depending on the button state
+		this.engine.buttonDown ? this.start() : this.stop();
+		// Update the aim line
+		this.aimLine.start = this.getCurrentForceDirection().setLength(39);
+		this.aimLine.end = this.getCurrentForceDirection().setLength(48);
+		// Update the force line
+	    if (this.launchForceTimer && this.launchForceTimer.running) {	    	
+	        this.forceLine.end = this.getCurrentForceDirection().setLength(48 * this.getCurrentForceVector().length() / this.maxForce);
+	    }
+	    else{
+	    	this.forceLine.end = {x:0, y:0};
+	    }
+	}
+};
+
+LaunchPlatform.prototype.render = function(){
+//	if(this.makeSound){
+//		audio.changeColorAudio.play();
+//		this.makeSound = false;
+//	}
+};
+
 LaunchPlatform.prototype.start = function () {
-    this.launchForceTimer = new THREE.Clock(false);
-    this.launchForceTimer.start();
+	if(!this.launchForceTimer || !this.launchForceTimer.running){
+		this.launchForceTimer = new THREE.Clock(false);
+    	this.launchForceTimer.start();
+	}
 };
 
 LaunchPlatform.prototype.stop = function () {
-    this.launchForceTimer.stop();
-
+	if(this.launchForceTimer && this.launchForceTimer.running){
+		this.launchForceTimer.stop();
+		var v = this.getLaunchForceVector();
+	    var s = new Ship({engine: this.engine});
+	    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
+	    s.setDirection(this.getLaunchForceVector().clone());
+		this.engine.level.space.addSpaceObject(s);
+	}
     this.forceVector = this.getCurrentForceVector();
 };
 
@@ -59,72 +107,9 @@ LaunchPlatform.prototype.getCurrentForceVector = function () {
 
 LaunchPlatform.prototype.getCurrentForceDirection = function () {
     var result = new THREE.Vector2(0, 0);
-    if (!this.pointerLocation) return result;
+    if (!this.engine.mousePosition) return result;
 
-    result.sub(this.pointerLocation, this.position).normalize();
+    result.sub(this.engine.mousePosition, this.position).normalize();
 
     return result;
-};
-
-LaunchPlatform.prototype.getRadius = function () {
-    return 40;
-};
-
-LaunchPlatform.prototype.setPointerLocation = function (location) {
-    this.pointerLocation = location;
-};
-
-LaunchPlatform.prototype.render = function (context) {
-    context.strokeStyle = "red";
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(this.position.x, this.position.y + 5);
-    context.lineTo(this.position.x, this.position.y - 5);
-    context.moveTo(this.position.x + 5, this.position.y);
-    context.lineTo(this.position.x - 5, this.position.y);
-    context.stroke();
-
-    context.strokeStyle = "gray";
-    context.lineWidth = 1;
-    context.beginPath();
-    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
-    context.closePath();
-    context.stroke();
-
-    if (this.pointerLocation) {
-        context.lineWidth = 3;
-        context.beginPath();
-        var forceDirection = this.getCurrentForceDirection();
-
-        var start = new THREE.Vector2();
-        forceDirection.setLength(39);
-        start.add(this.position, forceDirection);
-
-        var end = new THREE.Vector2();
-        forceDirection.setLength(48);
-        end.add(this.position, forceDirection);
-
-        context.moveTo(start.x, start.y);
-        context.lineTo(end.x, end.y);
-        context.closePath();
-        context.stroke();
-    }
-
-    /* In the process of building force */
-    if (this.pointerLocation && this.launchForceTimer && this.launchForceTimer.running) {
-        var forceVector = this.getCurrentForceVector();
-        var force = forceVector.length();
-        forceVector.normalize().multiplyScalar(48 * force / this.maxForce);
-
-        var endPoint = new THREE.Vector2();
-        endPoint = endPoint.add(this.position, forceVector);
-
-        var context = getContext();
-        context.strokeStyle = "green";
-        context.beginPath();
-        context.moveTo(this.position.x, this.position.y);
-        context.lineTo(endPoint.x, endPoint.y);
-        context.closePath();
-        context.stroke();
-    }
 };
