@@ -3,3 +3,4 @@
 node_modules
 .DS_Store
 /static/resources/script/mrdoob-three.js-a4088b8
+*.orig

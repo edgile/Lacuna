@@ -1,4 +1,4 @@
-﻿/**
+/**
 *   Represents a landing zone for ships.
 *   @class
 *   @extends SpaceObject
