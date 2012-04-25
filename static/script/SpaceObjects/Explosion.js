@@ -1,4 +1,9 @@
-﻿function Explosion(position, direction) {
+﻿/**
+*   Represents an explosion.
+*   @class
+*   @extends SpaceObject
+*/
+function Explosion(position, direction) {
     this.startStatus = 35;
 
     this.influencedByGravity = false;

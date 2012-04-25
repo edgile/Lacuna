@@ -1,5 +1,10 @@
 ﻿var gravitationalConstant = .01;
 
+/**
+*   Represents a rule to calculate changes in direction due to gravitational force.
+*   @class
+*   @extends RuleBase
+*/
 function GravitationRule() {
 }
 

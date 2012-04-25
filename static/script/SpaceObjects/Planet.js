@@ -1,4 +1,9 @@
-﻿function Planet(config){
+/**
+*   Represents a Planet.
+*   @class
+*   @extends SpaceObject
+*/
+function Planet(config){
 	helpers.apply(config, this);
     this.maxMassPlanet = 2000;
     this.maxInitialSpeedPlanet = 100;

@@ -1,4 +1,9 @@
-﻿var LaunchPlatform = function(config){
+/**
+*   Represents the launch platform for ships.
+*   @class
+*   @extends SpaceObject
+*/
+var LaunchPlatform = function(config){
 	helpers.apply(config, this);
 	// Game logic fields
 	this.type = 'launchplatform';

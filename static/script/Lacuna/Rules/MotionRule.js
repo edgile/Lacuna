@@ -1,4 +1,9 @@
-﻿function MotionRule() {
+﻿/**
+*   Represents a rule to calculate the change in position over time.
+*   @class
+*   @extends RuleBase
+*/
+function MotionRule() {
 }
 
 MotionRule.inheritsFrom(RuleBase);
@@ -12,7 +17,7 @@ MotionRule.prototype.apply = function (spaceObjects, timeLapse) {
         var object = spaceObjects[i];
         if (!object.static) {
             var movement = object.direction.clone().multiplyScalar(timeInSeconds);
-            spaceObjects[i].setPosition(object.getPosition().addSelf(movement));
+            object.setPosition(object.getPosition().addSelf(movement));
         }
     }
 }

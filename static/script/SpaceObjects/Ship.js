@@ -1,4 +1,9 @@
-﻿var Ship = function(config){
+/**
+*   Represents a Ship.
+*   @class
+*   @extends SpaceObject
+*/
+var Ship = function(config){
 	helpers.apply(config, this);
 	// Game logic fields
 	this.type = 'ship';

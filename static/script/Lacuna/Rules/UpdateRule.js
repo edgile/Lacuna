@@ -1,4 +1,9 @@
-﻿function UpdateRule() {
+﻿/**
+*   Represents a rule that calls update on all objects.
+*   @class
+*   @extends RuleBase
+*/
+function UpdateRule() {
 }
 
 UpdateRule.inheritsFrom(RuleBase);

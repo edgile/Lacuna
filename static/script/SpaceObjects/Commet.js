@@ -1,4 +1,9 @@
-﻿function Commet(config) {
+/**
+*   Represents a commet.
+*   @class
+*   @extends SpaceObject
+*/
+function Commet(config) {
 	helpers.apply(this, config);
     this.maxSpeed = 1000;
 
