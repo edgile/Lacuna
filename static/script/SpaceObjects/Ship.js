@@ -1,4 +1,9 @@
-﻿function Ship() {
+﻿/**
+*   Represents a Ship.
+*   @class
+*   @extends SpaceObject
+*/
+function Ship() {
     this.maxTailLength = 250;
     this.tail = new PolyLine();
 

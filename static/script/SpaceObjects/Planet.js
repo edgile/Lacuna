@@ -1,4 +1,9 @@
-﻿function Planet(){
+﻿/**
+*   Represents a Planet.
+*   @class
+*   @extends SpaceObject
+*/
+function Planet() {
     this.maxMassPlanet = 2000;
     this.maxInitialSpeedPlanet = 100;
     this.influencedByGravity = true;

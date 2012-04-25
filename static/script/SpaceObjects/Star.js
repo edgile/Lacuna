@@ -1,4 +1,9 @@
-﻿function Star() {
+﻿/**
+*   Represents a Star.
+*   @class
+*   @extends SpaceObject
+*/
+function Star() {
     this.minMassStar = 300000;
     this.maxMassStar = 50000;
 

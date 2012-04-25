@@ -1,4 +1,9 @@
-﻿function CollisionRule() {
+﻿/**
+*   Represents a rule to calculate and handle collisions.
+*   @class
+*   @extends RuleBase
+*/
+function CollisionRule() {
 }
 
 CollisionRule.inheritsFrom(RuleBase);

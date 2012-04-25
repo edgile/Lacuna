@@ -1,4 +1,9 @@
-﻿function Commet() {
+﻿/**
+*   Represents a commet.
+*   @class
+*   @extends SpaceObject
+*/
+function Commet() {
     this.maxSpeed = 1000;
 
     this.setDensity(1);

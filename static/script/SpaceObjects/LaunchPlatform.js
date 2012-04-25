@@ -1,4 +1,9 @@
-﻿LaunchPlatform = function () {
+﻿/**
+*   Represents the launch platform for ships.
+*   @class
+*   @extends SpaceObject
+*/
+LaunchPlatform = function () {
     this.maxForce = 13000;
     this.timeToReachMaxForce = 1500;
 

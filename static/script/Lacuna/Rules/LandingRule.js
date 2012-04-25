@@ -1,4 +1,9 @@
-﻿function LandingRule() {
+﻿/**
+*   Represents a rule to check if a ship passes a landing zone.
+*   @class
+*   @extends RuleBase
+*/
+function LandingRule() {
 }
 
 LandingRule.inheritsFrom(RuleBase);

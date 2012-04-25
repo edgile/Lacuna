@@ -1,4 +1,9 @@
-﻿SpaceObject = function () {
+﻿/**
+*   Represents a SpaceObject.
+*   @class
+*   @abstract
+*/
+SpaceObject = function () {
     this.name = "Unknown";
 
     this.setStatus(SpaceObject.statusEnum.active);
@@ -21,11 +26,16 @@ SpaceObject.prototype.update = function (timeLapse) {
 SpaceObject.prototype.setRandomValues = function () {
 };
 
-SpaceObject.prototype.getPosition = function (position) {
+SpaceObject.prototype.getPosition = function () {
+    /// <summary>Gets the current position of the space object</summary>
+
     return this.position;
 };
 
 SpaceObject.prototype.setPosition = function (position) {
+    /// <summary>Sets the current position of the space object</summary>
+    /// <param name="position" mayBeNull="true" type="THREE.Vector2" parameterArray="false">New position for the SpaceObject</param>
+
     this.position = position;
 };
 

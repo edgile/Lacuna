@@ -1,5 +1,10 @@
-﻿var Space = function (config) {
+﻿/// <reference path="spaceobjects/spaceobject.js">
+
+var Space = function (config) {
     helpers.apply(config, this);
+
+    var sp = new SpaceObject();
+    sp.setPosition(
 
     if (!this.spaceObjects) this.spaceObjects = [];
     if (!this.rules) this.rules = Space.getDefaultRules();
