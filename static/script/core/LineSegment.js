@@ -5,8 +5,8 @@
 *   @param {THREE.Vector2} end - End point of the line segment.
 */
 var LineSegment = function (start, end) {
-    this.setStart(null);
-    this.setEnd(null);
+    this.setStart(start);
+    this.setEnd(end);
 }
 
 /**
