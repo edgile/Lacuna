@@ -32,7 +32,7 @@ Commet.prototype.setRandomValues = function () {
 Commet.prototype.render = function (context) {
     context.fillStyle = this.getGradient(context);
     context.beginPath();
-    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math2PI, true);
+    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math.PI * 2, true);
     context.closePath();
     context.fill();
 };

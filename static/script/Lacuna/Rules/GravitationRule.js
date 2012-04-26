@@ -57,7 +57,7 @@ GravitationRule.prototype.getDistanceGravitationFactor1 = function (distance) {
     var deviation = 25;
     var mean = 0;
 
-    var factor1 = 1 / deviation * Math.sqrt(Math2PI);
+    var factor1 = 1 / deviation * Math.sqrt(Math.PI * 2);
     var factor2 = Math.pow(Math.E, (-1 / 2) * Math.pow((distance - mean) / deviation, 2));
 
     return factor1 * factor2;

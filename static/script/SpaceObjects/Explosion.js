@@ -22,19 +22,19 @@ Explosion.prototype.render = function (context) {
 
         context.strokeStyle = "gray";
         context.beginPath();
-        context.arc(this.position.x, this.position.y, currentStatus, 0, Math2PI, true);
+        context.arc(this.position.x, this.position.y, currentStatus, 0, Math.PI * 2, true);
         context.stroke();
         context.closePath();
 
         context.strokeStyle = "gray";
         context.beginPath();
-        context.arc(this.position.x, this.position.y, currentStatus / 2, 0, Math2PI, true);
+        context.arc(this.position.x, this.position.y, currentStatus / 2, 0, Math.PI * 2, true);
         context.stroke();
         context.closePath();
 
         context.strokeStyle = "white";
         context.beginPath();
-        context.arc(this.position.x, this.position.y, currentStatus / 3, 0, Math2PI, true);
+        context.arc(this.position.x, this.position.y, currentStatus / 3, 0, Math.PI * 2, true);
         context.stroke();
         context.closePath();
 
