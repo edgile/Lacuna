@@ -11,39 +11,43 @@
 		<meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no">
 		<meta charset="utf-8" />
 		
-		<script type="text/javascript" src="script/main.js"></script>
+		<!-- Third party -->
+		<script src="resources/script/Three.js"></script>
+	    <script src="resources/script/Stats.js"></script>
+	    
+		<!-- Engine -->
+		<script src="script/engine/helpers.js"></script>
+		<script src="script/engine/engine.js"></script>
     	<script src="script/engine/renderers/canvas.js"></script>
 		<script src="script/engine/renderers/webgl.js"></script>
   		<script src="script/engine/controllers/touch.js"></script>
 		<script src="script/engine/controllers/mouse.js"></script>
 		<script src="script/engine/controllers/keyboard.js"></script>
-		
-	    <script type="text/javascript" src="script/engine/helpers.js"></script>
-	    <script type="text/javascript" src="resources/script/Three.js"></script>
-	    <script type="text/javascript" src="resources/script/Stats.js"></script>
-	    <script type="text/javascript" src="script/common.js"></script>
-        <script type="text/javascript" src="script/core/RuleBase.js"></script>
-	    <script type="text/javascript" src="script/core/LineSegment.js"></script>
-	    <script type="text/javascript" src="script/core/PolyLine.js"></script>
-	    <script type="text/javascript" src="script/Lacuna/rules/CollisionRule.js"></script>
-	    <script type="text/javascript" src="script/Lacuna/rules/GravitationRule.js"></script>
-	    <script type="text/javascript" src="script/Lacuna/rules/MotionRule.js"></script>
-	    <script type="text/javascript" src="script/Lacuna/rules/UpdateRule.js"></script>
-	    <script type="text/javascript" src="script/Lacuna/rules/LandingRule.js"></script>
-	    <script type="text/javascript" src="script/lacuna/levels/levels.js"></script>
-	    <script type="text/javascript" src="script/lacuna/levels/level.js"></script>
-	    <script type="text/javascript" src="script/lacuna/levels/test/randomstarsonlylevel.js"></script>
-	    <script type="text/javascript" src="script/lacuna/levels/test/randomlevel.js"></script>
-	    <script type="text/javascript" src="script/lacuna/levels/test/landinglevel.js"></script>
-	    <script type="text/javascript" src="script/lacuna/levels/test/onestarlevel.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/Spaceobject.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/LaunchPlatform.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/LandingZone.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/Planet.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/Star.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/Ship.js"></script>
-	    <script type="text/javascript" src="script/SpaceObjects/Explosion.js"></script>
-	    <script type="text/javascript" src="script/space.js"></script>
+	    <script src="script/engine/level.js"></script>
+	    <script src="script/engine/levels.js"></script>
+	    <script src="script/engine/space.js"></script>
+	    <script src="script/engine/spaceobject.js"></script>
+	    <script src="script/engine/core/rulebase.js"></script>
+	    <script src="script/engine/core/linesegment.js"></script>
+	    <script src="script/engine/core/polyline.js"></script>
+	    
+	    <!-- Game -->
+	    <script src="script/game/lacuna/rules/collisionrule.js"></script>
+	    <script src="script/game/lacuna/rules/gravitationrule.js"></script>
+	    <script src="script/game/lacuna/rules/motionrule.js"></script>
+	    <script src="script/game/lacuna/rules/updaterule.js"></script>
+	    <script src="script/game/lacuna/rules/landingrule.js"></script>
+	    <script src="script/game/lacuna/levels/test/randomstarsonlylevel.js"></script>
+	    <script src="script/game/lacuna/levels/test/randomlevel.js"></script>
+	    <script src="script/game/lacuna/levels/test/landinglevel.js"></script>
+	    <script src="script/game/lacuna/levels/test/onestarlevel.js"></script>
+	    <script src="script/game/lacuna/spaceobjects/launchplatform.js"></script>
+	    <script src="script/game/lacuna/spaceobjects/landingzone.js"></script>
+	    <script src="script/game/lacuna/spaceobjects/planet.js"></script>
+	    <script src="script/game/lacuna/spaceobjects/star.js"></script>
+	    <script src="script/game/lacuna/spaceobjects/ship.js"></script>
+	    <script src="script/game/lacuna/spaceobjects/explosion.js"></script>
+	 
 	    
 	    
 	    <script>
