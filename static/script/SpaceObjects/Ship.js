@@ -35,8 +35,8 @@ Ship.inheritsFrom(SpaceObject);
 Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, crashing: 3, landing: 4, landed: 5 };
 Ship.statusTimespan = { accelerating: 0, crashing: 5 };
 
-Ship.prototype.update = function(timeLapse){
-	// Update the status of the ship
+Ship.prototype.update = function (timeLapse) {
+    // Update the status of the ship
     var status = this.getStatus();
     if (status == Ship.statusEnum.accelerating && this.elapsedTime >= Ship.statusTimespan.accelerating) {
         this.setStatus(Ship.statusEnum.flying);
@@ -47,28 +47,27 @@ Ship.prototype.update = function(timeLapse){
     else if (status == Ship.statusEnum.crashing) {
         this.getDirection().setLength(((Ship.statusTimespan.crashing - this.elapsedTime) / Ship.statusTimespan.crashing) * this.getDirection().length());
     }
-	// Update the status of the visuals
-	if (this.getStatus() == Ship.statusEnum.crashing) {
-		this.crashShapes[0].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime) * 2;
-		this.crashShapes[1].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime);
-		this.crashShapes[2].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime) * 2 / 3;
-    	this.shapes = this.crashShapes;
+    // Update the status of the visuals
+    if (this.getStatus() == Ship.statusEnum.crashing) {
+        this.crashShapes[0].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime) * 2;
+        this.crashShapes[1].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime);
+        this.crashShapes[2].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime) * 2 / 3;
+        this.shapes = this.crashShapes;
     }
     else if (this.getStatus() == Ship.statusEnum.landing) {
         this.ship.color = "red";
-        this.flightShapes.pop();
     }
     else if (this.getStatus() == Ship.statusEnum.landed) {
-    	this.ship.color = "green";
-    	this.flightShapes.pop();
+        this.shapes = [this.ship];
+        this.ship.color = "green";
     }
     else if (this.getStatus() == Ship.statusEnum.finished) {
         // Do nothing ...
     }
     else {
-    	this.shapes = this.flightShapes;
+        this.shapes = this.flightShapes;
     }
-	this.elapsedTime += timeLapse;
+    this.elapsedTime += timeLapse;
 };
 
 Ship.prototype.setPosition = function (position) {
