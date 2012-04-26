@@ -76,7 +76,7 @@ LaunchPlatform.prototype.stop = function () {
 		var v = this.getLaunchForceVector();
 	    var s = new Ship({engine: this.engine});
 	    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
-	    s.setDirection(this.getLaunchForceVector().clone());
+	    s.setDirection(v.clone());
 		this.engine.level.space.addSpaceObject(s);
 	}
     this.forceVector = this.getCurrentForceVector();
