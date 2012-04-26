@@ -11,48 +11,51 @@ LandingRule.inheritsFrom(RuleBase);
 LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
     if (!spaceObjects) return;
 
-    var landingPlatform = this.getLandingZone(spaceObjects);
-    if (!landingPlatform) return;
+    var landingZone = this.getLandingZone(spaceObjects);
+    if (!landingZone) return;
 
-    var landingShips = this.getLandingShips(spaceObjects);
-    if (landingShips && landingShips.length > 0) {
-        for (var i = 0; i < landingShips.length; i++) {
-            this.steerShips(landingShips, landingPlatform.getPosition());
-        }
-    }
+    var allShips = this.getAllShips(spaceObjects);
+    if (allShips && allShips.length > 0) {
+        for (var i = 0, numberOfShips = allShips.length; i < numberOfShips; i++) {
+            var ship = allShips[i];
+            var shipStatus = ship.getStatus();
 
-    var ships = this.getFlyingShips(spaceObjects);
-    if (!ships || ships.length == 0) return;
-
-    for (var i = 0; i < ships.length; i++) {
-        var ship = ships[i];
-        var shipPreviousPosition = ship.getPreviousPosition();
-        if (shipPreviousPosition) {
-            var flightPath = new LineSegment(ship.position.clone(), shipPreviousPosition.clone());
-            var intersectionPoint = LineSegment.intersect(landingPlatform.getLineSegment(), flightPath);
-            if (intersectionPoint) {
-                ship.setStatus(Ship.statusEnum.landing);
+            if (shipStatus == Ship.statusEnum.landing) {
+                this.steerShip(ship, landingZone.getPosition());
+            } else if (shipStatus == Ship.statusEnum.accelerating || shipStatus == Ship.statusEnum.flying) {
+                if (this.crossedLandingZone(ship, landingZone)) {
+                    ship.setStatus(Ship.statusEnum.landing);
+                }
             }
         }
     }
 }
 
-LandingRule.prototype.steerShips = function (ships, targetPosition) {
-    for (var i = 0, numberOfShips = ships.length; i < numberOfShips; i++) {
-        var ship = ships[i];
-        if (ship.getPosition().distanceTo(targetPosition) < 2) {
-            ship.setPosition(targetPosition.clone());
-            ship.setStatus(Ship.statusEnum.landed);
-            continue;
-        }
-
+LandingRule.prototype.steerShip = function (ship, targetPosition) {
+    if (ship.getPosition().distanceTo(targetPosition) < 2) {
+        ship.setPosition(targetPosition.clone());
+        ship.setStatus(Ship.statusEnum.landed);
+    } else {
         var directionToHome = new THREE.Vector2();
         directionToHome.copy(targetPosition);
-        var brakePower = Math.max(ship.getDirection().length() / 8, 100);
+        var brakePower = Math.max(ship.getVelocity() / 8, 100);
         directionToHome.subSelf(ship.getPosition()).setLength(brakePower);
 
-        ship.getDirection().addSelf(directionToHome).multiplyScalar(.95);
+        var newDirection = ship.getDirection().clone().addSelf(directionToHome).multiplyScalar(.95);
+        ship.setDirection(newDirection);
     }
+}
+
+LandingRule.prototype.crossedLandingZone = function (ship, landingZone) {
+    var previousPosition = ship.getPreviousPosition();
+    if (previousPosition) {
+        var flightPath = new LineSegment(ship.position.clone(), previousPosition.clone());
+        var intersectionPoint = LineSegment.intersect(landingZone.getLineSegment(), flightPath);
+        if (intersectionPoint) {
+            return true;
+        }
+    }
+    return false;
 }
 
 LandingRule.prototype.getLandingZone = function (spaceObjects) {
@@ -63,32 +66,14 @@ LandingRule.prototype.getLandingZone = function (spaceObjects) {
     }
 }
 
-LandingRule.prototype.getFlyingShips = function (spaceObjects) {
+LandingRule.prototype.getAllShips = function (spaceObjects) {
     if (!spaceObjects) return;
 
     var result = [];
     for (var i = 0, numberOfObjects = spaceObjects.length; i < numberOfObjects; i++) {
         var object = spaceObjects[i];
         if (object instanceof Ship) {
-            if (object.getStatus() == Ship.statusEnum.accelerating ||
-                                    object.getStatus() == Ship.statusEnum.flying) {
-                result.push(object);
-            }
-        }
-    }
-    return result;
-}
-
-LandingRule.prototype.getLandingShips = function (spaceObjects) {
-    if (!spaceObjects) return;
-
-    var result = [];
-    for (var i = 0, numberOfObjects = spaceObjects.length; i < numberOfObjects; i++) {
-        var object = spaceObjects[i];
-        if (object instanceof Ship) {
-            if (object.getStatus() == Ship.statusEnum.landing) {
-                result.push(object);
-            }
+            result.push(object);
         }
     }
     return result;
