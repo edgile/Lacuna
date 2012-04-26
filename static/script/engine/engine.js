@@ -1,4 +1,8 @@
-﻿function Engine(config){
+﻿/**
+    Game engine
+    @class
+*/
+function Engine(config){
 	// Defaults
 	helpers.apply({
 		level: null,
@@ -23,6 +27,10 @@
 	this.animate();
 }
 
+/**
+Creates a statistics (FPS) UI elements and adds it to the current document.
+@function
+*/
 Engine.prototype.createStats = function(){
 	this.stats = new Stats();
 	this.stats.domElement.style.position = 'absolute';
@@ -30,7 +38,11 @@ Engine.prototype.createStats = function(){
     document.body.appendChild(this.stats.domElement);
 };
 
-
+/**
+Starts the main animation loop, should not be called directly
+@function
+@private
+*/
 Engine.prototype.animate = function() {
     requestAnimationFrame(this.animate.bind(this));
     var delta = this.clock.getDelta();
@@ -42,12 +54,19 @@ Engine.prototype.animate = function() {
     }
 };
 
+/**
+Initializes the controllers
+@function
+@private
+*/
 Engine.prototype.initializeControllers = function(){
+	// Currently the system just support two controllers, this should be turned into an array
 	this.buttonDown = false;
 	this.mousePosition = {x: 0, y: 0};
 	this.buttonDown2 = false;
 	this.mousePosition2 = {x: 0, y: 0};
 	this.controllers = [];
+	// Initialize the actual controllers
 	this.touchController = new touchController({engine: this});
 	this.controllers.push( this.touchController );
 	this.mouseController = new mouseController({engine: this});
