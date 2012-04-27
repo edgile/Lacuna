@@ -1,17 +1,21 @@
 ﻿var RandomStarsOnlyLevel = function (config) {
-	helpers.apply(this, config);
-    var result = new Level(
+    var defaultConfig = 
         {
-            identifier: "randomstarslevel",
+            id: "randomstarslevel",
+            gameId: Constants.gameId,
             name: "Randomly generated level (only stars)",
             world: 0,
             level: 0,
-            space: new Space({spaceObjects: this.getSpaceObjects(), rules: Space.getDefaultRules() })
-        }
-    );
+            rules: Constants.defaultRules
+        };
 
-    return result;
+    helpers.apply(defaultConfig, this);
+    helpers.apply(config, this);
+
+    this.spaceObjects = this.getSpaceObjects();
 };
+
+RandomStarsOnlyLevel.inheritsFrom(LacunaLevel);
 
 RandomStarsOnlyLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -36,4 +40,4 @@ RandomStarsOnlyLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-Levels.register("randomstarsonlylevel", RandomStarsOnlyLevel);
+Levels.register(Constants.gameId, "randomstarslevel", RandomStarsOnlyLevel);

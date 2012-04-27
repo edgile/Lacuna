@@ -1,17 +1,21 @@
 ﻿var OneStarLevel = function (config) {
-	helpers.apply(config, this);
-    var result = new Level(
+    var defaultConfig =
         {
-            identifier: "onestarlevel",
+            id: "onestarlevel",
+            gameId: Constants.gameId,
             name: "One star",
             world: 0,
             level: 0,
-            space: new Space({ spaceObjects: this.getSpaceObjects(), rules: Space.getDefaultRules() })
-        }
-    );
+            rules: Constants.defaultRules
+        };
+    
+    helpers.apply(defaultConfig, this);
+    helpers.apply(config, this);
 
-    return result;
+    this.spaceObjects = this.getSpaceObjects();
 };
+
+OneStarLevel.inheritsFrom(LacunaLevel);
 
 OneStarLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -33,4 +37,4 @@ OneStarLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-Levels.register("onestarlevel", OneStarLevel);
+Levels.register(Constants.gameId, "onestarlevel", OneStarLevel);

@@ -1,17 +1,20 @@
 ﻿var LandingLevel = function (config) {
-	helpers.apply(this, config);
-    var result = new Level(
+	var defaultConfig = 
         {
-            identifier: "landinglevel",
+            id: "landinglevel",
+            gameId: Constants.gameId,
             name: "Landing",
             world: 0,
             level: 0,
-            space: new Space({ spaceObjects: this.getSpaceObjects(), rules: Space.getDefaultRules() })
-        }
-    );
-
-    return result;
+            rules: Constants.defaultRules
+        };
+    helpers.apply(defaultConfig, this);
+    helpers.apply(config, this);
+    
+    this.spaceObjects = this.getSpaceObjects();
 };
+
+LandingLevel.inheritsFrom(LacunaLevel);
 
 LandingLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -28,4 +31,4 @@ LandingLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-Levels.register("landinglevel", LandingLevel);
+Levels.register(Constants.gameId, "landinglevel", LandingLevel);

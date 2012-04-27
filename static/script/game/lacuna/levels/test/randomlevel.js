@@ -1,17 +1,21 @@
 ﻿var RandomLevel = function (config) {
-	helpers.apply(this, config);
-    var result = new Level(
+    var defaultConfig = 
         {
-            identifier: "randomlevel",
+            id: "randomlevel",
+            gameId: Constants.gameId,
             name: "Randomly generated level",
             world: 0,
             level: 0,
-            space: new Space({spaceObjects: this.getSpaceObjects(), rules: Space.getDefaultRules() })
-        }
-    );
+            rules: Constants.defaultRules
+        };
 
-    return result;
+    helpers.apply(defaultConfig, this);
+    helpers.apply(config, this);
+    
+    this.spaceObjects = this.getSpaceObjects();
 };
+
+RandomLevel.inheritsFrom(LacunaLevel);
 
 RandomLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -43,4 +47,4 @@ RandomLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-Levels.register("randomlevel", RandomLevel);
+Levels.register(Constants.gameId, "randomlevel", RandomLevel);
