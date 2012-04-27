@@ -30,4 +30,4 @@ Games = {};
 
 Games.register = function (game) {
     Games[game.id] = game;
-}
+};
