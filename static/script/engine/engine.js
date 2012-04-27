@@ -20,10 +20,7 @@ function Engine(config){
 		this.createStats();
 	}
 	this.initializeControllers();
-	this.level = Levels.load({
-		name: this.levelName || 'onestarlevel',
-		engine: this
-	});
+	this.flow = new (Engine.games[this.game])({engine: this});
 	this.animate();
 }
 
@@ -39,15 +36,15 @@ Engine.prototype.createStats = function(){
 };
 
 /**
-Starts the main animation loop, should not be called directly
+Starts the main animation loop, should not be called directly.
 @function
 @private
 */
 Engine.prototype.animate = function() {
     requestAnimationFrame(this.animate.bind(this));
     var delta = this.clock.getDelta();
-    this.level.space.update(delta * this.timeFactor);
-    this.entities = this.level.space.spaceObjects;
+    this.flow.update(delta * this.timeFactor);
+    this.entities = this.flow.getEntities();;
     Engine.rendering[this.renderer].apply(this);
     if(this.showStats){
     	this.stats.update();
@@ -55,7 +52,7 @@ Engine.prototype.animate = function() {
 };
 
 /**
-Initializes the controllers
+Initializes the controllers, should not be called directly.
 @function
 @private
 */
@@ -75,5 +72,53 @@ Engine.prototype.initializeControllers = function(){
 	this.controllers.push( this.keyboardController );
 };
 
-// Registration point for rendering
+/**
+Registration point for rendering.
+@field
+@public
+@static
+@type Object
+*/
 Engine.rendering = {};
+
+/**
+Registration point for games.
+@field
+@public
+@static
+@type Object
+*/
+Engine.games = {};
+
+/**
+Stores a value in local storage. Will handle objects, will probably fail when called on the server.
+@function
+@public
+@static
+@type Object
+*/
+Engine.setItem = function(key, value) {
+    if (typeof value == "object") {
+        value = JSON.stringify(value);
+    }
+    localStorage.setItem(key, value);
+};
+
+/**
+Gets an object from local storage, if no value for key was found defaultValue is returned;
+@function
+@public
+@static
+@type Object
+*/
+Engine.getItem = function(key, defaultValue) {
+    var result = null;
+    if(typeof localStorage != 'undefined'){
+		result = localStorage.getItem(key);
+	    // assume it is an object that has been stringified
+	    if (result && result[0] == "{") {
+	        result = JSON.parse(result);
+	    }
+    }
+    return result || defaultValue;
+};

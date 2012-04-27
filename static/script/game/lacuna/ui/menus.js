@@ -5,13 +5,12 @@ var mainMenu = {
     '':{},
     'Start Game': {
         onMousePlaneUp: function (entity, evt) {
-            entity.engine.rules.startSinglePlayerGame();
+            entity.engine.flow.start();
         }
     },
     'SETTINGS': {
         onMousePlaneUp: function (entity, evt) {
-            //entity.engine.rules.toggleSettings();
-        	entity.engine.rules.menu.setItems(settingsMenu);
+        	entity.engine.flow.menu.setItems(settingsMenu);
         }
     }
 };
@@ -19,21 +18,21 @@ var mainMenu = {
 var settingsMenu = {
 	'AUDIO': {
 		onMousePlaneUp: function (entity, evt) {
-    		if(engine.getItem("effectsVolume",'0') === '0'){
-        		engine.effectsVolume = 10;
+    		if(Engine.getItem("effectsVolume",'0') === '0'){
+        		Engine.effectsVolume = 10;
         	}
         	else{
-        		engine.effectsVolume = 0;
+        		Engine.effectsVolume = 0;
         	}
     		// Persist the setting
-    		engine.setItem('effectsVolume', engine.effectsVolume);
-    		window.audio.setVolume(engine.effectsVolume);
+    		Engine.setItem('effectsVolume', Engine.effectsVolume);
+    		window.audio.setVolume(Engine.effectsVolume);
     		// Update the menu (so it now correctly says 2d/3d)
-    		entity.engine.rules.menu.setItems(settingsMenu);
+    		entity.engine.flow.menu.setItems(settingsMenu);
         },
         getText: function(menu){
         	var result;
-        	if(engine.getItem("effectsVolume",'0') === '0'){
+        	if(Engine.getItem("effectsVolume",'0') === '0'){
         		result = 'AUDIO: OFF';
         	}
         	else{
@@ -44,7 +43,7 @@ var settingsMenu = {
     },
     'VIDEO': {
     	onMousePlaneUp: function (entity, evt) {
-    		if(engine.getItem("renderer",'classic') === 'classic'){
+    		if(Engine.getItem("renderer",'canvas') === 'canvas'){
     			var webglAvailable = ( function () { 
     				try { 
     					return (!! window.WebGLRenderingContext && !! document.createElement( 'canvas' ).getContext( 'experimental-webgl' )); 
@@ -53,23 +52,23 @@ var settingsMenu = {
 					} 
 				} )();
     			if(webglAvailable){
-    				engine.renderer = 'webgl';
+    				Engine.renderer = 'webgl';
     			}
     			else{
     				alert('Sorry, 3D is not support by your bowser.');
     			}
         	}
         	else{
-        		engine.renderer = 'classic';
+        		Engine.renderer = 'canvas';
         	}
     		// Persist the setting
-    		engine.setItem('renderer', engine.renderer);
+    		Engine.setItem('renderer', Engine.renderer);
     		// Update the menu (so it now correctly says 2d/3d)
-    		entity.engine.rules.menu.setItems(settingsMenu);
+    		entity.engine.flow.menu.setItems(settingsMenu);
         },
         getText: function(menu){
         	var result;
-        	if(engine.getItem("renderer",'classic') === 'classic'){
+        	if(Engine.getItem("renderer",'canvas') === 'canvas'){
         		result = 'VIDEO: 2D';
         	}
         	else{
@@ -81,7 +80,7 @@ var settingsMenu = {
     '': {},
     'MAIN MENU': {
         onMousePlaneUp: function (entity, evt) {
-            entity.engine.rules.menu.setItems(mainMenu);
+            entity.engine.flow.menu.setItems(mainMenu);
         }
     }
 };

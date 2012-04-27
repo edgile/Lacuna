@@ -10,19 +10,20 @@ var menu = function (config) {
     helpers.apply(config, this);
     this.setItems(this.mainMenu);
 };
-menu.prototype = new entity();
 
 menu.prototype.gotoRoot = function () {
     this.setItems(this.mainMenu);
 };
 
 menu.prototype.onmouseup = function(entity, hit){
-	if(this.ignoreNextButtonUp){
-		this.ignoreNextButtonUp = false;
-	}
-	else{
-		if(this.selected && this.selected.onMousePlaneUp){
-			this.selected.onMousePlaneUp(this, this);
+	if(!this.hidden){
+		if(this.ignoreNextButtonUp){
+			this.ignoreNextButtonUp = false;
+		}
+		else{
+			if(this.selected && this.selected.onMousePlaneUp){
+				this.selected.onMousePlaneUp(this, this);
+			}
 		}
 	}
 };
@@ -66,11 +67,8 @@ menu.prototype.setItems = function(items){
 };
 
 menu.prototype.show = function (items) {
-    if (this.finished) {
-        this.finished = false;
-        if(!this.engine.contains(this)){
-        	this.engine.add(this);
-        }
+    if (this.hidden) {
+        this.hidden = false;
         this.gotoRoot();
     }
     if(items){
@@ -79,20 +77,17 @@ menu.prototype.show = function (items) {
 };
 
 menu.prototype.toggle = function () {
-    if (this.finished) {
-        this.finished = false;
-        if(!this.engine.contains(this)){
-        	this.engine.add(this);
-        }
+    if (this.hidden) {
+        this.hidden = false;
         this.gotoRoot();
     }
     else {
-        this.finished = true;
+        this.hidden = true;
     }
 };
 
 menu.prototype.hide = function () {
-    this.finished = true;
+    this.hidden = true;
 };
 
 menu.prototype.clear = function(){
@@ -116,18 +111,20 @@ menu.prototype.select = function(entity){
 };
 
 menu.prototype.update = function(time){
-	if(this.mousePosition && this.texts){
-		// Calculate item on the same height as the mouse
-		var index = Math.floor( (this.mousePosition.y - (this.engine.height / 3)) / 60 ) + 1;
-		if(index > -1 && index < this.texts.length && this.texts[index].onMousePlaneUp){
-			this.select(this.texts[index]);
-		    if(this.engine.touchController.touchable){
-		    	this.onmouseup(this.texts[index], true);
-		    	this.ignoreNextButtonUp = true;
-		    }
-		}
-		else{
-			this.select(null);
+	if(!this.hidden){
+		if(this.mousePosition && this.texts){
+			// Calculate item on the same height as the mouse
+			var index = Math.floor( (this.mousePosition.y - (this.engine.height / 3)) / 60 ) + 1;
+			if(index > -1 && index < this.texts.length && this.texts[index].onMousePlaneUp){
+				this.select(this.texts[index]);
+			    if(this.engine.touchController.touchable){
+			    	this.onmouseup(this.texts[index], true);
+			    	this.ignoreNextButtonUp = true;
+			    }
+			}
+			else{
+				this.select(null);
+			}
 		}
 	}
 };

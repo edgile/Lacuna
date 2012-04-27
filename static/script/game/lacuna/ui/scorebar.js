@@ -19,7 +19,6 @@ var scorebar = function(config){
 	this.modelIndex = -1;
 	this.color = '#00F';
 };
-scorebar.prototype = new entity();
 
 scorebar.prototype.addScoreBarItem = function(text, color, offsetLeft){
 	this.texts.push({

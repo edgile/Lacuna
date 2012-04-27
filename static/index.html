@@ -1,6 +1,8 @@
 <!doctype html> 
 <html>
+	
 	<head>
+	    
 	    <title>Lacuna</title>
 	    
      	<link rel="stylesheet" href="resources/css/style.css" type="text/css"/>
@@ -30,6 +32,7 @@
 	    <script src="script/engine/core/rulebase.js"></script>
 	    <script src="script/engine/core/linesegment.js"></script>
 	    <script src="script/engine/core/polyline.js"></script>
+	    <script src="script/engine/ui/menu.js"></script>
 	    
 	    <!-- Game -->
 	    <script src="script/game/lacuna/rules/collisionrule.js"></script>
@@ -47,16 +50,18 @@
 	    <script src="script/game/lacuna/spaceobjects/star.js"></script>
 	    <script src="script/game/lacuna/spaceobjects/ship.js"></script>
 	    <script src="script/game/lacuna/spaceobjects/explosion.js"></script>
+	    <script src="script/game/lacuna/ui/flow.js"></script>
+	    <script src="script/game/lacuna/ui/menus.js"></script>
+	    <script src="script/game/lacuna/ui/scorebar.js"></script>
 	 
-	    
-	    
 	    <script>
 	    	function onLoad(){
-	    		var engine = new Engine();
+	    		var engine = new Engine({ game: 'lacuna' });
 	    	}
 	    </script>
-	</head>
-	<body onload="onLoad();">
 	    
-	</body>
+	</head>
+	
+	<body onload="onLoad();"></body>
+
 </html>

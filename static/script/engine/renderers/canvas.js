@@ -13,7 +13,10 @@ Engine.rendering.canvas = function(suspend){
 		var topMost = [];
 		for(var i = 0, l = this.entities.length; i < l; i++){
 			var e = this.entities[i];
-			if(e.topMost){
+			if(e.hidden){
+				// Ignore hidden elements
+			}
+			else if(e.topMost){
 				topMost.push(e);
 			}
 			else {
