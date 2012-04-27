@@ -21,7 +21,8 @@ function Engine(config){
 	}
 	this.initializeControllers();
 	this.level = Levels.load({
-		name: this.levelName || 'onestarlevel',
+		gameId: this.gameId || 'lacuna',
+		levelId: this.levelName || 'onestarlevel',
 		engine: this
 	});
 	this.animate();
@@ -46,8 +47,8 @@ Starts the main animation loop, should not be called directly
 Engine.prototype.animate = function() {
     requestAnimationFrame(this.animate.bind(this));
     var delta = this.clock.getDelta();
-    this.level.space.update(delta * this.timeFactor);
-    this.entities = this.level.space.spaceObjects;
+    this.level.update(delta * this.timeFactor);
+    this.entities = this.level.spaceObjects;
     Engine.rendering[this.renderer].apply(this);
     if(this.showStats){
     	this.stats.update();
