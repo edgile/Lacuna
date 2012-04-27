@@ -47,7 +47,7 @@ flow.prototype.start = function(levelName){
 	this.engine.level = Levels.load({
 		gameId: 'lacuna',
 		levelId: this.levelName,
-		engine: this
+		engine: this.engine
 	});
 	this.menu.hide();
 };
