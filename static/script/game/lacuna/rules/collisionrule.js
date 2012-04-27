@@ -1,7 +1,7 @@
 ﻿/**
-*   Represents a rule to calculate and handle collisions.
-*   @class
-*   @extends RuleBase
+Represents a rule to calculate and handle collisions.
+@class
+@extends RuleBase
 */
 function CollisionRule() {
 }
