@@ -20,11 +20,7 @@ function Engine(config){
 		this.createStats();
 	}
 	this.initializeControllers();
-	this.level = Levels.load({
-		gameId: this.gameId || 'lacuna',
-		levelId: this.levelName || 'onestarlevel',
-		engine: this
-	});
+	this.flow = new (Engine.games[this.game])({engine: this});
 	this.animate();
 }
 

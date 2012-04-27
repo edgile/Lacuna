@@ -18,7 +18,7 @@ Level.prototype.backgroundImage = "";
 
 Level.prototype.addSpaceObject = function(object){
 	this.spaceObjects.push(object);
-}
+};
 
 Level.prototype.update = function (timeLapse) {
     this.removeFinishedObjects();

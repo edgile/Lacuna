@@ -19,7 +19,7 @@ function flow(config){
 }
 
 flow.prototype.update = function(timeLapse){
-	this.engine.level.space.update(timeLapse);
+	this.engine.level.update(timeLapse);
 	this.menu.update();
 };
 
@@ -31,7 +31,7 @@ flow.prototype.getEntities = function(){
 	if(!this.scorebar.hidden){
 		gameUI.push(this.scorebar);
 	}
-	return this.engine.level.space.spaceObjects.concat(gameUI);
+	return this.engine.level.spaceObjects.concat(gameUI);
 };
 
 flow.prototype.keyboardHandler = function(keyCode){
@@ -45,8 +45,9 @@ flow.prototype.defaultLevel = 'onestarlevel';
 flow.prototype.start = function(levelName){
 	this.levelName = levelName || this.levelName || this.defaultLevel;
 	this.engine.level = Levels.load({
-		name: this.levelName,
-		engine: this.engine
+		gameId: 'lacuna',
+		levelId: this.levelName,
+		engine: this
 	});
 	this.menu.hide();
 };
