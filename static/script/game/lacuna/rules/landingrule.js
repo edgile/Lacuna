@@ -1,7 +1,7 @@
 ﻿/**
-*   Represents a rule to check if a ship passes a landing zone.
-*   @class
-*   @extends RuleBase
+ * Represents a rule to check if a ship passes a landing zone.
+ * @class
+ * @extends RuleBase
 */
 function LandingRule() {
 }

@@ -1,7 +1,7 @@
 ﻿/**
-*   Represents a rule to calculate the change in position over time.
-*   @class
-*   @extends RuleBase
+ * Represents a rule to calculate the change in position over time.
+ * @class
+ * @extends RuleBase
 */
 function MotionRule() {
 }

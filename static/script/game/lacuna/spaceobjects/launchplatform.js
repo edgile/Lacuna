@@ -73,29 +73,16 @@ LaunchPlatform.prototype.start = function () {
 LaunchPlatform.prototype.stop = function () {
 	if(this.launchForceTimer && this.launchForceTimer.running){
 		this.launchForceTimer.stop();
-		var v = this.getLaunchForceVector();
+		var v = this.getCurrentForceVector();
 	    var s = new Ship({engine: this.engine});
 	    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
 	    s.setDirection(v.clone());
-		this.engine.level.space.addSpaceObject(s);
+		this.engine.level.addSpaceObject(s);
 	}
-    this.forceVector = this.getCurrentForceVector();
 };
 
 LaunchPlatform.prototype.getPosition = function () {
     return this.position;
-};
-
-LaunchPlatform.prototype.getLaunchForceDirection = function () {
-    var forceVector = this.getLaunchForceVector();
-    if (!forceVector) {
-        return new THREE.Vector2();
-    }
-    return forceVector.normalize();
-};
-
-LaunchPlatform.prototype.getLaunchForceVector = function () {
-    return this.forceVector;
 };
 
 LaunchPlatform.prototype.getCurrentForce = function () {

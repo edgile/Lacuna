@@ -1,4 +1,4 @@
-﻿/**
+/**
     Game engine
     @class
 */

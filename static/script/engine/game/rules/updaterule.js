@@ -1,7 +1,7 @@
 ﻿/**
-*   Represents a rule that calls update on all objects.
-*   @class
-*   @extends RuleBase
+Represents a rule that calls update on all objects.
+@class
+@extends RuleBase
 */
 function UpdateRule() {
 }
