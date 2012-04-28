@@ -12,32 +12,26 @@ function Explosion(position, direction) {
     this.setStatus(this.startStatus);
     this.setPosition(position);
     this.setDirection(direction);
+    this.crashShapes = [
+        {type: 'circle', width: 2, color: 'gray', center: {x: 0, y: 0}, radius: 0},
+        {type: 'circle', width: 2, color: 'gray', center: {x: 0, y: 0}, radius: 0},
+        {type: 'circle', width: 2, color: 'white', center: {x: 0, y: 0}, radius: 0}
+ 	];
+    this.shapes = this.crashShapes;
 };
 
 Explosion.inheritsFrom(SpaceObject);
 
-Explosion.prototype.render = function (context) {
+Explosion.prototype.update = function (timeLapse) {
     var currentStatus = this.getStatus();
     if (currentStatus > 0) {
-
-        context.strokeStyle = "gray";
-        context.beginPath();
-        context.arc(this.position.x, this.position.y, currentStatus, 0, Math.PI * 2, true);
-        context.stroke();
-        context.closePath();
-
-        context.strokeStyle = "gray";
-        context.beginPath();
-        context.arc(this.position.x, this.position.y, currentStatus / 2, 0, Math.PI * 2, true);
-        context.stroke();
-        context.closePath();
-
-        context.strokeStyle = "white";
-        context.beginPath();
-        context.arc(this.position.x, this.position.y, currentStatus / 3, 0, Math.PI * 2, true);
-        context.stroke();
-        context.closePath();
-
-        this.setStatus(currentStatus - 1);
+	    this.crashShapes[0].radius = currentStatus;
+	    this.crashShapes[1].radius = currentStatus;
+	    this.crashShapes[2].radius = currentStatus;
+	    this.setStatus(currentStatus - 1);
     }
+};
+
+Explosion.prototype.render = function (context) {
+
 };

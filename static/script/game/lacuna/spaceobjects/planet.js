@@ -10,6 +10,9 @@ function Planet(config){
     this.influencedByGravity = true;
 
     this.setDensity(10000);
+    //Visible elements
+    this.circle = {type: 'circle', color: 'blue', center: {x: 0, y: 0}, radius: 5, fill: true}; 
+    this.shapes = [this.circle];
 };
 
 Planet.inheritsFrom(SpaceObject);
@@ -35,9 +38,5 @@ Planet.prototype.setRandomValues = function () {
 };
 
 Planet.prototype.render = function (context) {
-    context.fillStyle = this.getGradient(context);
-    context.beginPath();
-    context.arc(this.position.x, this.position.y, this.getRadius(), 0, Math.PI * 2, true);
-    context.closePath();
-    context.fill();
+
 };
