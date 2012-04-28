@@ -53,7 +53,7 @@ menu.prototype.show = function (items) {
 menu.prototype.toggle = function () {
     if (this.hidden) {
         this.hidden = false;
-        this.gotoRoot();
+        //this.gotoRoot();
     }
     else {
         this.hidden = true;
