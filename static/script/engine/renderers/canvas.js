@@ -210,6 +210,12 @@ Engine.rendering.canvas.renderer = function(){
 		if(e.rects) {
 			this.drawRects(helpers.ceilPoint({x: e.position.x, y: e.position.y}), e.rects, e.color, true);
 		}
+		if(e.shapes){
+			for(var j = 0, l = e.shapes.length; j < l; j++ ){
+				var s = e.shapes[j];
+				drawingFunctions[s.type].apply(this, [e.position, s]);
+			}
+		}
 		if(e.texts){
 			for(var j = 0, l = e.texts.length; j < l; j++ ){
 				var t = e.texts[j];
@@ -217,12 +223,6 @@ Engine.rendering.canvas.renderer = function(){
 				this.context.textAlign = 'center';
 				this.context.fillStyle = t.color;
 				this.context.fillText(t.text, Math.ceil(t.position.x * this.scale) + this.offsetLeft, Math.ceil(t.position.y * this.scale) + this.offsetTop);
-			}
-		}
-		if(e.shapes){
-			for(var j = 0, l = e.shapes.length; j < l; j++ ){
-				var s = e.shapes[j];
-				drawingFunctions[s.type].apply(this, [e.position, s]);
 			}
 		}
 	};
