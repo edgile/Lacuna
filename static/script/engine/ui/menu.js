@@ -43,7 +43,7 @@ menu.prototype.setItems = function(items, layout){
 menu.prototype.show = function (items) {
     if (this.hidden) {
         this.hidden = false;
-        this.gotoRoot();
+        //this.gotoRoot();
     }
     if(items){
     	this.setItems(items);
