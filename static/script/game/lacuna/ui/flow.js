@@ -14,11 +14,16 @@ function flow(config){
 		mainMenu: mainMenu,
 		flow: this
 	});
-	this.start();
+	this.start(null, new randomAi({
+		engine: this.engine
+	}));
 	this.menu.show();
 }
 
 flow.prototype.update = function(timeLapse){
+	if(this.ai){
+		this.ai.update(timeLapse);
+	}
 	this.engine.level.update(timeLapse);
 	this.menu.update();
 };
@@ -42,7 +47,8 @@ flow.prototype.keyboardHandler = function(keyCode){
 
 flow.prototype.defaultLevel = 'onestarlevel';
 
-flow.prototype.start = function(levelName){
+flow.prototype.start = function(levelName, ai){
+	this.ai = ai;
 	this.levelName = levelName || this.levelName || this.defaultLevel;
 	this.engine.level = Levels.load({
 		gameId: 'lacuna',
