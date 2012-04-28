@@ -17,6 +17,12 @@ var mainMenu = {
         		};
         		}
         	}
+        	menuItems[''] = {};
+            menuItems['MAIN MENU'] = {
+                onMousePlaneUp: function (entity, evt) {
+                    entity.engine.flow.menu.setItems(mainMenu);
+                }
+            };
         	entity.engine.flow.menu.setItems(menuItems);
         }
     },
