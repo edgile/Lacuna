@@ -5,6 +5,7 @@
 */
 var LaunchPlatform = function(config){
 	helpers.apply(config, this);
+	
 	// Game logic fields
 	this.type = 'launchplatform';
 	this.position = this.position || {x:this.engine.width / 2, y: 50};
