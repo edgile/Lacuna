@@ -29,16 +29,39 @@ var LaunchPlatform = function(config){
     this.modelIndex = 1;
 	this.aimLine = {type: 'line', width: 3, color: 'gray', start: {x: 0, y: 39}, end: {x: 0, y: 48}};
 	this.forceLine = {type: 'line', width: 3, color: 'green', start: {x: 0, y: 0}, end: {x: 0, y: 0}};
-	this.shapes = [
+	this.defaultShapes = [
 	    {type: 'line', width: 2, color: 'red', start: {x: 0, y: 5}, end: {x: 0, y: -5}},
 	    {type: 'line', width: 2, color: 'red', start: {x: 5, y: 0}, end: {x: -5, y: 0}},
 	    {type: 'circle', width: 1, color: 'gray', center: {x: 0, y: 0}, radius: 40},
 	    this.aimLine,
 	    this.forceLine
 	];
+	this.shapes = this.defaultShapes;
 };
 
 LaunchPlatform.inheritsFrom(SpaceObject);
+
+LaunchPlatform.prototype.hidden = false;
+
+/**
+ * Makes the LaunchPlatform visible
+ * @public
+ */
+LaunchPlatform.prototype.show = function(){
+	this.hidden = false;
+	
+	this.shapes = this.defaultShapes;
+}
+
+/**
+ * Hides the LaunchPlatform
+ * @public
+ */
+LaunchPlatform.prototype.hide = function(){
+	this.hidden = true;
+
+	this.shapes = [];
+}
 
 LaunchPlatform.prototype.update = function(time){
 	if(this.engine.mode !== 'client'){   
@@ -65,14 +88,14 @@ LaunchPlatform.prototype.render = function(){
 };
 
 LaunchPlatform.prototype.start = function () {
-	if(!this.launchForceTimer || !this.launchForceTimer.running){
+	if(!this.hidden && !this.launchForceTimer || !this.launchForceTimer.running){
 		this.launchForceTimer = new THREE.Clock(false);
     	this.launchForceTimer.start();
 	}
 };
 
 LaunchPlatform.prototype.stop = function () {
-	if(this.launchForceTimer && this.launchForceTimer.running){
+	if(!this.hidden && this.launchForceTimer && this.launchForceTimer.running){
 		this.launchForceTimer.stop();
 		var v = this.getCurrentForceVector();
 		// Cancel launches with 0 force / direction

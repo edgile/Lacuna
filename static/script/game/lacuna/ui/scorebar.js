@@ -1,7 +1,6 @@
 /*
  *   Score bar
  */
-
 var scorebar = function(config){
 	helpers.apply(config, this);
 	this.name = 'scorebar';

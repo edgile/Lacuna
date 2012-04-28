@@ -5,16 +5,16 @@ var mainMenu = {
     '':{},
     'Start Game': {
         onMousePlaneUp: function (entity, evt) {
-        	var levels = Levels.getGameLevels('lacuna');
+        	var levels = Levels.getGameLevels(Constants.gameId);
         	var menuItems = {};
         	for (var s in levels){
         		if(levels.hasOwnProperty(s)){
-        		menuItems[levels[s].title] = {
-        			gameId: s,
-    		        onMousePlaneUp: function (item, evt) {        	
-    		        	entity.engine.flow.start(item.gameId);
-    		        }
-        		};
+	        		menuItems[levels[s].title] = {
+	        			gameId: s,
+	    		        onMousePlaneUp: function (item, evt) {        	
+	    		        	entity.engine.flow.start(item.gameId);
+	    		        }
+	        		};
         		}
         	}
         	menuItems[''] = {};
@@ -103,17 +103,18 @@ var settingsMenu = {
     }
 };
 
-var gameOverMenu = {
+var levelFinishedMenu = {
     '      GAME OVER': {},
     '': {},
-    '      PLAY AGAIN': {
+    '      RETRY': {
         onMousePlaneUp: function (entity, evt) {
-            entity.engine.rules[entity.engine.rules.currentGameType]();
+        	entity.engine.flow.start(entity.engine.level.id);
+        	entity.engine.flow.menu.hide();
         }
     },
     '      MAIN MENU': {
         onMousePlaneUp: function (entity, evt) {
-            entity.engine.rules.menu.setItems(mainMenu);
+            entity.engine.flow.menu.setItems(mainMenu);
         }
     }
 };

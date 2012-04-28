@@ -3,7 +3,8 @@
  * @class
  * @extends RuleBase
 */
-function LandingRule() {
+function LandingRule(config) {
+	helpers.apply(config, this);
 }
 
 LandingRule.inheritsFrom(RuleBase);

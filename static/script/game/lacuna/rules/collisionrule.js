@@ -3,7 +3,8 @@
  * @class
  * @extends RuleBase
 */
-function CollisionRule() {
+function CollisionRule(config) {
+	helpers.apply(config, this);
 }
 
 CollisionRule.inheritsFrom(RuleBase);

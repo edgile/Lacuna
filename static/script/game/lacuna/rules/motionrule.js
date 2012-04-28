@@ -3,7 +3,8 @@
  * @class
  * @extends RuleBase
 */
-function MotionRule() {
+function MotionRule(config) {
+	helpers.apply(config, this);
 }
 
 MotionRule.inheritsFrom(RuleBase);

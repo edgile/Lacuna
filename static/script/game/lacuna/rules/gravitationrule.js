@@ -1,11 +1,12 @@
-﻿var gravitationalConstant = .01;
-
-/**
+﻿/**
  * Represents a rule to calculate changes in direction due to gravitational force.
  * @class
  * @extends RuleBase
 */
-function GravitationRule() {
+function GravitationRule(config) {
+	this.gravitationalConstant = .01;
+	
+	helpers.apply(config, this);
 }
 
 GravitationRule.inheritsFrom(RuleBase);
@@ -44,7 +45,7 @@ GravitationRule.prototype.apply = function (spaceObjects, timeLapse) {
 };
 
 GravitationRule.prototype.getGravitationalForce = function (object1, object2) {
-    return gravitationalConstant * object1.mass * object2.mass * this.getDistanceGravitationFactor(object1.getDistance(object2));
+    return this.gravitationalConstant * object1.mass * object2.mass * this.getDistanceGravitationFactor(object1.getDistance(object2));
 };
 
 /* Default but less steep than nature! */

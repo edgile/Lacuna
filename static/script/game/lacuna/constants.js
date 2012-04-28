@@ -2,5 +2,12 @@ Constants = {
 	gameId: "lacuna",
 	name: "Lacuna",
 	
-	defaultRules: [new UpdateRule(), new GravitationRule(), new MotionRule(), new CollisionRule(), new LandingRule()]
+	getDefaultRules: function(config){
+		return [new UpdateRule(config), 
+	               new GravitationRule(config), 
+	               new MotionRule(config), 
+	               new CollisionRule(config), 
+	               new LandingRule(config), 
+	               new DefaultLevelMonitorRule(config)]
+	}
 };

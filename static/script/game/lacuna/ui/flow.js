@@ -1,7 +1,6 @@
 /**
 Main user interface flow for the game.
 @class
-
  */
 function flow(config){
 	helpers.apply(config, this);
@@ -22,10 +21,10 @@ function flow(config){
 }
 
 flow.prototype.update = function(timeLapse){
-	if(this.rightButtonDown != this.engine.rightButtonDown && this.rightButtonDown){
+	if(this.rightButtonDown != this.engine.buttonDown && this.buttonDown){
 		this.menu.toggle();
 	}
-	this.rightButtonDown = this.engine.rightButtonDown;
+	this.rightButtonDown = this.engine.buttonDown;
 	if(this.ai){
 		this.ai.update(timeLapse);
 	}
@@ -56,7 +55,7 @@ flow.prototype.start = function(levelName, ai){
 	this.ai = ai;
 	this.levelName = levelName || this.levelName || this.defaultLevel;
 	this.engine.level = Levels.load({
-		gameId: 'lacuna',
+		gameId: Constants.gameId,
 		levelId: this.levelName,
 		engine: this.engine
 	});

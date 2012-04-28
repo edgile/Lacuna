@@ -6,7 +6,7 @@
             name: "One star",
             world: 0,
             level: 0,
-            rules: Constants.defaultRules
+            rules: Constants.getDefaultRules(config)
         };
     
     helpers.apply(defaultConfig, this);

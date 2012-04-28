@@ -1,20 +1,23 @@
 ﻿/**
- * Generic definition of a game level
+ * Generic definition for a game level
  * @class
 */
 var Level = function (config) {
     helpers.apply(config, this);
 };
 
+Level.statusEnum = {finished: 0, paused: 1, playing: 2};
+
 Level.prototype.id = null;
 Level.prototype.gameId = null;
 Level.prototype.name = "Level name";
 Level.prototype.world = 0;
 Level.prototype.level = 0;
-Level.prototype.rules = [];
-Level.prototype.spaceObjects = [];
 Level.prototype.thumbnail = "";
 Level.prototype.backgroundImage = "";
+Level.prototype.status = Level.statusEnum.playing;
+Level.prototype.rules = [];
+Level.prototype.spaceObjects = [];
 
 Level.prototype.addSpaceObject = function(object){
 	this.spaceObjects.push(object);

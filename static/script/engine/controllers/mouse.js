@@ -2,10 +2,8 @@ var mouseController = function(config){
 	if(config && config.engine){
 		this.engine = config.engine;
 	}
-	this.buttonDown = false;
 	this.enabled = false;
 	this.controllerType = 'absolute'; // absolute (e.g. mouse) or relative (e.g. joystick)
-	this.mousePosition = {x:0, y:0};
 	this.touchable = 'createTouch' in document; // is this running in a touch capable environment?
 	if(!this.touchable) { // Disable the mouse controller for devices that support touch
 		this.enabled = true;
@@ -28,7 +26,7 @@ var mouseController = function(config){
 }; 
 
 mouseController.prototype.down = function (e) {  
-	this.buttonDown = true;
+	this.engine.buttonDown = true;
 };
 
 mouseController.prototype.move = function (e) {  
@@ -36,5 +34,5 @@ mouseController.prototype.move = function (e) {
 };
 
 mouseController.prototype.up = function (e) {  
-	this.buttonDown = false;
+	this.engine.buttonDown = false;
 };
