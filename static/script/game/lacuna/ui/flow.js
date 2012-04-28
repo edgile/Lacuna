@@ -5,6 +5,7 @@ Main user interface flow for the game.
  */
 function flow(config){
 	helpers.apply(config, this);
+	this.rightButtonDown = false;
 	this.engine.keyboardController.upListeners.push(this.keyboardHandler.bind(this));
 	this.scorebar = new scorebar({
 		engine: this.engine
@@ -14,11 +15,20 @@ function flow(config){
 		mainMenu: mainMenu,
 		flow: this
 	});
-	this.start();
+	this.start(null, new randomAi({
+		engine: this.engine
+	}));
 	this.menu.show();
 }
 
 flow.prototype.update = function(timeLapse){
+	if(this.rightButtonDown != this.engine.rightButtonDown && this.rightButtonDown){
+		this.menu.toggle();
+	}
+	this.rightButtonDown = this.engine.rightButtonDown;
+	if(this.ai){
+		this.ai.update(timeLapse);
+	}
 	this.engine.level.update(timeLapse);
 	this.menu.update();
 };
@@ -42,7 +52,8 @@ flow.prototype.keyboardHandler = function(keyCode){
 
 flow.prototype.defaultLevel = 'onestarlevel';
 
-flow.prototype.start = function(levelName){
+flow.prototype.start = function(levelName, ai){
+	this.ai = ai;
 	this.levelName = levelName || this.levelName || this.defaultLevel;
 	this.engine.level = Levels.load({
 		gameId: 'lacuna',

@@ -20,7 +20,7 @@ var LaunchPlatform = function(config){
     this.pointerLocation = null;
     this.launchForceTimer = null;
     this.forceVector = null;
-
+    this.previousForceDirection = new THREE.Vector2(0, 0);
     this.setPosition(new THREE.Vector2());
     this.setMass(1);
     this.setDensity(1);
@@ -75,10 +75,13 @@ LaunchPlatform.prototype.stop = function () {
 	if(this.launchForceTimer && this.launchForceTimer.running){
 		this.launchForceTimer.stop();
 		var v = this.getCurrentForceVector();
-	    var s = new Ship({engine: this.engine});
-	    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
-	    s.setDirection(v.clone());
-		this.engine.level.addSpaceObject(s);
+		// Cancel launches with 0 force / direction
+		if(v.x != 0 || v.y != 0){
+		    var s = new Ship({engine: this.engine});
+		    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
+		    s.setDirection(v.clone());
+			this.engine.level.addSpaceObject(s);
+		}
 	}
 };
 
@@ -100,9 +103,19 @@ LaunchPlatform.prototype.getCurrentForceVector = function () {
 
 LaunchPlatform.prototype.getCurrentForceDirection = function () {
     var result = new THREE.Vector2(0, 0);
-    if (!this.engine.mousePosition) return result;
-
-    result.sub(this.engine.mousePosition, this.position).normalize();
-
+    if (this.engine.mousePosition){
+    	if(this.engine.absoluteController){
+    		result.sub(this.engine.mousePosition, this.position).normalize();
+    	}
+    	else {
+    		if(this.engine.mousePosition.x == 0 && this.engine.mousePosition.y == 0){
+    			result = new THREE.Vector2(this.previousForceDirection.x, this.previousForceDirection.y).normalize();
+    		}
+    		else{
+    			result = new THREE.Vector2(this.engine.mousePosition.x, this.engine.mousePosition.y).normalize();
+    			this.previousForceDirection = new THREE.Vector2(this.engine.mousePosition.x, this.engine.mousePosition.y);
+    		}
+    	}
+	}	
     return result;
 };
