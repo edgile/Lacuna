@@ -37,4 +37,6 @@ OneStarLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
+OneStarLevel.title = "One star level";
+
 Levels.register(Constants.gameId, "onestarlevel", OneStarLevel);

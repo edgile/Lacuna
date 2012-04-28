@@ -5,11 +5,23 @@ var mainMenu = {
     '':{},
     'Start Game': {
         onMousePlaneUp: function (entity, evt) {
-            entity.engine.flow.start();
+        	var levels = Levels.getGameLevels('lacuna');
+        	var menuItems = {};
+        	for (var s in levels){
+        		if(levels.hasOwnProperty(s)){
+        		menuItems[levels[s].title] = {
+        			gameId: s,
+    		        onMousePlaneUp: function (item, evt) {        	
+    		        	entity.engine.flow.start(item.gameId);
+    		        }
+        		};
+        		}
+        	}
+        	entity.engine.flow.menu.setItems(menuItems);
         }
     },
     'SETTINGS': {
-        onMousePlaneUp: function (entity, evt) {
+        onMousePlaneUp: function (entity, evt) {        	
         	entity.engine.flow.menu.setItems(settingsMenu);
         }
     }
