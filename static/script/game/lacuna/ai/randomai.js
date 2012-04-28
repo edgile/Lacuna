@@ -17,6 +17,7 @@ randomAi.prototype.update = function(timeLapse){
 				Math.ceil(Math.random() * this.engine.height));
 		this.timeToReleaseButton = now + Math.ceil((Math.random() * 2000) + 500);
 	}
+	this.engine.absoluteController = true;
 	this.engine.mousePosition = this.mousePosition;
 	this.engine.buttonDown = ( this.timeToReleaseButton > now );
 
