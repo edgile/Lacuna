@@ -96,7 +96,7 @@ Engine.rendering.canvas.renderer = function(){
 			this.context.font = Math.ceil((config.size || 50) * this.scale) + 'px HeavyDataRegular';
 			this.context.textAlign = 'center';
 			this.context.fillStyle = config.color;
-			this.context.fillText(config.text, Math.ceil(position.x * this.scale) + this.offsetLeft, Math.ceil(position.y * this.scale) + this.offsetTop);
+			this.context.fillText(config.text, position.x * this.scale + this.offsetLeft, position.y * this.scale + this.offsetTop);
 		}
 		
 	};
