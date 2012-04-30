@@ -47,19 +47,24 @@ LineSegment.prototype.getLength = function () {
     @returns {THREE.Vector2} Returns the intersection point if the LineSegments intersect otherwise returns null.
 */
 LineSegment.intersect = function (segment1, segment2) {
-    var denominator = (segment2.end.y - segment2.start.y) * (segment1.end.x - segment1.start.x) - (segment2.end.x - segment2.start.x) * (segment1.end.y - segment2.start.y);
+	var A = segment1.start;
+	var B = segment1.end;
+	var C = segment2.start;
+	var D = segment2.end;
+	
+	var denominator = (B.x-A.x)*(D.y-C.y)-(B.y-A.y)*(D.x-C.x);
 
     // Parallel lines
     if (denominator == 0) return null;
 
-    var ua = ((segment2.end.x - segment2.start.x) * (segment1.start.y - segment2.start.y) - (segment2.end.y - segment2.start.y) * (segment1.start.x - segment2.start.x)) / denominator;
-    var ub = ((segment1.end.x - segment1.start.x) * (segment1.start.y - segment2.start.y) - (segment1.end.y - segment1.start.y) * (segment1.start.x - segment2.start.x)) / denominator;
+	var r = ((A.y-C.y)*(D.x-C.x)-(A.x-C.x)*(D.y-C.y))/denominator;
+	var s = ((A.y-C.y)*(B.x-A.x)-(A.x-C.x)*(B.y-A.y))/denominator;
 
     // Intersection on both line segments?
-    if (0 <= ua && ua <= 1 && 0 <= ub && ub <= 1) {
+    if (0 <= r && r <= 1 && 0 <= s && s <= 1) {
         var result = new THREE.Vector2();
-        result.x = segment1.start.x + ua * (segment1.end.x - segment1.start.x);
-        result.y = segment1.start.y + ua * (segment1.end.y - segment1.start.y);
+        result.x = A.x + r * (B.x-A.x);
+        result.y = A.y + r * (B.y-A.y);
 
         return result;
     }

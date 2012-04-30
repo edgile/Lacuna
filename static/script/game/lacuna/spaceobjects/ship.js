@@ -73,7 +73,7 @@ Ship.prototype.update = function (timeLapse) {
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
     if (this.position) {
-  	  if (this.tail.points.points.length == 0 || (this.tail.points.points.length > 0 && this.position.distanceTo(this.tail.points.points[this.tail.points.points.length - 1]) > 3)) {
+  	  if (this.tail.points.points.length == 0 || (this.tail.points.points.length > 0 && this.position.distanceTo(this.tail.points.points[this.tail.points.points.length - 1]) > 1)) {
 	      this.tail.points.addPoint(this.position.clone());
 	  }
     }
@@ -88,7 +88,7 @@ Ship.prototype.setPosition = function (position) {
 };
 
 Ship.prototype.getPreviousPosition = function () {
-    if (this.tail && this.tail.points.points.length > 1) return this.tail.points.points[this.tail.points.points.length - 2];
+    if (this.tail && this.tail.points.points.length > 1) return this.tail.points.points[this.tail.points.points.length - 1];
 };
 
 Ship.prototype.setStatus = function (status) {

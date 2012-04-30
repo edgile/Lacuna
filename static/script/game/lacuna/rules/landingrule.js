@@ -51,13 +51,13 @@ LandingRule.prototype.steerShip = function (ship, targetPosition) {
 };
 
 LandingRule.prototype.crossedLandingZone = function (ship, landingZone) {
-    var previousPosition = ship.getPreviousPosition();
-    if (previousPosition) {
-        var flightPath = new LineSegment(ship.position.clone(), previousPosition.clone());
-        var intersectionPoint = LineSegment.intersect(landingZone.getLineSegment(), flightPath);
-        if (intersectionPoint) {
-            return true;
-        }
+	var shipPosition = ship.position.clone();
+	var negativeDiretion = ship.getDirection().clone().negate().setLength(5);
+    var previousPosition = shipPosition.clone().addSelf(negativeDiretion);
+    var flightPath = new LineSegment(ship.position.clone(), previousPosition);
+    var intersectionPoint = landingZone.getLineSegment().intersectSelf(flightPath);
+    if (intersectionPoint) {
+        return true;
     }
     return false;
 };
