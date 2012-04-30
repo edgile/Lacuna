@@ -10,6 +10,7 @@ var ScoreBar = function(config){
 		y: this.engine.height - 36, 
 		z: -40
 	};
+	this.hidden = false;
 	this.direction = 1;
 	this.finished = false;
 	this.color = '#00F';
@@ -51,5 +52,3 @@ ScoreBar.prototype.setScore = function(identifier, newText){
 		}
 	}
 };
-
-
