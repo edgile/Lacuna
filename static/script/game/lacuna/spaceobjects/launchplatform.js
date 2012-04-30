@@ -11,6 +11,7 @@ var LaunchPlatform = function(config){
 	this.position = this.position || {x:this.engine.width / 2, y: 50};
     this.maxForce = 13000;
     this.timeToReachMaxForce = 1500;
+	this.shipsLaunched = 0;
 
     this.canCollide = false;
     this.influencedByGravity = false;
@@ -40,28 +41,6 @@ var LaunchPlatform = function(config){
 };
 
 LaunchPlatform.inheritsFrom(SpaceObject);
-
-LaunchPlatform.prototype.hidden = false;
-
-/**
- * Makes the LaunchPlatform visible
- * @public
- */
-LaunchPlatform.prototype.show = function(){
-	this.hidden = false;
-	
-	this.shapes = this.defaultShapes;
-}
-
-/**
- * Hides the LaunchPlatform
- * @public
- */
-LaunchPlatform.prototype.hide = function(){
-	this.hidden = true;
-
-	this.shapes = [];
-}
 
 LaunchPlatform.prototype.update = function(time){
 	if(this.engine.mode !== 'client'){   
@@ -104,6 +83,7 @@ LaunchPlatform.prototype.stop = function () {
 		    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
 		    s.setDirection(v.clone());
 			this.engine.level.addSpaceObject(s);
+			this.shipsLaunched += 1;
 		}
 	}
 };

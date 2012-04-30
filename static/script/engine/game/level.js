@@ -4,18 +4,19 @@
 */
 var Level = function (config) {
     helpers.apply(config, this);
+
+    this.status = Level.statusEnum.playing;
 };
 
 Level.statusEnum = {finished: 0, paused: 1, playing: 2};
 
 Level.prototype.id = null;
 Level.prototype.gameId = null;
-Level.prototype.name = "Level name";
+Level.prototype.title = "Level name";
 Level.prototype.world = 0;
 Level.prototype.level = 0;
 Level.prototype.thumbnail = "";
 Level.prototype.backgroundImage = "";
-Level.prototype.status = Level.statusEnum.playing;
 Level.prototype.rules = [];
 Level.prototype.spaceObjects = [];
 
@@ -54,3 +55,18 @@ Level.prototype.removeFinishedObjects = function () {
     }
     this.spaceObjects = newList;
 };
+
+/**
+ * Checks if default values are provided in the config
+ * @function
+ * @protected
+ */
+Level.prototype.getRuleConfig = function(config){
+	config = config  || {};
+	
+	if(!config.level){
+		config.level = this;
+	}
+	return config;
+};
+

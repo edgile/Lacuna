@@ -4,7 +4,9 @@
  * @extends RuleBase
 */
 function DefaultLevelMonitorRule(config) {
-	helpers.apply(config, this);
+	RuleBase.call(this, config);
+	
+	if(!this.maximumLaunches) this.maximumLaunches = 3;
 }
 
 DefaultLevelMonitorRule.inheritsFrom(RuleBase);
@@ -15,29 +17,35 @@ DefaultLevelMonitorRule.inheritsFrom(RuleBase);
  * @param {timeLapse} Time that has passed since the last call.
  */
 DefaultLevelMonitorRule.prototype.apply = function (spaceObjects, timeLapse) {
-    if (!spaceObjects) return;
-    if(this.engine.level.status == Level.statusEnum.finished) return;
+    if (!spaceObjects || this.engine.level.status == Level.statusEnum.finished){
+    	return;
+    }
+    
+    var launchPlatform = this.level.getLaunchPlatform();
+    if(launchPlatform.shipsLaunched == this.maximumLaunches) {
+    	launchPlatform.setStatus(SpaceObject.statusEnum.finished);
 
-    var ships = this.engine.level.getShips();
-    if(ships.length > 0 && DefaultLevelMonitorRule.anyShipLanded(ships)){
-    	this.engine.level.status = Level.statusEnum.finished;
-    	this.engine.flow.menu.setItems(levelFinishedMenu);
-    	this.engine.flow.menu.show();
+    	var ships = this.engine.level.getShips();
+        if((!ships || ships.length == 0) || DefaultLevelMonitorRule.allShipsLanded(ships)){
+        	this.level.status = Level.statusEnum.finished;
+        	this.engine.flow.menu.setItems(levelFinishedMenu);
+        	this.engine.flow.menu.show();
+        }
     }
 };
 
 /**
- * Gets if any of the ships has landed
+ * Gets if all ships are landed
  * @param {ships} Array of ships
  * @returns {boolean} True if any of the ships has the status landed, otherwise false
  */
-DefaultLevelMonitorRule.anyShipLanded = function(ships){
+DefaultLevelMonitorRule.allShipsLanded = function(ships){
 	if(ships && ships.length > 0){
 		for(var i = 0; i < ships.length; i++){
-			if(ships[i].getStatus() == Ship.statusEnum.landed){
-				return true;
+			if(ships[i].getStatus() != Ship.statusEnum.landed){
+				return false;
 			}
 		}
 	}
-	return false;
+	return true;
 };

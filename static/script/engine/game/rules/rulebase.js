@@ -2,7 +2,8 @@
 Base class for rules.
 @class
 */
-var RuleBase = function () {
+var RuleBase = function (config) {
+	helpers.apply(config, this);
 };
 
 /**

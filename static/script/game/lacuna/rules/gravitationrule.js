@@ -4,9 +4,9 @@
  * @extends RuleBase
 */
 function GravitationRule(config) {
+	RuleBase.call(this, config);
+
 	this.gravitationalConstant = .01;
-	
-	helpers.apply(config, this);
 }
 
 GravitationRule.inheritsFrom(RuleBase);

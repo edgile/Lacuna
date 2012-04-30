@@ -4,7 +4,7 @@
  * @extends RuleBase
 */
 function LandingRule(config) {
-	helpers.apply(config, this);
+	RuleBase.call(this, config);
 }
 
 LandingRule.inheritsFrom(RuleBase);
@@ -26,6 +26,7 @@ LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
             } else if (shipStatus == Ship.statusEnum.accelerating || shipStatus == Ship.statusEnum.flying) {
                 if (this.crossedLandingZone(ship, landingZone)) {
                     ship.setStatus(Ship.statusEnum.landing);
+                    this.level.score.shipsLanded += 1;
                 }
             }
         }

@@ -104,15 +104,15 @@ var settingsMenu = {
 };
 
 var levelFinishedMenu = {
-    '      GAME OVER': {},
+    'GAME OVER': {},
     '': {},
-    '      RETRY': {
+    'RETRY': {
         onMousePlaneUp: function (entity, evt) {
-        	entity.engine.flow.start(entity.engine.level.id);
         	entity.engine.flow.menu.hide();
+        	entity.engine.flow.start(entity.engine.level.levelId);
         }
     },
-    '      MAIN MENU': {
+    'MAIN MENU': {
         onMousePlaneUp: function (entity, evt) {
             entity.engine.flow.menu.setItems(mainMenu);
         }

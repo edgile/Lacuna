@@ -2,11 +2,15 @@
  * Base class for Lacuna levels
  * @class
  */
-LacunaLevel = function(config){
+function LacunaLevel(config){
+	Level.call(this, config);
+	
 	var defaultConfig = { gameId: Constants.gameId };
 	
     helpers.apply(defaultConfig, this);
     helpers.apply(config, this);
+    
+    this.score = new Score({level: this});
 };
 
 LacunaLevel.inheritsFrom(Level);

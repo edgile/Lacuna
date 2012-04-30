@@ -1,12 +1,11 @@
 ﻿var OneStarLevel = function (config) {
-    var defaultConfig =
+	LacunaLevel.call(this, config);
+
+	var defaultConfig =
         {
-            id: "onestarlevel",
-            gameId: Constants.gameId,
-            name: "One star",
             world: 0,
             level: 0,
-            rules: Constants.getDefaultRules(config)
+            rules: Constants.getDefaultRules(this.getRuleConfig(config))
         };
     
     helpers.apply(defaultConfig, this);
@@ -16,6 +15,10 @@
 };
 
 OneStarLevel.inheritsFrom(LacunaLevel);
+
+OneStarLevel.id = "onestarlevel";
+OneStarLevel.gameId = Constants.gameId;
+OneStarLevel.title = "One star level";
 
 OneStarLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -37,6 +40,4 @@ OneStarLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-OneStarLevel.title = "One star level";
-
-Levels.register(Constants.gameId, "onestarlevel", OneStarLevel);
+Levels.register(Constants.gameId, OneStarLevel.id, OneStarLevel);

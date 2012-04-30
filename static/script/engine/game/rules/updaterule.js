@@ -3,7 +3,8 @@ Represents a rule that calls update on all objects.
 @class
 @extends RuleBase
 */
-function UpdateRule() {
+function UpdateRule(config) {
+	helpers.apply(config, this);
 }
 
 UpdateRule.inheritsFrom(RuleBase);

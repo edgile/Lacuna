@@ -1,12 +1,11 @@
 ﻿var RandomStarsOnlyLevel = function (config) {
-    var defaultConfig = 
+	LacunaLevel.call(this, config);
+
+	var defaultConfig = 
         {
-            id: "randomstarslevel",
-            gameId: Constants.gameId,
-            name: "Randomly generated level (only stars)",
             world: 0,
             level: 0,
-            rules: Constants.getDefaultRules(config)
+            rules: Constants.getDefaultRules(this.getRuleConfig(config))
         };
 
     helpers.apply(defaultConfig, this);
@@ -16,6 +15,10 @@
 };
 
 RandomStarsOnlyLevel.inheritsFrom(LacunaLevel);
+
+RandomStarsOnlyLevel.id = "randomstarslevel";
+RandomStarsOnlyLevel.gameId = Constants.gameId;
+RandomStarsOnlyLevel.title = "Randomly generated level (only stars)";
 
 RandomStarsOnlyLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -40,6 +43,4 @@ RandomStarsOnlyLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-RandomStarsOnlyLevel.title = "Random stars only level";
-
-Levels.register(Constants.gameId, "randomstarslevel", RandomStarsOnlyLevel);
+Levels.register(Constants.gameId, RandomStarsOnlyLevel.id, RandomStarsOnlyLevel);

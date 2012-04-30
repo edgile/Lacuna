@@ -22,8 +22,7 @@ function Star(config) {
     this.shapes = [this.circle];
 };
 
-Star.prototype = new SpaceObject();
-Star.prototype.baseClass = SpaceObject.prototype;
+Star.inheritsFrom(SpaceObject);
 
 Star.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);

@@ -4,7 +4,7 @@
  * @extends RuleBase
 */
 function CollisionRule(config) {
-	helpers.apply(config, this);
+	RuleBase.call(this, config);
 }
 
 CollisionRule.inheritsFrom(RuleBase);

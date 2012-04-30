@@ -8,6 +8,7 @@ Constants = {
 	               new MotionRule(config), 
 	               new CollisionRule(config), 
 	               new LandingRule(config), 
+	               new FlightTimeRule(config),
 	               new DefaultLevelMonitorRule(config)]
 	}
 };

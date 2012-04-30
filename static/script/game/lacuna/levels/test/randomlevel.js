@@ -1,12 +1,11 @@
 ﻿var RandomLevel = function (config) {
-    var defaultConfig = 
+	LacunaLevel.call(this, config);
+
+	var defaultConfig = 
         {
-            id: "randomlevel",
-            gameId: Constants.gameId,
-            name: "Randomly generated level",
             world: 0,
             level: 0,
-            rules: Constants.getDefaultRules(config)
+            rules: Constants.getDefaultRules(this.getRuleConfig(config))
         };
 
     helpers.apply(defaultConfig, this);
@@ -16,6 +15,10 @@
 };
 
 RandomLevel.inheritsFrom(LacunaLevel);
+
+RandomLevel.id = "randomlevel";
+RandomLevel.gameId = Constants.gameId;
+RandomLevel.title = "Randomly generated level";
 
 RandomLevel.prototype.getSpaceObjects = function () {
     var result = [];
@@ -47,6 +50,4 @@ RandomLevel.prototype.getSpaceObjects = function () {
     return result;
 };
 
-RandomLevel.title = "Random level";
-
-Levels.register(Constants.gameId, "randomlevel", RandomLevel);
+Levels.register(Constants.gameId, RandomLevel.id, RandomLevel);
