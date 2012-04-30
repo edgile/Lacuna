@@ -1,0 +1,41 @@
+<!doctype html> 
+<html>
+	
+	<head>
+	    
+	    <title>SVG graphics tests</title>
+	      	
+		<!-- iOS device meta tags -->
+   		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no">
+		<meta charset="utf-8" />
+	    
+	    <script type="text/javascript">
+	    	function onLoad(){
+	    		// Add a canvas to the body
+	    		var canvas = document.createElement('canvas');
+	    		canvas.width = 960;
+	    		canvas.height = 640;
+	    		document.body.appendChild(canvas);
+	    		// Get the 2d context
+	    		var context = canvas.getContext('2d');
+	    		context.fillStyle = 'green';
+	    		context.fillRect(0, 0 , 960, 640);
+	    		// Load the svg
+	    		var svg = loadSvg('test.svg');
+	    		// Draw the background
+	    		context.drawImage(svg,90,130,50,60,10,10,50,60);
+	    	}
+	    	function loadSvg(url){
+    			var result = document.createElement('img');
+	    		result.src = url;
+	    		document.body.appendChild(result);
+    		}
+	    </script>
+	    
+	</head>
+	
+	<body onload="onLoad();"></body>
+
+</html>
