@@ -26,7 +26,7 @@ FlightTimeRule.prototype.apply = function (spaceObjects, timeLapse) {
 		    	}else{
 		    		ship.flightTime += timeLapse;
 		    	}
-		    	this.engine.level.score.flightTimeScore += timeLapse;
+		    	this.engine.level.score.addPoints(10 * timeLapse / this.engine.timeFactor);
 		    	if(ship.flightTime > this.maxFlightTime){
 		    		ship.setStatus(Ship.statusEnum.crashing);
 		    	}

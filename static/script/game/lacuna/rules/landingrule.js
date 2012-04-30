@@ -26,7 +26,9 @@ LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
             } else if (shipStatus == Ship.statusEnum.accelerating || shipStatus == Ship.statusEnum.flying) {
                 if (this.crossedLandingZone(ship, landingZone)) {
                     ship.setStatus(Ship.statusEnum.landing);
-                    this.level.score.shipsLanded += 1;
+                    this.level.score.shipLanded();
+                    // TODO: Points dependent on landing location
+    		    	this.level.score.addPoints(100);
                 }
             }
         }

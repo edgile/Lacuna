@@ -6,8 +6,9 @@ function flow(config){
 	helpers.apply(config, this);
 	this.rightButtonDown = false;
 	this.engine.keyboardController.upListeners.push(this.keyboardHandler.bind(this));
-	this.scorebar = new scorebar({
-		engine: this.engine
+	this.scoreBar = new ScoreBar({
+		engine: this.engine,
+		hidden: false
 	});
 	this.menu = new menu({
 		engine: this.engine,
@@ -37,8 +38,8 @@ flow.prototype.getEntities = function(){
 	if(!this.menu.hidden){
 		gameUI.push(this.menu);
 	}
-	if(!this.scorebar.hidden){
-		gameUI.push(this.scorebar);
+	if(!this.scoreBar.hidden){
+		gameUI.push(this.scoreBar);
 	}
 	return this.engine.level.spaceObjects.concat(gameUI);
 };
@@ -59,6 +60,7 @@ flow.prototype.start = function(levelName, ai){
 		levelId: this.levelName,
 		engine: this.engine
 	});
+	this.scoreBar.reset();
 	this.menu.hide();
 };
 
