@@ -4,7 +4,8 @@
 *   @extends SpaceObject
 */
 var Ship = function(config){
-	helpers.apply(config, this);
+	SpaceObject.call(this, config);
+
 	// Game logic fields
 	this.type = 'ship';
 	this.position = this.position || new THREE.Vector2(0,0);

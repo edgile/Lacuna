@@ -4,7 +4,7 @@
 *   @extends SpaceObject
 */
 var LaunchPlatform = function(config){
-	helpers.apply(config, this);
+	SpaceObject.call(this, config);
 	
 	// Game logic fields
 	this.type = 'launchplatform';

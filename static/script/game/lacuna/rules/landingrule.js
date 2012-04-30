@@ -5,16 +5,25 @@
 */
 function LandingRule(config) {
 	RuleBase.call(this, config);
+	
+	if(!this.pointsForLanding) this.pointsForLanding = 500; 
 }
 
 LandingRule.inheritsFrom(RuleBase);
 
+/**
+ * Applies the rule to the spaceObjects
+ * @param {spaceObjects} Array of spaceObjects
+ * @param {timeLapse} Time that has passed since the last call.
+ * @returns Array of spaceObjects
+ */
 LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
     if (!spaceObjects) return;
 
     var landingZone = this.getLandingZone(spaceObjects);
     if (!landingZone) return;
 
+    var newSpaceObjects = [];
     var allShips = this.getAllShips(spaceObjects);
     if (allShips && allShips.length > 0) {
         for (var i = 0, numberOfShips = allShips.length; i < numberOfShips; i++) {
@@ -24,15 +33,25 @@ LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
             if (shipStatus == Ship.statusEnum.landing) {
                 this.steerShip(ship, landingZone.getPosition());
             } else if (shipStatus == Ship.statusEnum.accelerating || shipStatus == Ship.statusEnum.flying) {
-                if (this.crossedLandingZone(ship, landingZone)) {
-                    ship.setStatus(Ship.statusEnum.landing);
-                    this.level.score.shipLanded();
-                    // TODO: Points dependent on landing location
-    		    	this.level.score.addPoints(300);
+            	var crossingPoint = this.crossingPoint(ship, landingZone);
+                if (crossingPoint) {
+                	newSpaceObjects = newSpaceObjects.concat(this.startLandingShip(ship, landingZone, crossingPoint));
                 }
             }
         }
     }
+    return newSpaceObjects;
+};
+
+LandingRule.prototype.startLandingShip = function(ship, landingZone, crossingPoint){
+    ship.setStatus(Ship.statusEnum.landing);
+    this.level.score.shipLanded();
+    
+    var distanceFromOptimum = landingZone.getPosition().distanceTo(crossingPoint);
+    var points = this.pointsForLanding * (landingZone.halfWidth - distanceFromOptimum) / landingZone.halfWidth; 
+	this.level.score.addPoints(points);
+	
+	return [new TextSpaceObject({text: Math.floor(points), position: ship.getPosition().clone(), direction: ship.getDirection().clone().setLength(500)})];
 };
 
 LandingRule.prototype.steerShip = function (ship, targetPosition) {
@@ -50,16 +69,17 @@ LandingRule.prototype.steerShip = function (ship, targetPosition) {
     }
 };
 
-LandingRule.prototype.crossedLandingZone = function (ship, landingZone) {
+/**
+ * Gets the crossing point of a ship over the landing zone.
+ * @param {ship} ship to test for a crossing
+ * @returns null if no crossing happened else coordinates of the crossing point
+ */
+LandingRule.prototype.crossingPoint = function (ship, landingZone) {
 	var shipPosition = ship.position.clone();
 	var negativeDiretion = ship.getDirection().clone().negate().setLength(5);
     var previousPosition = shipPosition.clone().addSelf(negativeDiretion);
     var flightPath = new LineSegment(ship.position.clone(), previousPosition);
-    var intersectionPoint = landingZone.getLineSegment().intersectSelf(flightPath);
-    if (intersectionPoint) {
-        return true;
-    }
-    return false;
+    return landingZone.getLineSegment().intersectSelf(flightPath);
 };
 
 LandingRule.prototype.getLandingZone = function (spaceObjects) {

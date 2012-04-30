@@ -35,7 +35,7 @@ DefaultLevelMonitorRule.prototype.apply = function (spaceObjects, timeLapse) {
 };
 
 /**
- * Gets if all ships are landed
+ * Gets a boolean indicating if all ships are landed.
  * @param {ships} Array of ships
  * @returns {boolean} True if any of the ships has the status landed, otherwise false
  */

@@ -4,7 +4,8 @@
 *   @extends SpaceObject
 */
 function Star(config) {
-	helpers.apply(config, this);
+	SpaceObject.call(this, config);
+
 	// Game logic fields
 	this.type = 'star';
     this.minMassStar = 300000;

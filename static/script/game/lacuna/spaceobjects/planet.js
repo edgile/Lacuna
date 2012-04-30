@@ -4,8 +4,9 @@
 *   @extends SpaceObject
 */
 function Planet(config){
-	helpers.apply(config, this);
-    this.maxMassPlanet = 2000;
+	SpaceObject.call(this, config);
+
+	this.maxMassPlanet = 2000;
     this.maxInitialSpeedPlanet = 100;
     this.influencedByGravity = true;
 
