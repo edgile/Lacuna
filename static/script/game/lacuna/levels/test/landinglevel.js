@@ -5,6 +5,7 @@
         {
             world: 0,
             level: 0,
+            scoreRequirements: {totalPoints: {bronze: 100, silver: 200, gold: 300}, shipsLanded: {bronze: 1, silver: 2, gold: 3}},
             rules: Constants.getDefaultRules(this.getRuleConfig(config))
         };
     helpers.apply(defaultConfig, this);
