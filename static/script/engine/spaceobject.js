@@ -5,6 +5,7 @@
 */
 SpaceObject = function () {
     this.name = "Unknown";
+    this.status = SpaceObject.statusEnum.active;
 
     this.setStatus(SpaceObject.statusEnum.active);
 };
