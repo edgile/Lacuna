@@ -103,18 +103,34 @@ var settingsMenu = {
     }
 };
 
-var levelFinishedMenu = {
-    'GAME OVER': {},
-    '': {},
-    'RETRY': {
-        onMousePlaneUp: function (entity, evt) {
-        	entity.engine.flow.menu.hide();
-        	entity.engine.flow.start(entity.engine.level.levelId);
-        }
-    },
-    'MAIN MENU': {
-        onMousePlaneUp: function (entity, evt) {
-            entity.engine.flow.menu.setItems(mainMenu);
-        }
-    }
+var levelFinishedMenu = function(config) {
+	var result = {};
+	result[config.result.text] = {};
+	result[''] = {};
+	result['RETRY'] = {
+	        onMousePlaneUp: function (entity, evt) {
+	        	entity.engine.flow.menu.hide();
+	        	entity.engine.flow.start(entity.engine.level.levelId);
+	        }
+	    };
+	if(config.result.passed){
+		result['NEXT'] = {
+		        onMousePlaneUp: function (entity, evt) {
+		        	alert("TODO: Implementation ...");
+		        }
+		    };
+	}
+	result['SELECT LEVEL'] = {
+	        onMousePlaneUp: function (entity, evt) {
+	        	alert("TODO: Implementation ...");
+	        }
+	    };
+	result[''] = {};
+	result['MAIN MENU'] = {
+	        onMousePlaneUp: function (entity, evt) {
+	            entity.engine.flow.menu.setItems(mainMenu);
+	        }
+	    }; 
+	
+	return result;
 };

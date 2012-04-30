@@ -28,7 +28,7 @@ DefaultLevelMonitorRule.prototype.apply = function (spaceObjects, timeLapse) {
     	var ships = this.engine.level.getShips();
         if((!ships || ships.length == 0) || DefaultLevelMonitorRule.allShipsLanded(ships)){
         	this.level.status = Level.statusEnum.finished;
-        	this.engine.flow.menu.setItems(levelFinishedMenu);
+        	this.engine.flow.menu.setItems(new levelFinishedMenu({result: this.level.score.getResult()}));
         	this.engine.flow.menu.show();
         }
     }

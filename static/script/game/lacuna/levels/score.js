@@ -31,6 +31,14 @@ Score.prototype.initialize = function(){
 	}
 };
 
+Score.prototype.getResult = function(){
+	if(this.shipsLanded > 0){
+		return {passed: true, text: "Passed" };
+	}else{
+		return {passed: false, text: "Failed" };
+	}
+};
+
 Score.prototype.shipLanded = function(){
 	this.shipsLanded += 1;
 	if(this.scoreBar){
