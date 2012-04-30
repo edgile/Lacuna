@@ -28,7 +28,7 @@ LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
                     ship.setStatus(Ship.statusEnum.landing);
                     this.level.score.shipLanded();
                     // TODO: Points dependent on landing location
-    		    	this.level.score.addPoints(100);
+    		    	this.level.score.addPoints(300);
                 }
             }
         }
