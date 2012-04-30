@@ -11,7 +11,7 @@
 <span class='line'>  4</span> *   @extends SpaceObject
 <span class='line'>  5</span> */</span><span class="WHIT">
 <span class='line'>  6</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">LaunchPlatform</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">config</span><span class="PUNC">)</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>  7</span> </span><span class="WHIT">	</span><span class="NAME">helpers.apply</span><span class="PUNC">(</span><span class="NAME">config</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="WHIT">	</span><span class="NAME">SpaceObject.call</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">config</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>  8</span> </span><span class="WHIT">	</span><span class="WHIT">
 <span class='line'>  9</span> </span><span class="WHIT">	</span><span class="COMM">// Game logic fields</span><span class="WHIT">
 <span class='line'> 10</span> </span><span class="WHIT">	</span><span class="NAME">this.type</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'launchplatform'</span><span class="PUNC">;</span><span class="WHIT">
