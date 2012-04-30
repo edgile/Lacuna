@@ -58,8 +58,10 @@ flow.prototype.start = function(levelName, ai){
 	this.engine.level = Levels.load({
 		gameId: Constants.gameId,
 		levelId: this.levelName,
-		engine: this.engine
+		engine: this.engine,
+		aiMode: this.ai != null
 	});
+	this.scoreBar.hidden = this.ai != null;
 	this.scoreBar.reset();
 	this.menu.hide();
 };
