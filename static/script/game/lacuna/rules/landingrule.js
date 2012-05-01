@@ -48,7 +48,7 @@ LandingRule.prototype.startLandingShip = function(ship, landingZone, crossingPoi
     this.level.score.shipLanded();
     
     var distanceFromOptimum = landingZone.getPosition().distanceTo(crossingPoint);
-    var points = this.pointsForLanding * (landingZone.halfWidth - distanceFromOptimum) / landingZone.halfWidth; 
+    var points = this.pointsForLanding + this.pointsForLanding * (landingZone.halfWidth - distanceFromOptimum) / landingZone.halfWidth; 
 	this.level.score.addPoints(points);
 	
 	return [new TextSpaceObject({text: Math.floor(points), position: ship.getPosition().clone(), direction: ship.getDirection().clone().setLength(500)})];
@@ -76,7 +76,7 @@ LandingRule.prototype.steerShip = function (ship, targetPosition) {
  */
 LandingRule.prototype.crossingPoint = function (ship, landingZone) {
 	var shipPosition = ship.position.clone();
-	var negativeDiretion = ship.getDirection().clone().negate().setLength(5);
+	var negativeDiretion = ship.getDirection().clone().negate().setLength(10);
     var previousPosition = shipPosition.clone().addSelf(negativeDiretion);
     var flightPath = new LineSegment(ship.position.clone(), previousPosition);
     return landingZone.getLineSegment().intersectSelf(flightPath);
