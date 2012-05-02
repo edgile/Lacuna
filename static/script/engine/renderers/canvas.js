@@ -39,6 +39,13 @@ Engine.rendering.canvas = function(suspend){
 Engine.rendering.canvas.renderer = function(){
 
 	var drawingFunctions = {
+		'sprite': function(position, config){
+			this.engine.flow.spriteManager.draw(config.file, config.sprite, this.context, this.fixXY(position, config.position), this.scale);
+		},
+		'spritebackground': function(position, config){
+			position = config.position || position;
+			this.engine.flow.spriteManager.drawBackground(config.file, config.sprite, this.context);
+		},
 		'line': function(position, config){
 			position = config.position || position;
 			this.context.strokeStyle = config.color;
@@ -114,6 +121,10 @@ Engine.rendering.canvas.renderer = function(){
 	
 	renderer.prototype.fixY = function(position, point){
 		return ((position.y + point.y) * this.scale) + this.offsetTop;
+	};
+	
+	renderer.prototype.fixXY = function(position, point){
+		return {x: this.fixX(position, point), y: this.fixY(position, point)};
 	};
 	
 	renderer.prototype.suspend = function(suspend){

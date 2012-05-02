@@ -22,6 +22,7 @@
 		<script src="script/engine/engine.js"></script>
     	<script src="script/engine/renderers/canvas.js"></script>
 		<script src="script/engine/renderers/webgl.js"></script>
+		<script src="script/engine/renderers/spritemanager.js"></script>
 	    <script src="script/engine/game/level.js"></script>
 	    <script src="script/engine/game/levels.js"></script>
 		<script src="script/engine/game/rules/rulebase.js"></script>
@@ -35,6 +36,7 @@
 	    <script src="script/engine/ui/menu.js"></script>
 	    
 	    <!-- Game -->
+	    <script src="script/game/lacuna/ui/background.js"></script>
 	    <script src="script/game/lacuna/rules/collisionrule.js"></script>
 	    <script src="script/game/lacuna/rules/gravitationrule.js"></script>
 	    <script src="script/game/lacuna/rules/motionrule.js"></script>
@@ -61,7 +63,10 @@
 	    
 	    <script type="text/javascript">
 	    	function onLoad(){
-	    		var engine = new Engine({ game: 'lacuna' });
+	    		var engine = new Engine({ 
+	    			game: 'lacuna',
+	    			showStats: true
+    			});
 	    	}
 	    </script>
 	    

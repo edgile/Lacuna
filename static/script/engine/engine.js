@@ -31,7 +31,7 @@ Creates a statistics (FPS) UI elements and adds it to the current document.
 Engine.prototype.createStats = function(){
 	this.stats = new Stats();
 	this.stats.domElement.style.position = 'absolute';
-	this.stats.domElement.style.top = '0px';
+	this.stats.domElement.style.top = '20px';
     document.body.appendChild(this.stats.domElement);
 };
 
