@@ -4,7 +4,8 @@
 *   @extends SpaceObject
 */
 function Commet(config) {
-	helpers.apply(this, config);
+	SpaceObject.call(this, config);
+	
     this.maxSpeed = 1000;
 
     this.setDensity(1);

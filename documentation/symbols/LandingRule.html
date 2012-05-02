@@ -195,17 +195,29 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Commet.html">Commet</a></li>
 	
+	<li><a href="../symbols/DefaultLevelMonitorRule.html">DefaultLevelMonitorRule</a></li>
+	
+	<li><a href="../symbols/Engine.html">Engine</a></li>
+	
 	<li><a href="../symbols/Explosion.html">Explosion</a></li>
+	
+	<li><a href="../symbols/FlightTimeRule.html">FlightTimeRule</a></li>
+	
+	<li><a href="../symbols/flow.html">flow</a></li>
 	
 	<li><a href="../symbols/Function.html">Function</a></li>
 	
 	<li><a href="../symbols/GravitationRule.html">GravitationRule</a></li>
+	
+	<li><a href="../symbols/LacunaLevel.html">LacunaLevel</a></li>
 	
 	<li><a href="../symbols/LandingRule.html">LandingRule</a></li>
 	
 	<li><a href="../symbols/LandingZone.html">LandingZone</a></li>
 	
 	<li><a href="../symbols/LaunchPlatform.html">LaunchPlatform</a></li>
+	
+	<li><a href="../symbols/Level.html">Level</a></li>
 	
 	<li><a href="../symbols/LineSegment.html">LineSegment</a></li>
 	
@@ -219,11 +231,15 @@ ul.inheritsList
 	
 	<li><a href="../symbols/RuleBase.html">RuleBase</a></li>
 	
+	<li><a href="../symbols/Score.html">Score</a></li>
+	
 	<li><a href="../symbols/Ship.html">Ship</a></li>
 	
 	<li><a href="../symbols/SpaceObject.html">SpaceObject</a></li>
 	
 	<li><a href="../symbols/Star.html">Star</a></li>
+	
+	<li><a href="../symbols/TextSpaceObject.html">TextSpaceObject</a></li>
 	
 	<li><a href="../symbols/UpdateRule.html">UpdateRule</a></li>
 	
@@ -249,7 +265,7 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_lacuna_rules_LandingRule.js.html">LandingRule.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_game_lacuna_rules_landingrule.js.html">landingrule.js</a>.
 				
 			</p>
 
@@ -268,7 +284,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/LandingRule.html#constructor">LandingRule</a></b>()
+								<b><a href="../symbols/LandingRule.html#constructor">LandingRule</a></b>(config)
 							</div>
 							<div class="description">Represents a rule to check if a ship passes a landing zone.</div>
 						</td>
@@ -297,25 +313,25 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#apply">apply</a></b>(spaceObjects, timeLapse)
+								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#apply">apply</a></b>(Array, Time)
 								</div>
-								<div class="description"></div>
+								<div class="description">Applies the rule to the spaceObjects</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#getFlyingShips">getFlyingShips</a></b>(spaceObjects)
+								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#crossingPoint">crossingPoint</a></b>(ship, landingZone)
 								</div>
-								<div class="description"></div>
+								<div class="description">Gets the crossing point of a ship over the landing zone.</div>
 							</td>
 						</tr>
 					
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#getLandingShips">getLandingShips</a></b>(spaceObjects)
+								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#getAllShips">getAllShips</a></b>(spaceObjects)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -333,7 +349,16 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#steerShips">steerShips</a></b>(ships, targetPosition)
+								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#startLandingShip">startLandingShip</a></b>(ship, landingZone, crossingPoint)
+								</div>
+								<div class="description"></div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/LandingRule.html#steerShip">steerShip</a></b>(ship, targetPosition)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -360,7 +385,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>LandingRule</b>()
+						<b>LandingRule</b>(config)
 				</div>
 				
 				<div class="description">
@@ -371,6 +396,17 @@ ul.inheritsList
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								 <b>config</b>
+								
+							</dt>
+								<dd></dd>
+						
+						</dl>
 					
 					
 					
@@ -395,11 +431,11 @@ ul.inheritsList
 					<div class="fixedFont">
 					
 					
-					<b>apply</b>(spaceObjects, timeLapse)
+					<b>apply</b>(Array, Time)
 					
 					</div>
 					<div class="description">
-						
+						Applies the rule to the spaceObjects
 						
 						
 					</div>
@@ -411,16 +447,16 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>spaceObjects</b>
+									<span class="light fixedFont">{spaceObjects}</span> <b>Array</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>of spaceObjects</dd>
 							
 								<dt>
-									<b>timeLapse</b>
+									<span class="light fixedFont">{timeLapse}</span> <b>Time</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>that has passed since the last call.</dd>
 							
 							</dl>
 						
@@ -428,20 +464,27 @@ ul.inheritsList
 						
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>Array of spaceObjects</dd>
+							
+							</dl>
+						
 						
 						
 
 					<hr />
 				
-					<a name="getFlyingShips"> </a>
+					<a name="crossingPoint"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>getFlyingShips</b>(spaceObjects)
+					<b>crossingPoint</b>(ship, landingZone)
 					
 					</div>
 					<div class="description">
-						
+						Gets the crossing point of a ship over the landing zone.
 						
 						
 					</div>
@@ -453,7 +496,13 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>spaceObjects</b>
+									<span class="light fixedFont">{ship}</span> <b>ship</b>
+									
+								</dt>
+								<dd>to test for a crossing</dd>
+							
+								<dt>
+									<b>landingZone</b>
 									
 								</dt>
 								<dd></dd>
@@ -464,16 +513,23 @@ ul.inheritsList
 						
 						
 						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>null if no crossing happened else coordinates of the crossing point</dd>
+							
+							</dl>
+						
 						
 						
 
 					<hr />
 				
-					<a name="getLandingShips"> </a>
+					<a name="getAllShips"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>getLandingShips</b>(spaceObjects)
+					<b>getAllShips</b>(spaceObjects)
 					
 					</div>
 					<div class="description">
@@ -541,11 +597,11 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="steerShips"> </a>
+					<a name="startLandingShip"> </a>
 					<div class="fixedFont">
 					
 					
-					<b>steerShips</b>(ships, targetPosition)
+					<b>startLandingShip</b>(ship, landingZone, crossingPoint)
 					
 					</div>
 					<div class="description">
@@ -561,7 +617,55 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>ships</b>
+									<b>ship</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>landingZone</b>
+									
+								</dt>
+								<dd></dd>
+							
+								<dt>
+									<b>crossingPoint</b>
+									
+								</dt>
+								<dd></dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="steerShip"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>steerShip</b>(ship, targetPosition)
+					
+					</div>
+					<div class="description">
+						
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<b>ship</b>
 									
 								</dt>
 								<dd></dd>
@@ -595,7 +699,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 25 2012 22:15:39 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue May 01 2012 00:04:01 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

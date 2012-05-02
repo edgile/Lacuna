@@ -4,8 +4,9 @@
 *   @extends SpaceObject
 */
 function LandingZone(config) {
-	helpers.apply(this, config);
-    this.width = 0;
+	SpaceObject.call(this, config);
+
+	this.width = 0;
     this.halfWidth = 0;
     this.lineSegment = null;
 

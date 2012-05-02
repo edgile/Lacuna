@@ -3,11 +3,13 @@
 *   @class
 *   @abstract
 */
-SpaceObject = function () {
+ function SpaceObject(config) {
     this.name = "Unknown";
     this.status = SpaceObject.statusEnum.active;
 
-    this.setStatus(SpaceObject.statusEnum.active);
+    helpers.apply(config, this);
+
+    this.setStatus(this.status);
 };
 
 SpaceObject.prototype.position = null;
@@ -27,16 +29,19 @@ SpaceObject.prototype.update = function (timeLapse) {
 SpaceObject.prototype.setRandomValues = function () {
 };
 
+/**
+ * Gets the current position of the space object
+ * @function
+ */
 SpaceObject.prototype.getPosition = function () {
-    /// <summary>Gets the current position of the space object</summary>
-
     return this.position;
 };
 
+/**
+ * Sets the current position of the space object
+ * @param {position} New position for the SpaceObject
+ */
 SpaceObject.prototype.setPosition = function (position) {
-    /// <summary>Sets the current position of the space object</summary>
-    /// <param name="position" mayBeNull="true" type="THREE.Vector2" parameterArray="false">New position for the SpaceObject</param>
-
     this.position = position;
 };
 
@@ -90,7 +95,4 @@ SpaceObject.prototype.getAngle = function (body) {
     result.normalize();
 
     return result;
-};
-
-SpaceObject.prototype.render = function (context2d) {
 };

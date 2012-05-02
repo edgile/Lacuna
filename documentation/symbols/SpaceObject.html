@@ -195,17 +195,29 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Commet.html">Commet</a></li>
 	
+	<li><a href="../symbols/DefaultLevelMonitorRule.html">DefaultLevelMonitorRule</a></li>
+	
+	<li><a href="../symbols/Engine.html">Engine</a></li>
+	
 	<li><a href="../symbols/Explosion.html">Explosion</a></li>
+	
+	<li><a href="../symbols/FlightTimeRule.html">FlightTimeRule</a></li>
+	
+	<li><a href="../symbols/flow.html">flow</a></li>
 	
 	<li><a href="../symbols/Function.html">Function</a></li>
 	
 	<li><a href="../symbols/GravitationRule.html">GravitationRule</a></li>
+	
+	<li><a href="../symbols/LacunaLevel.html">LacunaLevel</a></li>
 	
 	<li><a href="../symbols/LandingRule.html">LandingRule</a></li>
 	
 	<li><a href="../symbols/LandingZone.html">LandingZone</a></li>
 	
 	<li><a href="../symbols/LaunchPlatform.html">LaunchPlatform</a></li>
+	
+	<li><a href="../symbols/Level.html">Level</a></li>
 	
 	<li><a href="../symbols/LineSegment.html">LineSegment</a></li>
 	
@@ -219,11 +231,15 @@ ul.inheritsList
 	
 	<li><a href="../symbols/RuleBase.html">RuleBase</a></li>
 	
+	<li><a href="../symbols/Score.html">Score</a></li>
+	
 	<li><a href="../symbols/Ship.html">Ship</a></li>
 	
 	<li><a href="../symbols/SpaceObject.html">SpaceObject</a></li>
 	
 	<li><a href="../symbols/Star.html">Star</a></li>
+	
+	<li><a href="../symbols/TextSpaceObject.html">TextSpaceObject</a></li>
 	
 	<li><a href="../symbols/UpdateRule.html">UpdateRule</a></li>
 	
@@ -247,7 +263,7 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_SpaceObjects_SpaceObject.js.html">SpaceObject.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_engine_spaceobject.js.html">spaceobject.js</a>.
 				
 			</p>
 
@@ -266,7 +282,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/SpaceObject.html#constructor">SpaceObject</a></b>()
+								<b><a href="../symbols/SpaceObject.html#constructor">SpaceObject</a></b>(config)
 							</div>
 							<div class="description">Represents a SpaceObject.</div>
 						</td>
@@ -324,7 +340,7 @@ ul.inheritsList
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/SpaceObject.html#getPosition">getPosition</a></b>()
 								</div>
-								<div class="description"></div>
+								<div class="description">Gets the current position of the space object</div>
 							</td>
 						</tr>
 					
@@ -376,15 +392,6 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/SpaceObject.html#render">render</a></b>(context2d)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/SpaceObject.html#setDensity">setDensity</a></b>(density)
 								</div>
 								<div class="description"></div>
@@ -412,9 +419,9 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/SpaceObject.html#setPosition">setPosition</a></b>(position)
+								<div class="fixedFont"><b><a href="../symbols/SpaceObject.html#setPosition">setPosition</a></b>(New)
 								</div>
-								<div class="description"></div>
+								<div class="description">Sets the current position of the space object</div>
 							</td>
 						</tr>
 					
@@ -462,7 +469,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>SpaceObject</b>()
+						<b>SpaceObject</b>(config)
 				</div>
 				
 				<div class="description">
@@ -473,6 +480,17 @@ ul.inheritsList
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								 <b>config</b>
+								
+							</dt>
+								<dd></dd>
+						
+						</dl>
 					
 					
 					
@@ -598,7 +616,7 @@ ul.inheritsList
 					
 					</div>
 					<div class="description">
-						
+						Gets the current position of the space object
 						
 						
 					</div>
@@ -740,42 +758,6 @@ ul.inheritsList
 
 					<hr />
 				
-					<a name="render"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>render</b>(context2d)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context2d</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
 					<a name="setDensity"> </a>
 					<div class="fixedFont">
 					
@@ -888,11 +870,11 @@ ul.inheritsList
 					<div class="fixedFont">
 					
 					
-					<b>setPosition</b>(position)
+					<b>setPosition</b>(New)
 					
 					</div>
 					<div class="description">
-						
+						Sets the current position of the space object
 						
 						
 					</div>
@@ -904,10 +886,10 @@ ul.inheritsList
 							<dt class="heading">Parameters:</dt>
 							
 								<dt>
-									<b>position</b>
+									<span class="light fixedFont">{position}</span> <b>New</b>
 									
 								</dt>
-								<dd></dd>
+								<dd>position for the SpaceObject</dd>
 							
 							</dl>
 						
@@ -1029,7 +1011,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 25 2012 22:15:39 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue May 01 2012 00:04:01 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>

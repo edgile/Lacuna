@@ -9,6 +9,12 @@ function MotionRule(config) {
 
 MotionRule.inheritsFrom(RuleBase);
 
+/**
+ * Applies the rule to the spaceObjects
+ * @param {spaceObjects} Array of spaceObjects
+ * @param {timeLapse} Time that has passed since the last call.
+ * @returns Array of spaceObjects
+ */
 MotionRule.prototype.apply = function (spaceObjects, timeLapse) {
     if (!spaceObjects) return;
 

@@ -28,14 +28,14 @@ DefaultLevelMonitorRule.prototype.apply = function (spaceObjects, timeLapse) {
     	var ships = this.engine.level.getShips();
         if((!ships || ships.length == 0) || DefaultLevelMonitorRule.allShipsLanded(ships)){
         	this.level.status = Level.statusEnum.finished;
-        	this.engine.flow.menu.setItems(levelFinishedMenu);
+        	this.engine.flow.menu.setItems(new levelFinishedMenu({result: this.level.score.getResult()}));
         	this.engine.flow.menu.show();
         }
     }
 };
 
 /**
- * Gets if all ships are landed
+ * Gets a boolean indicating if all ships are landed.
  * @param {ships} Array of ships
  * @returns {boolean} True if any of the ships has the status landed, otherwise false
  */

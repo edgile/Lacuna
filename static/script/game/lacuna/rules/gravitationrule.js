@@ -11,6 +11,11 @@ function GravitationRule(config) {
 
 GravitationRule.inheritsFrom(RuleBase);
 
+/**
+ * Applies the rule to the spaceObjects
+ * @param {spaceObjects} Array of spaceObjects
+ * @param {timeLapse} Time that has passed since the last call.
+ */
 GravitationRule.prototype.apply = function (spaceObjects, timeLapse) {
     if (!spaceObjects) return;
 
@@ -53,7 +58,7 @@ GravitationRule.prototype.getDistanceGravitationFactor = function (distance) {
     return 1 / Math.pow(distance, 1.5);
 };
 
-/* Experiment to have gravitational force folow a gaussian curve */
+/* Experiment to have gravitational force follow a Gaussian curve */
 GravitationRule.prototype.getDistanceGravitationFactor1 = function (distance) {
     var deviation = 25;
     var mean = 0;

@@ -56,7 +56,7 @@ CollisionRule.prototype.mergeSpaceObjects = function (object1, object2) {
 
     victim.setStatus(SpaceObject.statusEnum.finished);
 
-    return new Explosion(victim.getPosition().clone(), victim.getDirection().clone());
+    return new Explosion({position: victim.getPosition().clone(), direction:victim.getDirection().clone()});
 };
 
 CollisionRule.prototype.getDirectionAfterCollission = function (object1, object2) {

@@ -4,7 +4,8 @@
 *   @extends SpaceObject
 */
 var Ship = function(config){
-	helpers.apply(config, this);
+	SpaceObject.call(this, config);
+
 	// Game logic fields
 	this.type = 'ship';
 	this.position = this.position || new THREE.Vector2(0,0);
@@ -73,7 +74,7 @@ Ship.prototype.update = function (timeLapse) {
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
     if (this.position) {
-  	  if (this.tail.points.points.length == 0 || (this.tail.points.points.length > 0 && this.position.distanceTo(this.tail.points.points[this.tail.points.points.length - 1]) > 1)) {
+  	  if (this.tail.points.points.length == 0 || (this.tail.points.points.length > 0 && this.position.distanceTo(this.tail.points.points[this.tail.points.points.length - 1]) > 3)) {
 	      this.tail.points.addPoint(this.position.clone());
 	  }
     }

@@ -195,17 +195,29 @@ ul.inheritsList
 	
 	<li><a href="../symbols/Commet.html">Commet</a></li>
 	
+	<li><a href="../symbols/DefaultLevelMonitorRule.html">DefaultLevelMonitorRule</a></li>
+	
+	<li><a href="../symbols/Engine.html">Engine</a></li>
+	
 	<li><a href="../symbols/Explosion.html">Explosion</a></li>
+	
+	<li><a href="../symbols/FlightTimeRule.html">FlightTimeRule</a></li>
+	
+	<li><a href="../symbols/flow.html">flow</a></li>
 	
 	<li><a href="../symbols/Function.html">Function</a></li>
 	
 	<li><a href="../symbols/GravitationRule.html">GravitationRule</a></li>
+	
+	<li><a href="../symbols/LacunaLevel.html">LacunaLevel</a></li>
 	
 	<li><a href="../symbols/LandingRule.html">LandingRule</a></li>
 	
 	<li><a href="../symbols/LandingZone.html">LandingZone</a></li>
 	
 	<li><a href="../symbols/LaunchPlatform.html">LaunchPlatform</a></li>
+	
+	<li><a href="../symbols/Level.html">Level</a></li>
 	
 	<li><a href="../symbols/LineSegment.html">LineSegment</a></li>
 	
@@ -219,11 +231,15 @@ ul.inheritsList
 	
 	<li><a href="../symbols/RuleBase.html">RuleBase</a></li>
 	
+	<li><a href="../symbols/Score.html">Score</a></li>
+	
 	<li><a href="../symbols/Ship.html">Ship</a></li>
 	
 	<li><a href="../symbols/SpaceObject.html">SpaceObject</a></li>
 	
 	<li><a href="../symbols/Star.html">Star</a></li>
+	
+	<li><a href="../symbols/TextSpaceObject.html">TextSpaceObject</a></li>
 	
 	<li><a href="../symbols/UpdateRule.html">UpdateRule</a></li>
 	
@@ -249,7 +265,7 @@ ul.inheritsList
 				
 				
 				
-					<br /><i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_SpaceObjects_Ship.js.html">Ship.js</a>.
+					<br /><i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_game_lacuna_spaceobjects_ship.js.html">ship.js</a>.
 				
 			</p>
 
@@ -268,7 +284,7 @@ ul.inheritsList
 						<td class="attributes">&nbsp;</td>
 						<td class="nameDescription" >
 							<div class="fixedFont">
-								<b><a href="../symbols/Ship.html#constructor">Ship</a></b>()
+								<b><a href="../symbols/Ship.html#constructor">Ship</a></b>(config)
 							</div>
 							<div class="description">Represents a Ship.</div>
 						</td>
@@ -297,15 +313,6 @@ ul.inheritsList
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#getGradient">getGradient</a></b>(context)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Ship.html#getPreviousPosition">getPreviousPosition</a></b>()
 								</div>
 								<div class="description"></div>
@@ -316,69 +323,6 @@ ul.inheritsList
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/Ship.html#getRadius">getRadius</a></b>()
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#getRemoteData">getRemoteData</a></b>()
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#render">render</a></b>(context)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#renderCrache">renderCrache</a></b>(context)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#renderLanded">renderLanded</a></b>(context)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#renderLanding">renderLanding</a></b>(context)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#renderRemoteData">renderRemoteData</a></b>(remoteData, offset)
-								</div>
-								<div class="description"></div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont"><b><a href="../symbols/Ship.html#renderTail">renderTail</a></b>(context)
 								</div>
 								<div class="description"></div>
 							</td>
@@ -432,7 +376,7 @@ ul.inheritsList
 				</div>
 				
 				<div class="fixedFont">
-						<b>Ship</b>()
+						<b>Ship</b>(config)
 				</div>
 				
 				<div class="description">
@@ -443,6 +387,17 @@ ul.inheritsList
 				
 				
 				
+					
+						<dl class="detailList">
+						<dt class="heading">Parameters:</dt>
+						
+							<dt>
+								 <b>config</b>
+								
+							</dt>
+								<dd></dd>
+						
+						</dl>
 					
 					
 					
@@ -462,42 +417,6 @@ ul.inheritsList
 				<div class="sectionTitle">
 					Method Detail
 				</div>
-				
-					<a name="getGradient"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>getGradient</b>(context)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
 				
 					<a name="getPreviousPosition"> </a>
 					<div class="fixedFont">
@@ -539,259 +458,6 @@ ul.inheritsList
 					
 					
 					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="getRemoteData"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>getRemoteData</b>()
-					
-					</div>
-					<div class="description">
-						
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_game_ship.js.html">ship.js</a>.
-						
-						
-					</div>
-					
-					
-					
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="render"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>render</b>(context)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="renderCrache"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>renderCrache</b>(context)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="renderLanded"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>renderLanded</b>(context)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="renderLanding"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>renderLanding</b>(context)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="renderRemoteData"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>renderRemoteData</b>(remoteData, offset)
-					
-					</div>
-					<div class="description">
-						
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/Lacuna_static_script_game_ship.js.html">ship.js</a>.
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>remoteData</b>
-									
-								</dt>
-								<dd></dd>
-							
-								<dt>
-									<b>offset</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
-						
-						
-						
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="renderTail"> </a>
-					<div class="fixedFont">
-					
-					
-					<b>renderTail</b>(context)
-					
-					</div>
-					<div class="description">
-						
-						
-						
-					</div>
-					
-					
-					
-						
-							<dl class="detailList">
-							<dt class="heading">Parameters:</dt>
-							
-								<dt>
-									<b>context</b>
-									
-								</dt>
-								<dd></dd>
-							
-							</dl>
 						
 						
 						
@@ -922,7 +588,7 @@ ul.inheritsList
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Wed Apr 25 2012 22:15:39 GMT+0200 (CEST)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Tue May 01 2012 00:04:01 GMT+0200 (CEST)
 		</div>
 	</body>
 </html>
