@@ -7,8 +7,8 @@ Engine.rendering.canvas = function(suspend){
 	}
 	this.canvasRenderer.suspend(suspend);
 	if(!this.canvasRenderer.suspended){
-		this.canvasRenderer.context.fillStyle = this.backgroundColor;
-		this.canvasRenderer.context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+//		this.canvasRenderer.context.fillStyle = this.backgroundColor;
+//		this.canvasRenderer.context.fillRect(0, 0, window.innerWidth, window.innerHeight);
 		// Render
 		var topMost = [];
 		for(var i = 0, l = this.entities.length; i < l; i++){
@@ -161,7 +161,9 @@ Engine.rendering.canvas.renderer = function(){
 			this.offsetTop = 40;
 		}
 		this.offsetLeft = Math.ceil((this.canvas.width - (this.engine.width * this.scale)) / 2);
-		this.context = this.canvas.getContext('2d');
+		if(!this.context){
+			this.context = this.canvas.getContext('2d');
+		}
 		for(var i = 0, l = this.engine.controllers.length; i < l; i++){
 			var controller = this.engine.controllers[i];
 			if(controller.render){
