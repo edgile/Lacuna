@@ -19,7 +19,7 @@ Levels.load = function (config) {
         return new Levels[config.gameId][config.levelId](config);
     }
     else {
-        var levelConfig = Levels[config.gameId][config.levelId];
+        var levelConfig = Levels[config.gameId][config.levelId].clone();
         helpers.apply(config, levelConfig);
         return new Levels.types[levelConfig.type](levelConfig);
     }
