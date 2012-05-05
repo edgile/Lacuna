@@ -1,43 +1,19 @@
-﻿var OneStarLevel = function (config) {
-	LacunaLevel.call(this, config);
-
-	var defaultConfig =
-        {
-            world: 0,
-            level: 0,
-            rules: Constants.getDefaultRules()
-        };
-    
-    helpers.apply(defaultConfig, this);
-    helpers.apply(config, this);
-
-    this.spaceObjects = this.getSpaceObjects();
+﻿var OneStarLevel = {
+    type: 'lacunalevel',
+    id: 'test_onestar',
+    gameId: Constants.gameId,
+    title: 'Test (one star)',
+    world: '00',
+    level: '00',
+    thumbnail: '',
+    backgroundImage: '',
+    scoreRequirements: { totalPoints: { bronze: 100, silver: 200, gold: 300 }, shipsLanded: { bronze: 1, silver: 2, gold: 3} },
+    rules: Constants.getDefaultRules(),
+    spaceObjects: [
+            { type: 'launchplatform', position: new THREE.Vector2(Constants.gameWidth / 2, Constants.gameHeight - 50) },
+            { type: 'landingzone', position: new THREE.Vector2(Constants.gameWidth / 2, 50), direction: new THREE.Vector2(1, 0) },
+            { type: 'star', position: new THREE.Vector2(Constants.gameWidth / 2, Constants.gameHeight / 2), mass: 200000, density: 4000 }
+        ]
 };
 
-OneStarLevel.inheritsFrom(LacunaLevel);
-
-OneStarLevel.id = "onestarlevel";
-OneStarLevel.gameId = Constants.gameId;
-OneStarLevel.title = "One star level";
-
-OneStarLevel.prototype.getSpaceObjects = function () {
-    var result = [];
-
-    var launchPlatform = new LaunchPlatform({engine: this.engine});
-    launchPlatform.setPosition(new THREE.Vector2(this.engine.width / 2, 50));
-    result.push(launchPlatform);
-
-    var landingZone = new LandingZone({engine: this.engine});
-    landingZone.setPosition(new THREE.Vector2(Math.random() * this.engine.width, Math.random() * this.engine.height));
-    landingZone.setDirection(new THREE.Vector2(Math.random() * 2 - 1, Math.random() * 2 - 1));
-    result.push(landingZone);
-
-    var star = new Star({engine: this.engine});
-    star.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height / 2));
-    star.setMass(200000);
-    result.push(star);
-
-    return result;
-};
-
-Levels.register(Constants.gameId, OneStarLevel.id, OneStarLevel);
+Levels.register(Constants.gameId, 'test_onestar', OneStarLevel);

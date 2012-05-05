@@ -1,53 +1,51 @@
-﻿var RandomLevel = function (config) {
-	LacunaLevel.call(this, config);
-
-	var defaultConfig = 
-        {
-            world: 0,
-            level: 0,
-            rules: Constants.getDefaultRules()
-        };
-
-    helpers.apply(defaultConfig, this);
-    helpers.apply(config, this);
-    
-    this.spaceObjects = this.getSpaceObjects();
+﻿var RandomLevel = {
+    type: 'lacunalevel',
+    id: 'test_randomlevel',
+    gameId: Constants.gameId,
+    title: 'Test - Random',
+    world: '00',
+    level: '00',
+    thumbnail: '',
+    backgroundImage: '',
+    scoreRequirements: { totalPoints: { bronze: 100, silver: 200, gold: 300 }, shipsLanded: { bronze: 1, silver: 2, gold: 3} },
+    rules: Constants.getDefaultRules(),
+    spaceObjects: RandomLevelGetSpaceObjects()
 };
 
-RandomLevel.inheritsFrom(LacunaLevel);
+Levels.register(Constants.gameId, 'test_randomlevel', RandomLevel);
 
-RandomLevel.id = "randomlevel";
-RandomLevel.gameId = Constants.gameId;
-RandomLevel.title = "Randomly generated level";
-
-RandomLevel.prototype.getSpaceObjects = function () {
-    var result = [];
-
+function RandomLevelGetSpaceObjects() {
+    var maxRandomPlanetMass = 2000;
+    var maxRandomPlanetInitialSpeed = 100;
     var numberOfPlanets = Math.floor(Math.random() * 10);
     var numberOfStars = Math.floor(Math.random() * 10);
 
-    var launchPlatform = new LaunchPlatform({engine: this.engine});
-    launchPlatform.setPosition(new THREE.Vector2(this.engine.width / 2, 50));
-    result.push(launchPlatform);
-
-    var landingZone = new LandingZone({engine: this.engine});
-    landingZone.setPosition(new THREE.Vector2(this.engine.width / 2, this.engine.height - 50));
-    landingZone.setDirection(new THREE.Vector2(1, 0));
-    result.push(landingZone);
+    var result = [];
+    result.push({ type: 'launchplatform', position: new THREE.Vector2(Constants.gameWidth / 2, Constants.gameHeight - 50) });
+    result.push({ type: 'landingzone', position: new THREE.Vector2(Constants.gameWidth / 2, 50), direction: new THREE.Vector2(1, 0) });
 
     for (var i = 1; i <= numberOfPlanets; i++) {
-        var planet = new Planet({engine: this.engine});
-        planet.setRandomValues();
-        result.push(planet);
+        result.push({type: 'planet', 
+                mass: Math.random() * maxRandomPlanetMass, 
+                position: new THREE.Vector2(Math.random() * Constants.gameWidth, Math.random() * Constants.gameHeight),
+                direction: new THREE.Vector2(Math.random(), Math.random()).setLength(maxRandomPlanetInitialSpeed * Math.random())
+            }
+        );
     }
 
+    var maxRandomStarMass = 300000;
+    var maxRandomStarDensity = 10000;
     for (var i = 1; i <= numberOfStars; i++) {
-        var star = new Star({engine: this.engine});
-        star.setRandomValues();
-        result.push(star);
+        result.push({ type: 'star',
+                mass: Math.random() * maxRandomStarMass,
+                density: Math.random() * maxRandomStarDensity,
+                position: new THREE.Vector2(Math.random() * Constants.gameWidth, Math.random() * Constants.gameHeight),
+                direction: new THREE.Vector2(0, 0),
+                static: true,
+                influencedByGravity: false
+            }
+        );
     }
 
     return result;
 };
-
-Levels.register(Constants.gameId, RandomLevel.id, RandomLevel);
