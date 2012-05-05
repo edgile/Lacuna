@@ -7,8 +7,8 @@ Engine.rendering.canvas = function(suspend){
 	}
 	this.canvasRenderer.suspend(suspend);
 	if(!this.canvasRenderer.suspended){
-		this.canvasRenderer.context.fillStyle = this.backgroundColor;
-		this.canvasRenderer.context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+//		this.canvasRenderer.context.fillStyle = this.backgroundColor;
+//		this.canvasRenderer.context.fillRect(0, 0, window.innerWidth, window.innerHeight);
 		// Render
 		var topMost = [];
 		for(var i = 0, l = this.entities.length; i < l; i++){
@@ -39,6 +39,13 @@ Engine.rendering.canvas = function(suspend){
 Engine.rendering.canvas.renderer = function(){
 
 	var drawingFunctions = {
+		'sprite': function(position, config){
+			this.engine.flow.spriteManager.draw(config.file, config.sprite, this.context, this.fixXY(position, config.position), this.scale);
+		},
+		'spritebackground': function(position, config){
+			position = config.position || position;
+			this.engine.flow.spriteManager.drawBackground(config.file, config.sprite, this.context);
+		},
 		'line': function(position, config){
 			position = config.position || position;
 			this.context.strokeStyle = config.color;
@@ -122,6 +129,10 @@ Engine.rendering.canvas.renderer = function(){
 		return ((position.y + point.y) * this.scale) + this.offsetTop;
 	};
 	
+	renderer.prototype.fixXY = function(position, point){
+		return {x: this.fixX(position, point), y: this.fixY(position, point)};
+	};
+	
 	renderer.prototype.suspend = function(suspend){
 		if(this.suspended && !suspend){
 			this.canvas.style.display = 'block';
@@ -150,7 +161,9 @@ Engine.rendering.canvas.renderer = function(){
 			this.offsetTop = 40;
 		}
 		this.offsetLeft = Math.ceil((this.canvas.width - (this.engine.width * this.scale)) / 2);
-		this.context = this.canvas.getContext('2d');
+		if(!this.context){
+			this.context = this.canvas.getContext('2d');
+		}
 		for(var i = 0, l = this.engine.controllers.length; i < l; i++){
 			var controller = this.engine.controllers[i];
 			if(controller.render){

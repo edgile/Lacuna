@@ -20,15 +20,21 @@ function Star(config) {
     this.setDensity(this.density);
 
     //Visible elements
+    this.sprite  = {
+		type: 'sprite', 
+		file: 'lacuna', 
+		sprite: 'star50',
+		position: {x: -25, y: -25},
+		scale: 1
+	};
     this.circle = {type: 'circle', color: 'red', center: {x: 0, y: 0}, radius: this.getRadius(), fill: true}; 
-    this.shapes = [this.circle];
+    this.shapes = [this.sprite];
 };
 
 Star.inheritsFrom(SpaceObject);
 
 Star.prototype.setRandomValues = function () {
     this.baseClass.setRandomValues.call(this);
-
     this.setMass(Math.random() * (this.maxMassStar - this.minMassStar) + this.minMassStar);
     this.setDensity(Math.random() * (this.maxStarDensity - this.minStarDensity) + this.minStarDensity);
     this.setPosition(new THREE.Vector2(Math.random() * this.engine.width, Math.random() * this.engine.height));

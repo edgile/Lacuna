@@ -15,6 +15,41 @@ function flow(config){
 		mainMenu: mainMenu,
 		flow: this
 	});
+
+	// Need to find a place to put this
+	var lacunaBackgroundFile = {
+		name: 'lacunabackground',
+		src: '/resources/svg/background.svg',
+		width: 960,
+		height: 640,
+		items: {
+			background: {x: 0, y: 0, width: 960, height: 640}
+		}
+	};
+	
+	var lacunaSpriteFile = {
+		name: 'lacuna',
+		src: '/resources/svg/sprites.svg',
+		width: 800,
+		height: 600,
+		items: {
+			star150: {x: 0, y: 0, width: 150, height: 150},
+			star100: {x: 150, y: 0, width: 100, height: 100},
+			star75: {x: 250, y: 0, width: 75, height: 75},
+			star50: {x: 325, y: 0, width: 50, height: 50}
+		}
+	};
+	
+	// Need to find a place to put this
+	this.spriteManager = new SpriteManager({
+		files:[lacunaBackgroundFile, lacunaSpriteFile ],
+		onload: function(){
+			
+		}.bind(this)
+	});
+	
+	this.background = new background();
+	
 	this.start(null, new randomAi({
 		engine: this.engine
 	}));
@@ -29,19 +64,21 @@ flow.prototype.update = function(timeLapse){
 	if(this.ai){
 		this.ai.update(timeLapse);
 	}
+	this.background.update(timeLapse);
 	this.engine.level.update(timeLapse);
 	this.menu.update();
 };
 
 flow.prototype.getEntities = function(){
-	var gameUI = [];
+	var gameUI = [this.background];
+	gameUI = gameUI.concat(this.engine.level.spaceObjects);
 	if(!this.menu.hidden){
 		gameUI.push(this.menu);
 	}
 	if(!this.scoreBar.hidden){
 		gameUI.push(this.scoreBar);
 	}
-	return this.engine.level.spaceObjects.concat(gameUI);
+	return gameUI;
 };
 
 flow.prototype.keyboardHandler = function(keyCode){

@@ -4,34 +4,56 @@
 	<head>
 	    
 	    <title>SVG graphics tests</title>
-	      	
-		<!-- iOS device meta tags -->
-   		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-		<meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no">
-		<meta charset="utf-8" />
+	    
+      	<!-- iOS device meta tags -->
+<!--    		<meta name="apple-mobile-web-app-capable" content="yes"> -->
+<!-- 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+<!-- 		<meta name="viewport" content="width = device-width, initial-scale = 1.0, user-scalable = no"> -->
+<!-- 		<meta charset="utf-8" /> -->
+	    
+	    <style type="text/css">
+	    	body {
+	    		margin: 0px;
+	    	}
+	    </style>
+	    
+	    <script src="/script/engine/helpers.js"></script>
+	    <script src="/script/engine/renderers/spritemanager.js"></script>
 	    
 	    <script type="text/javascript">
 	    	function onLoad(){
 	    		// Add a canvas to the body
 	    		var canvas = document.createElement('canvas');
-	    		canvas.width = 960;
-	    		canvas.height = 640;
+	    		canvas.width = 960; //window.innerWidth * window.devicePixelRatio;
+	    		canvas.height = 640; //window.innerHeight * window.devicePixelRatio;
 	    		document.body.appendChild(canvas);
 	    		// Get the 2d context
 	    		var context = canvas.getContext('2d');
 	    		context.fillStyle = 'green';
-	    		context.fillRect(0, 0 , 960, 640);
+	    		context.fillRect(0, 0 , canvas.width, canvas.height);
 	    		// Load the svg
-	    		var svg = loadSvg('test.svg');
-	    		// Draw the background
-	    		context.drawImage(svg,90,130,50,60,10,10,50,60);
+// 	    		loadSvg('test.svg', function(svg){
+	    			//Draw the background
+// 	    			context.drawImage(svg,0,0,960,640,0,0,960,640);
+// 	    			context.drawImage(svg,0,640,150,150,200,200,150,150);	
+// 	    			context.drawImage(svg,0,640,150,150,400,200,100,100);	
+// 	    			context.drawImage(svg,0,640,150,150,600,200,75,75);	
+// 	    		});
+	    		
+    	    	var manager = new SpriteManager({
+    	    		files:[lacunaSpriteFile],
+    	    		onload: function(){
+    	    			manager.draw('lacuna', 'background', context, {x: 0, y: 0 }, 1);
+    	    			manager.draw('lacuna', 'star', context, {x: 200, y: 200}, 1);
+    	    		}
+    	    	});
+    	    	
 	    	}
-	    	function loadSvg(url){
-    			var result = document.createElement('img');
-	    		result.src = url;
-	    		document.body.appendChild(result);
-    		}
+
+	    	
+
+	    	
+	    	
 	    </script>
 	    
 	</head>
