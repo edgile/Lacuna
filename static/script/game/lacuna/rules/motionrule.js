@@ -28,3 +28,5 @@ MotionRule.prototype.apply = function (spaceObjects, timeLapse) {
         }
     }
 };
+
+Rules.register('motionrule', MotionRule);

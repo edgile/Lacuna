@@ -49,3 +49,6 @@ DefaultLevelMonitorRule.allShipsLanded = function(ships){
 	}
 	return true;
 };
+
+Rules.register('defaultlevelmonitorrule', DefaultLevelMonitorRule);
+

@@ -4,18 +4,20 @@
 *   @extends SpaceObject
 */
 function TextSpaceObject(config) {
-	SpaceObject.call(this, config);
-	
 	this.influencesGravitationalField = false;
     this.influencedByGravity = false;
     this.canCollide = false;
     this.displayTime = 50;
     this.timeDisplayed = 0;
     this.textSize = 25;
+    this.textColor = "white";
+    this.text = "";
+
+    SpaceObject.call(this, config);
 
     this.setPosition(this.position);
     this.setDirection(this.direction);
-    this.shapes = [{type: 'text', text: config.text, color: "white", size: this.textSize}];
+    this.shapes = [{type: 'text', text: this.text, color: this.textColor, size: this.textSize}];
 };
 
 TextSpaceObject.inheritsFrom(SpaceObject);
@@ -26,3 +28,8 @@ TextSpaceObject.prototype.update = function (timeLapse) {
 		this.setStatus(SpaceObject.statusEnum.finished);
 	}
 };
+
+/**
+ * Register TextSpaceObject
+ */
+SpaceObjects.textspaceobject = TextSpaceObject;

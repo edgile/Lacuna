@@ -22,7 +22,7 @@ var LaunchPlatform = function(config){
     this.launchForceTimer = null;
     this.forceVector = null;
     this.previousForceDirection = new THREE.Vector2(0, 0);
-    this.setPosition(new THREE.Vector2());
+    this.setPosition(this.position);
     this.setMass(1);
     this.setDensity(1);
     
@@ -122,3 +122,6 @@ LaunchPlatform.prototype.getCurrentForceDirection = function () {
 	}	
     return result;
 };
+
+SpaceObjects.launchplatform = LaunchPlatform;
+

@@ -37,3 +37,5 @@ Commet.prototype.render = function (context) {
     context.closePath();
     context.fill();
 };
+
+SpaceObjects.commet = Commet;

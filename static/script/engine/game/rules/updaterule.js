@@ -4,7 +4,7 @@ Represents a rule that calls update on all objects.
 @extends RuleBase
 */
 function UpdateRule(config) {
-	helpers.apply(config, this);
+	RuleBase.call(this, config);
 }
 
 UpdateRule.inheritsFrom(RuleBase);
@@ -14,3 +14,5 @@ UpdateRule.prototype.apply = function (spaceObjects, timeLapse) {
         spaceObjects[i].update(timeLapse);
     }
 };
+
+Rules.register('updaterule', UpdateRule);

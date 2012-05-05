@@ -68,3 +68,5 @@ GravitationRule.prototype.getDistanceGravitationFactor1 = function (distance) {
 
     return factor1 * factor2;
 };
+
+Rules.register('gravitationrule', GravitationRule);

@@ -2,15 +2,11 @@
  * Base class for Lacuna levels
  * @class
  */
-function LacunaLevel(config){
-	Level.call(this, config);
-	
-	var defaultConfig = { gameId: Constants.gameId };
-	
-    helpers.apply(defaultConfig, this);
-    helpers.apply(config, this);
-    
-    this.score = new Score({level: this});
+function LacunaLevel(config) {
+    this.gameId = Constants.gameId;
+    this.score = new Score({ level: this });
+
+    Level.call(this, config);
 };
 
 LacunaLevel.inheritsFrom(Level);
@@ -19,7 +15,7 @@ LacunaLevel.inheritsFrom(Level);
  * Gets the launch platform from the list of spaceObjects
  * @returns {LaunchPlatform} LaunchPlatform if available otherwise null.
  */
-Level.prototype.getLaunchPlatform = function() {
+LacunaLevel.prototype.getLaunchPlatform = function () {
     if (!this.spaceObjects) return null;
 
     if(!this.launchPlatform){
@@ -39,7 +35,7 @@ Level.prototype.getLaunchPlatform = function() {
  * @public
  * @returns {Ship[]} Array of Ship
  */
-Level.prototype.getShips = function() {
+LacunaLevel.prototype.getShips = function () {
     if (!this.spaceObjects) return null;
 
     var result = [];
@@ -51,3 +47,5 @@ Level.prototype.getShips = function() {
     }
     return result;
 };
+
+Levels.types.lacunalevel = LacunaLevel;

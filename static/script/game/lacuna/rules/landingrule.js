@@ -102,3 +102,5 @@ LandingRule.prototype.getAllShips = function (spaceObjects) {
     }
     return result;
 };
+
+Rules.register('landingrule', LandingRule);

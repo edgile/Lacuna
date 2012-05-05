@@ -3,30 +3,37 @@
  * @class
 */
 var Level = function (config) {
+    this.id = null;
+    this.gameId = null;
+    this.title = "Level name";
+    this.world = 0;
+    this.level = 0;
+    this.thumbnail = "";
+    this.backgroundImage = "";
+    this.status = Level.statusEnum.playing;
+    this.rules = [];
+    this.spaceObjects = [];
+
     helpers.apply(config, this);
 
-    this.status = Level.statusEnum.playing;
+    for (var i = 0; i < this.rules.length; i++) {
+        helpers.apply({ engine: this.engine, level: this }, this.rules[i]);
+        this.rules[i] = Rules.createInstance(this.rules[i]);
+    }
+
+    for (var i = 0; i < this.spaceObjects.length; i++) {
+        helpers.apply({ engine: this.engine, level: this }, this.spaceObjects[i]);
+        this.spaceObjects[i] = new SpaceObjects[this.spaceObjects[i].type](this.spaceObjects[i]);
+    }
 };
 
 Level.statusEnum = {finished: 0, paused: 1, playing: 2};
-
-Level.prototype.id = null;
-Level.prototype.gameId = null;
-Level.prototype.title = "Level name";
-Level.prototype.world = 0;
-Level.prototype.level = 0;
-Level.prototype.thumbnail = "";
-Level.prototype.backgroundImage = "";
-Level.prototype.rules = [];
-Level.prototype.spaceObjects = [];
 
 Level.prototype.addSpaceObject = function(object){
 	this.spaceObjects.push(object);
 };
 
 Level.prototype.update = function (timeLapse) {
-    this.removeFinishedObjects();
-
     var result = this.applyRules(timeLapse);
     if (result && result.length > 0) {
         this.spaceObjects = this.spaceObjects.concat(result);
@@ -44,16 +51,6 @@ Level.prototype.applyRules = function (timeLapse) {
         }
     }
     return newObjects;
-};
-
-Level.prototype.removeFinishedObjects = function () {
-    var newList = [];
-    for (var i = 0, numberOfObjects = this.spaceObjects.length; i < numberOfObjects; i++) {
-        if (!this.spaceObjects[i].isFinished()) {
-            newList.push(this.spaceObjects[i]);
-        }
-    }
-    this.spaceObjects = newList;
 };
 
 /**

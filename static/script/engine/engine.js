@@ -8,8 +8,8 @@ function Engine(config){
 		level: null,
 		timeFactor : 20,
 		clock: new THREE.Clock(),
-		width : 800,
-		height : 600,
+		width: Constants.gameWidth,
+		height: Constants.gameHeight,
 		renderer: "canvas",
 		backgroundColor: '#000',
 		mousePosition: new THREE.Vector2(0,0)
@@ -22,7 +22,7 @@ function Engine(config){
 	this.initializeControllers();
 	this.flow = new (Engine.games[this.game])({engine: this});
 	this.animate();
-}
+};
 
 /**
 Creates a statistics (FPS) UI elements and adds it to the current document.

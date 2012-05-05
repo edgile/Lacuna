@@ -104,3 +104,5 @@ Ship.prototype.setStatus = function (status) {
 Ship.prototype.getRadius = function () {
     return 4;
 };
+
+SpaceObjects.ship = Ship;

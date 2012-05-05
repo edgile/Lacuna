@@ -5,7 +5,7 @@
 function FlightTimeRule(config){
 	RuleBase.call(this, config);
 	
-	if(!this.maxFlightTime) this.maxFlightTime = 30 * this.engine.timeFactor;
+	if(!this.maxFlightTime) this.maxFlightTime = 150;
 }
 
 FlightTimeRule.inheritsFrom(RuleBase);
@@ -26,7 +26,6 @@ FlightTimeRule.prototype.apply = function (spaceObjects, timeLapse) {
 		    	}else{
 		    		ship.flightTime += timeLapse;
 		    	}
-		    	this.engine.level.score.addPoints(10 * timeLapse / this.engine.timeFactor);
 		    	if(ship.flightTime > this.maxFlightTime){
 		    		ship.setStatus(Ship.statusEnum.crashing);
 		    	}
@@ -34,3 +33,5 @@ FlightTimeRule.prototype.apply = function (spaceObjects, timeLapse) {
 	    }
     }
 };
+
+Rules.register('flighttimerule', FlightTimeRule);

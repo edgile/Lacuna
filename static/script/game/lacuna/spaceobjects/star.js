@@ -4,12 +4,9 @@
 *   @extends SpaceObject
 */
 function Star(config) {
-	SpaceObject.call(this, config);
-
-	// Game logic fields
-	this.type = 'star';
-    this.minMassStar = 300000;
-    this.maxMassStar = 50000;
+    this.type = 'star';
+    this.maxMassStar = 300000;
+    this.minMassStar = 50000;
 
     this.maxStarDensity = 10000;
     this.minStarDensity = 10000;
@@ -17,7 +14,11 @@ function Star(config) {
     this.maxInitialSpeedStar = 0;
     this.influencedByGravity = false;
 
-    this.setDensity(10000);
+    SpaceObject.call(this, config);
+
+	// Game logic fields
+    this.setDensity(this.density);
+
     //Visible elements
     this.circle = {type: 'circle', color: 'red', center: {x: 0, y: 0}, radius: this.getRadius(), fill: true}; 
     this.shapes = [this.circle];
@@ -38,4 +39,4 @@ Star.prototype.update = function(timeLapse){
 	this.circle.radius = this.getRadius();
 };
 
-
+SpaceObjects.star = Star;

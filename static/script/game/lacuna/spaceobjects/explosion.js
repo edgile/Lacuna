@@ -34,6 +34,4 @@ Explosion.prototype.update = function (timeLapse) {
     }
 };
 
-Explosion.prototype.render = function (context) {
-
-};
+SpaceObjects.explosion = Explosion;

@@ -16,8 +16,8 @@ function LandingZone(config) {
     this.static = true;
 
     this.setWidth(50);
-    this.setPosition(new THREE.Vector2());
-    this.setDirection(new THREE.Vector2());
+    this.setPosition(this.position);
+    this.setDirection(this.direction);
     
     // Visible elements
     this.line = {type: 'line', position: {x: 0, y: 0}, width: 3, color: 'white', start: {x: 0, y: 5}, end: {x: 0, y: -5}};
@@ -74,5 +74,4 @@ LandingZone.prototype.update = function (timeLapse) {
 	this.line.end = this.lineSegment.end.clone();
 };
 
-LandingZone.prototype.render = function (context) {
-};
+SpaceObjects.landingzone = LandingZone;

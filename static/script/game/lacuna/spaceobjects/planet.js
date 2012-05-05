@@ -38,6 +38,4 @@ Planet.prototype.setRandomValues = function () {
     this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(this.maxInitialSpeedPlanet * Math.random()));
 };
 
-Planet.prototype.render = function (context) {
-
-};
+SpaceObjects.planet = Planet;

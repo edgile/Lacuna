@@ -5,7 +5,7 @@
         {
             world: 0,
             level: 0,
-            rules: Constants.getDefaultRules(this.getRuleConfig(config))
+            rules: Constants.getDefaultRules()
         };
 
     helpers.apply(defaultConfig, this);

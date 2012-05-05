@@ -50,7 +50,7 @@ flow.prototype.keyboardHandler = function(keyCode){
 	}
 };
 
-flow.prototype.defaultLevel = 'onestarlevel';
+flow.prototype.defaultLevel = 'l_0101';
 
 flow.prototype.start = function(levelName, ai){
 	this.ai = ai;

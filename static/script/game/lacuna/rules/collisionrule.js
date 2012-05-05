@@ -36,6 +36,14 @@ CollisionRule.prototype.applyRule = function (object1, object2) {
         object1.setStatus(Ship.statusEnum.crashing);
         object2.setStatus(Ship.statusEnum.crashing);
     }
+    else if (object1 instanceof Reward || object2 instanceof Reward) {
+        var reward = object1 instanceof Reward ? object1 : object2;
+        reward.setStatus(SpaceObject.statusEnum.finished);
+        if (object1 instanceof Ship || object2 instanceof Ship) {
+            this.level.score.addPoints(reward.points);
+            return new TextSpaceObject({ text: reward.points, displayTime: 25, position: reward.getPosition().clone(), direction: new THREE.Vector2(0, 0) });
+        }
+    }
     else if (object1 instanceof Ship || object2 instanceof Ship) {
         var ship = object1 instanceof Ship ? object1 : object2;
         var spaceObject = object1 instanceof Ship ? object2 : object1;
@@ -67,3 +75,5 @@ CollisionRule.prototype.getDirectionAfterCollission = function (object1, object2
 
     return result;
 };
+
+Rules.register('collisionrule', CollisionRule);

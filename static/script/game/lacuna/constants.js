@@ -1,23 +1,17 @@
 Constants = {
-	gameId: "lacuna",
+    gameId: "lacuna",
 	name: "Lacuna",
+	gameWidth: 800,
+    gameHeight: 600,
 	
-	getDefaultRules: function(config){
-		if(!config.aiMode){
-			return [new UpdateRule(config), 
-		               new GravitationRule(config), 
-		               new MotionRule(config), 
-		               new CollisionRule(config), 
-		               new LandingRule(config), 
-		               new FlightTimeRule(config),
-		               new DefaultLevelMonitorRule(config)]
-		}else{
-			return [new UpdateRule(config), 
-		               new GravitationRule(config), 
-		               new MotionRule(config), 
-		               new CollisionRule(config), 
-		               new LandingRule(config), 
-		               new FlightTimeRule(config)]
-		}
+	getDefaultRules: function(){
+		return [{type: 'updaterule'}, 
+	               {type: 'gravitationrule'}, 
+	               {type: 'motionrule'}, 
+	               {type: 'collisionrule'}, 
+	               {type: 'landingrule'}, 
+	               {type: 'flighttimerule', maxFlightTime: 200}, 
+	               {type: 'defaultlevelmonitorrule'}, 
+	               {type: 'cleanuprule'}];
 	}
 };
