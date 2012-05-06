@@ -4,14 +4,13 @@
 *   @extends SpaceObject
 */
 var LaunchPlatform = function(config){
-	SpaceObject.call(this, config);
-	
-	// Game logic fields
-	this.type = 'launchplatform';
-	this.position = this.position || {x:this.engine.width / 2, y: 50};
+    // Default values
+    this.type = 'launchplatform';
+    this.position = new THREE.Vector2(Constants.gameWidth / 2, 50 );
     this.maxForce = 13000;
     this.timeToReachMaxForce = 1500;
-	this.shipsLaunched = 0;
+    this.launchCapacity = 5;
+    this.shipsLaunched = 0;
 
     this.canCollide = false;
     this.influencedByGravity = false;
@@ -22,9 +21,10 @@ var LaunchPlatform = function(config){
     this.launchForceTimer = null;
     this.forceVector = null;
     this.previousForceDirection = new THREE.Vector2(0, 0);
+
+    SpaceObject.call(this, config);
+	
     this.setPosition(this.position);
-    this.setMass(1);
-    this.setDensity(1);
     
     // Visible elements fields 
     this.modelIndex = 1;
@@ -124,4 +124,3 @@ LaunchPlatform.prototype.getCurrentForceDirection = function () {
 };
 
 SpaceObjects.launchplatform = LaunchPlatform;
-

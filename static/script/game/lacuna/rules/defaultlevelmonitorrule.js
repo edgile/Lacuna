@@ -5,8 +5,6 @@
 */
 function DefaultLevelMonitorRule(config) {
 	RuleBase.call(this, config);
-	
-	if(!this.maximumLaunches) this.maximumLaunches = 3;
 }
 
 DefaultLevelMonitorRule.inheritsFrom(RuleBase);
@@ -17,15 +15,15 @@ DefaultLevelMonitorRule.inheritsFrom(RuleBase);
  * @param {timeLapse} Time that has passed since the last call.
  */
 DefaultLevelMonitorRule.prototype.apply = function (spaceObjects, timeLapse) {
-    if (!spaceObjects || this.engine.level.status == Level.statusEnum.finished){
+    if (!spaceObjects || this.engine.level.status == Level.statusEnum.finished) {
     	return;
     }
     
     var launchPlatform = this.level.getLaunchPlatform();
-    if(launchPlatform.shipsLaunched == this.maximumLaunches) {
+    if (launchPlatform.shipsLaunched >= launchPlatform.launchCapacity) {
     	launchPlatform.setStatus(SpaceObject.statusEnum.finished);
 
-    	var ships = this.engine.level.getShips();
+    	var ships = this.level.getShips();
         if((!ships || ships.length == 0) || DefaultLevelMonitorRule.allShipsLanded(ships)){
         	this.level.status = Level.statusEnum.finished;
         	this.engine.flow.menu.setItems(new levelFinishedMenu({result: this.level.score.getResult()}));

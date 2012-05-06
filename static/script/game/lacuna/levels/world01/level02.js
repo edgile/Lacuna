@@ -10,7 +10,8 @@
     scoreRequirements: { totalPoints: { bronze: 100, silver: 200, gold: 300 }, shipsLanded: { bronze: 1, silver: 2, gold: 3} },
     rules: Constants.getDefaultRules(),
     spaceObjects: [{ type: 'launchplatform',
-        position: new THREE.Vector2(Constants.gameWidth / 2, Constants.gameHeight - 50)
+                            position: new THREE.Vector2(Constants.gameWidth / 2, Constants.gameHeight - 50),
+                            launchCapacity: 3
                         },
 	    				{ type: 'landingzone',
 	    				    position: new THREE.Vector2(Constants.gameWidth / 2, 50),
@@ -24,11 +25,11 @@
                             static: true
 	    				},
 	    				{ type: 'reward',
-	    				    position: new THREE.Vector2(Constants.gameWidth / 2 - 150, Constants.gameHeight / 2),
+	    				    position: new THREE.Vector2(Constants.gameWidth / 2 - 125, Constants.gameHeight / 2),
 	    				    points: 250
 	    				},
                         { type: 'reward',
-                            position: new THREE.Vector2(Constants.gameWidth / 2 + 150, Constants.gameHeight / 2),
+                            position: new THREE.Vector2(Constants.gameWidth / 2 + 125, Constants.gameHeight / 2),
                         	points: 250
                         }
 
