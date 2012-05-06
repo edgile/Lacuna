@@ -6,6 +6,7 @@ function flow(config){
 	helpers.apply(config, this);
 	this.rightButtonDown = false;
 	this.engine.keyboardController.upListeners.push(this.keyboardHandler.bind(this));
+	this.gameState = GameState.Load({ engine: this.engine });
 	this.scoreBar = new ScoreBar({
 		engine: this.engine,
 		hidden: false

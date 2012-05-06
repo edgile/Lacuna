@@ -11,6 +11,13 @@ function LacunaLevel(config) {
 
 LacunaLevel.inheritsFrom(Level);
 
+LacunaLevel.prototype.setStatus = function (status) {
+    Level.call(this, status);
+    if (status == Level.statusEnum.finished) {
+        this.engine.flow.gameState.Persist();
+    }
+};
+
 /**
  * Gets the launch platform from the list of spaceObjects
  * @returns {LaunchPlatform} LaunchPlatform if available otherwise null.

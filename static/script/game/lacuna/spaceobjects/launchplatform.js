@@ -74,18 +74,19 @@ LaunchPlatform.prototype.start = function () {
 };
 
 LaunchPlatform.prototype.stop = function () {
-	if(!this.hidden && this.launchForceTimer && this.launchForceTimer.running){
-		this.launchForceTimer.stop();
-		var v = this.getCurrentForceVector();
-		// Cancel launches with 0 force / direction
-		if(v.x != 0 || v.y != 0){
-		    var s = new Ship({engine: this.engine});
-		    s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
-		    s.setDirection(v.clone());
-			this.engine.level.addSpaceObject(s);
-			this.shipsLaunched += 1;
-		}
-	}
+    if (!this.hidden && this.launchForceTimer && this.launchForceTimer.running) {
+        this.launchForceTimer.stop();
+        var v = this.getCurrentForceVector();
+        // Cancel launches with 0 force / direction
+        if (v.x != 0 || v.y != 0) {
+            var s = new Ship({ engine: this.engine });
+            s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
+            s.setDirection(v.clone());
+            this.engine.level.addSpaceObject(s);
+            this.shipsLaunched += 1;
+            this.engine.flow.gameState.totalShipsLaunched += 1;
+        }
+    }
 };
 
 LaunchPlatform.prototype.getPosition = function () {

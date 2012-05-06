@@ -6,6 +6,9 @@
 function Star(config) {
     // Default values
     this.type = 'star';
+    this.static = true;
+    this.influencedByGravity = false;
+    this.influencesGravity = true;
 
     SpaceObject.call(this, config);
 

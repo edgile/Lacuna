@@ -1,34 +1,51 @@
 var mainMenu = {
     'LACUNA': {
-    	size: 200
+        size: 200
     },
-    '':{},
+    '': {},
     'Start Game': {
         onMousePlaneUp: function (entity, evt) {
-        	var levels = Levels.getGameLevels(Constants.gameId);
-        	var menuItems = {};
-        	for (var s in levels){
-        		if(levels.hasOwnProperty(s)){
-	        		menuItems[levels[s].title] = {
-	        			gameId: s,
-	    		        onMousePlaneUp: function (item, evt) {        	
-	    		        	entity.engine.flow.start(item.gameId);
-	    		        }
-	        		};
-        		}
-        	}
-        	menuItems[''] = {};
+            var levels = Levels.getGameLevels(Constants.gameId);
+            var menuItems = {};
+            for (var s in levels) {
+                if (levels.hasOwnProperty(s)) {
+                    menuItems[levels[s].title] = {
+                        gameId: s,
+                        onMousePlaneUp: function (item, evt) {
+                            entity.engine.flow.start(item.gameId);
+                        }
+                    };
+                }
+            }
+            menuItems[''] = {};
             menuItems['MAIN MENU'] = {
                 onMousePlaneUp: function (entity, evt) {
                     entity.engine.flow.menu.setItems(mainMenu);
                 }
             };
-        	entity.engine.flow.menu.setItems(menuItems);
+            entity.engine.flow.menu.setItems(menuItems);
+        }
+    },
+    'ACHIEVEMENTS': {
+        onMousePlaneUp: function (entity, evt) {
+            var menuItems = {};
+            menuItems['ACHIEVEMENTS - BETA'] = {};
+            menuItems['Total ships launched: ' + entity.engine.flow.gameState.totalShipsLaunched] = {};
+            menuItems['Total ships landed: ' + entity.engine.flow.gameState.totalShipsLanded] = {};
+            menuItems['Perfect landings: ' + entity.engine.flow.gameState.totalPerfectLandings] = {};
+            menuItems['Total ships exploded: ' + entity.engine.flow.gameState.totalShipsExploded] = {};
+            menuItems[''] = {};
+            menuItems['MAIN MENU'] = {
+                onMousePlaneUp: function (entity, evt) {
+                    entity.engine.flow.menu.setItems(mainMenu);
+                }
+            };
+            entity.engine.flow.menu.setItems(menuItems);
         }
     },
     'SETTINGS': {
-        onMousePlaneUp: function (entity, evt) {        	
-        	entity.engine.flow.menu.setItems(settingsMenu);
+        onMousePlaneUp: function (entity, evt) {
+            entity.engine.flow.menu.setItems(settingsMenu);
         }
     }
 };
@@ -97,7 +114,8 @@ var settingsMenu = {
     },
     'RESET': {
         onMousePlaneUp: function (entity, evt) {
-            alert('Remove all saved data ...');
+            entity.engine.flow.gameState = new GameState();
+            entity.engine.flow.gameState.Persist();
         }
     },
     '': {},

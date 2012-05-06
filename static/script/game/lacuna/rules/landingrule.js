@@ -43,15 +43,20 @@ LandingRule.prototype.apply = function (spaceObjects, timeLapse) {
     return newSpaceObjects;
 };
 
-LandingRule.prototype.startLandingShip = function(ship, landingZone, crossingPoint){
+LandingRule.prototype.startLandingShip = function (ship, landingZone, crossingPoint) {
     ship.setStatus(Ship.statusEnum.landing);
     this.level.score.shipLanded();
-    
+
     var distanceFromOptimum = landingZone.getPosition().distanceTo(crossingPoint);
-    var points = this.pointsForLanding + this.pointsForLanding * (landingZone.halfWidth - distanceFromOptimum) / landingZone.halfWidth; 
-	this.level.score.addPoints(points);
-	
-	return [new TextSpaceObject({text: Math.floor(points), position: ship.getPosition().clone(), direction: ship.getDirection().clone().setLength(500)})];
+    var points = this.pointsForLanding + this.pointsForLanding * (landingZone.halfWidth - distanceFromOptimum) / landingZone.halfWidth;
+    var text = Math.floor(points);
+    if (distanceFromOptimum < 1) {
+        this.engine.flow.gameState.totalPerfectLandings += 1;
+        text = "Perfect landing " + text;
+    }
+    this.level.score.addPoints(points);
+
+    return [new TextSpaceObject({ text: text, position: ship.getPosition().clone(), direction: ship.getDirection().clone().setLength(500) })];
 };
 
 LandingRule.prototype.steerShip = function (ship, targetPosition) {

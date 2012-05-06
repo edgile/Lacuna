@@ -3,12 +3,13 @@
  * @param config
  * @class
  */
-function Score(config){
-	helpers.apply(config, this);
-	
-	this.totalPoints = 0;
-	this.shipsLanded = 0;
-	this.initialized = false;
+function Score(config) {
+    // Default values
+    this.totalPoints = 0;
+    this.shipsLanded = 0;
+    this.initialized = false;
+
+    helpers.apply(config, this);
 };
 
 /**
