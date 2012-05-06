@@ -17,8 +17,8 @@ function Star(config) {
 		position: {x: -25, y: -25},
 		scale: 1
 	};
-    this.circle = {type: 'circle', color: 'red', center: {x: 0, y: 0}, radius: this.getRadius(), fill: true}; 
-    this.shapes = [this.sprite];
+    this.circle = {type: 'circle', color: 'red', center: {x: 0, y: 0}, radius: this.getRadius(), fill: false}; 
+    this.shapes = [this.sprite, this.circle];
 };
 
 Star.inheritsFrom(SpaceObject);
