@@ -6,7 +6,7 @@
 function GravitationRule(config) {
 	RuleBase.call(this, config);
 
-	this.gravitationalConstant = .01;
+	this.gravitationalConstant = .015;
 }
 
 GravitationRule.inheritsFrom(RuleBase);
