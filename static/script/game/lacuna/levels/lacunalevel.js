@@ -3,7 +3,7 @@
  * @class
  */
 function LacunaLevel(config) {
-    this.gameId = Constants.gameId;
+    this.gameId = Lacuna.gameId;
     this.score = new Score({ level: this });
 
     Level.call(this, config);
@@ -14,7 +14,7 @@ LacunaLevel.inheritsFrom(Level);
 LacunaLevel.prototype.setStatus = function (status) {
     Level.call(this, status);
     if (status == Level.statusEnum.finished) {
-        this.engine.flow.gameState.Persist();
+        Lacuna.gameState.Persist();
     }
 };
 

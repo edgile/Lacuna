@@ -95,9 +95,9 @@ Ship.prototype.getPreviousPosition = function () {
 Ship.prototype.setStatus = function (status) {
     // Bookkeeping to track the number of ships that landed and/or exploded
     if (status == Ship.statusEnum.landed && this.status != Ship.statusEnum.landed) {
-        this.engine.flow.gameState.totalShipsLanded += 1;
+        Lacuna.gameState.totalShipsLanded += 1;
     } else if (status == Ship.statusEnum.crashing && this.status != Ship.statusEnum.crashing) {
-        this.engine.flow.gameState.totalShipsExploded += 1;
+        Lacuna.gameState.totalShipsExploded += 1;
     }
 
     this.baseClass.setStatus.call(this, status);

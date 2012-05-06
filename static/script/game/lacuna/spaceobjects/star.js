@@ -12,7 +12,7 @@ function Star(config) {
 
     SpaceObject.call(this, config);
 
-    //Visible elements
+    // Visible elements
     this.sprite  = {
 		type: 'sprite', 
 		file: 'lacuna', 
@@ -26,4 +26,7 @@ function Star(config) {
 
 Star.inheritsFrom(SpaceObject);
 
+/**
+ * Register star as a SpaceObject
+ */
 SpaceObjects.star = Star;

@@ -8,8 +8,8 @@ function Engine(config){
 		level: null,
 		timeFactor : 20,
 		clock: new THREE.Clock(),
-		width: Constants.gameWidth,
-		height: Constants.gameHeight,
+		width: Lacuna.gameWidth,
+		height: Lacuna.gameHeight,
 		renderer: "canvas",
 		backgroundColor: '#000',
 		mousePosition: new THREE.Vector2(0,0)

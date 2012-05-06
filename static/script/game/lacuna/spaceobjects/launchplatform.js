@@ -6,7 +6,7 @@
 var LaunchPlatform = function(config){
     // Default values
     this.type = 'launchplatform';
-    this.position = new THREE.Vector2(Constants.gameWidth / 2, 50 );
+    this.position = new THREE.Vector2(Lacuna.gameWidth / 2, 50 );
     this.maxForce = 13000;
     this.timeToReachMaxForce = 1500;
     this.launchCapacity = 5;
@@ -84,7 +84,7 @@ LaunchPlatform.prototype.stop = function () {
             s.setDirection(v.clone());
             this.engine.level.addSpaceObject(s);
             this.shipsLaunched += 1;
-            this.engine.flow.gameState.totalShipsLaunched += 1;
+            Lacuna.gameState.totalShipsLaunched += 1;
         }
     }
 };

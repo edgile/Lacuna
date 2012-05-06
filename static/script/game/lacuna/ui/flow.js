@@ -6,7 +6,6 @@ function flow(config){
 	helpers.apply(config, this);
 	this.rightButtonDown = false;
 	this.engine.keyboardController.upListeners.push(this.keyboardHandler.bind(this));
-	this.gameState = GameState.Load({ engine: this.engine });
 	this.scoreBar = new ScoreBar({
 		engine: this.engine,
 		hidden: false
@@ -94,7 +93,7 @@ flow.prototype.start = function(levelName, ai){
 	this.ai = ai;
 	this.levelName = levelName || this.levelName || this.defaultLevel;
 	this.engine.level = Levels.load({
-		gameId: Constants.gameId,
+		gameId: Lacuna.gameId,
 		levelId: this.levelName,
 		engine: this.engine,
 		aiMode: this.ai != null

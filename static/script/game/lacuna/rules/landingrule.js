@@ -51,7 +51,7 @@ LandingRule.prototype.startLandingShip = function (ship, landingZone, crossingPo
     var points = this.pointsForLanding + this.pointsForLanding * (landingZone.halfWidth - distanceFromOptimum) / landingZone.halfWidth;
     var text = Math.floor(points);
     if (distanceFromOptimum < 1) {
-        this.engine.flow.gameState.totalPerfectLandings += 1;
+        Lacuna.gameState.totalPerfectLandings += 1;
         text = "Perfect landing " + text;
     }
     this.level.score.addPoints(points);

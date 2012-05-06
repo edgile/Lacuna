@@ -5,7 +5,7 @@ var mainMenu = {
     '': {},
     'Start Game': {
         onMousePlaneUp: function (entity, evt) {
-            var levels = Levels.getGameLevels(Constants.gameId);
+            var levels = Levels.getGameLevels(Lacuna.gameId);
             var menuItems = {};
             for (var s in levels) {
                 if (levels.hasOwnProperty(s)) {
@@ -30,10 +30,10 @@ var mainMenu = {
         onMousePlaneUp: function (entity, evt) {
             var menuItems = {};
             menuItems['ACHIEVEMENTS - BETA'] = {};
-            menuItems['Total ships launched: ' + entity.engine.flow.gameState.totalShipsLaunched] = {};
-            menuItems['Total ships landed: ' + entity.engine.flow.gameState.totalShipsLanded] = {};
-            menuItems['Perfect landings: ' + entity.engine.flow.gameState.totalPerfectLandings] = {};
-            menuItems['Total ships exploded: ' + entity.engine.flow.gameState.totalShipsExploded] = {};
+            menuItems['Total ships launched: ' + Lacuna.gameState.totalShipsLaunched] = {};
+            menuItems['Total ships landed: ' + Lacuna.gameState.totalShipsLanded] = {};
+            menuItems['Perfect landings: ' + Lacuna.gameState.totalPerfectLandings] = {};
+            menuItems['Total ships exploded: ' + Lacuna.gameState.totalShipsExploded] = {};
             menuItems[''] = {};
             menuItems['MAIN MENU'] = {
                 onMousePlaneUp: function (entity, evt) {
@@ -114,8 +114,8 @@ var settingsMenu = {
     },
     'RESET': {
         onMousePlaneUp: function (entity, evt) {
-            entity.engine.flow.gameState = new GameState();
-            entity.engine.flow.gameState.Persist();
+            Lacuna.gameState = new GameState();
+            Lacuna.gameState.Persist();
         }
     },
     '': {},
