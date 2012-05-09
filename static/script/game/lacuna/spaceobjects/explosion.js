@@ -4,16 +4,9 @@
 *   @extends SpaceObject
 */
 function Explosion(config) {
-	SpaceObject.call(this, config);
+    helpers.applyIf(Explosion.defaultConfig, config);
+    SpaceObject.call(this, config);
 
-	this.startStatus = 35;
-
-    this.influencedByGravity = false;
-    this.canCollide = false;
-
-    this.setStatus(this.startStatus);
-    this.setPosition(this.position);
-    this.setDirection(this.direction);
     this.crashShapes = [
         {type: 'circle', width: 2, color: 'gray', center: {x: 0, y: 0}, radius: 0},
         {type: 'circle', width: 2, color: 'gray', center: {x: 0, y: 0}, radius: 0},
@@ -24,13 +17,29 @@ function Explosion(config) {
 
 Explosion.inheritsFrom(SpaceObject);
 
+Explosion.defaultConfig = {
+    type: 'explosion',
+    name: 'Explosion',
+    timeVisible: 100,
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    static: false,
+    canCollide: false,
+    influencesGravitationalField: false,
+    influencedByGravity: false,
+    status: SpaceObject.statusEnum.active
+};
+
 Explosion.prototype.update = function (timeLapse) {
-    var currentStatus = this.getStatus();
-    if (currentStatus > 0) {
-	    this.crashShapes[0].radius = currentStatus;
-	    this.crashShapes[1].radius = currentStatus;
-	    this.crashShapes[2].radius = currentStatus;
-	    this.setStatus(currentStatus - 1);
+    if(this.getStatus() != SpaceObject.statusEnum.finished) {
+        this.timeVisible -= timeLapse;
+        if (this.timeVisible > 0) {
+	        this.crashShapes[0].radius = this.timeVisible;
+	        this.crashShapes[1].radius = 2 * this.timeVisible / 4;
+	        this.crashShapes[2].radius = this.timeVisible / 4;
+        } else {
+            this.setStatus(SpaceObject.statusEnum.finished);
+        }
     }
 };
 

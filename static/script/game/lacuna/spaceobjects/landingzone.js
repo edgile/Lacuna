@@ -4,27 +4,32 @@
 *   @extends SpaceObject
 */
 function LandingZone(config) {
-	SpaceObject.call(this, config);
+    helpers.applyIf(LandingZone.defaultConfig, config);
+    SpaceObject.call(this, config);
 
-	this.width = 0;
-    this.halfWidth = 0;
+    this.halfWidth = this.width / 2;
     this.lineSegment = null;
+    this.setWidth(this.width);
 
-    this.canCollide = false;
-    this.influencedByGravity = false;
-    this.influencesGravitationalField = false;
-    this.static = true;
-
-    this.setWidth(50);
-    this.setPosition(this.position);
-    this.setDirection(this.direction);
-    
     // Visible elements
     this.line = {type: 'line', position: {x: 0, y: 0}, width: 3, color: 'white', start: {x: 0, y: 5}, end: {x: 0, y: -5}};
     this.shapes = [this.line];
 };
 
 LandingZone.inheritsFrom(SpaceObject);
+
+LandingZone.defaultConfig = {
+    type: 'landingzone',
+    name: 'Landing zone',
+    width: 50,
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    static: true,
+    canCollide: false,
+    influencesGravitationalField: false,
+    influencedByGravity: false,
+    status: SpaceObject.statusEnum.active
+};
 
 LandingZone.prototype.getRadius = function () {
     return this.width;

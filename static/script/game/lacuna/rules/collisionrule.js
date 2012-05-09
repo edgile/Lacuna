@@ -11,8 +11,9 @@ CollisionRule.inheritsFrom(RuleBase);
 
 CollisionRule.prototype.apply = function (spaceObjects, timeLapse) {
     var newObjects = [];
-    for (var i = 0; i < spaceObjects.length; i++) {
-        for (var j = i + 1; j < spaceObjects.length; j++) {
+    var spaceObjectCount = spaceObjects.length;
+    for (var i = 0; i < spaceObjectCount; i++) {
+        for (var j = i + 1; j < spaceObjectCount; j++) {
             var result = this.applyRule(spaceObjects[i], spaceObjects[j]);
             if (result) {
                 newObjects.push(result);

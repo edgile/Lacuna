@@ -2,9 +2,8 @@ Lacuna = {
     gameId: "lacuna",
 	name: "Lacuna",
 	gameWidth: 800,
-    gameHeight: 600,
+	gameHeight: 600,
     gameState: GameState.Load(),
-	
 	getDefaultRules: function(){
 		return [{type: 'updaterule'}, 
 	               {type: 'gravitationrule'}, 

@@ -3,44 +3,49 @@
 *   @class
 *   @extends SpaceObject
 */
-var LaunchPlatform = function(config){
+var LaunchPlatform = function (config) {
     // Default values
-    this.type = 'launchplatform';
-    this.position = new THREE.Vector2(Lacuna.gameWidth / 2, 50 );
-    this.maxForce = 13000;
-    this.timeToReachMaxForce = 1500;
-    this.launchCapacity = 5;
+    helpers.applyIf(LaunchPlatform.defaultConfig, config);
+    SpaceObject.call(this, config);
+
     this.shipsLaunched = 0;
-
-    this.canCollide = false;
-    this.influencedByGravity = false;
-    this.influencesGravitationalField = false;
-    this.static = true;
-
     this.pointerLocation = null;
     this.launchForceTimer = null;
     this.forceVector = null;
     this.previousForceDirection = new THREE.Vector2(0, 0);
 
-    SpaceObject.call(this, config);
-	
-    this.setPosition(this.position);
-    
     // Visible elements fields 
     this.modelIndex = 1;
-	this.aimLine = {type: 'line', width: 3, color: 'gray', start: {x: 0, y: 39}, end: {x: 0, y: 48}};
-	this.forceLine = {type: 'line', width: 3, color: 'green', start: {x: 0, y: 0}, end: {x: 0, y: 0}};
-	this.defaultShapes = [
-	    {type: 'line', width: 2, color: 'red', start: {x: 0, y: 5}, end: {x: 0, y: -5}},
-	    {type: 'line', width: 2, color: 'red', start: {x: 5, y: 0}, end: {x: -5, y: 0}},
-	    {type: 'circle', width: 1, color: 'gray', center: {x: 0, y: 0}, radius: 40},
+    this.aimLine = { type: 'line', width: 3, color: 'gray', start: { x: 0, y: 39 }, end: { x: 0, y: 48} };
+    this.forceLine = { type: 'line', width: 3, color: 'green', start: { x: 0, y: 0 }, end: { x: 0, y: 0} };
+    this.defaultShapes = [
+	    { type: 'line', width: 2, color: 'red', start: { x: 0, y: 5 }, end: { x: 0, y: -5} },
+	    { type: 'line', width: 2, color: 'red', start: { x: 5, y: 0 }, end: { x: -5, y: 0} },
+	    { type: 'circle', width: 1, color: 'gray', center: { x: 0, y: 0 }, radius: 40 },
 	    this.aimLine,
 	    this.forceLine
 	];
-	this.shapes = this.defaultShapes;
+    this.shapes = this.defaultShapes;
 };
 
 LaunchPlatform.inheritsFrom(SpaceObject);
+
+LaunchPlatform.defaultConfig = {
+    type: 'launchplatform',
+    name: 'Launch platform',
+    maxForce: 13000,
+    timeToReachMaxForce: 1500,
+    launchCapacity: 5,
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    density: 1,
+    mass: 1,
+    static: true,
+    canCollide: false,
+    influencesGravitationalField: false,
+    influencedByGravity: false,
+    status: SpaceObject.statusEnum.active
+};
 
 LaunchPlatform.prototype.update = function(time){
 	if(this.engine.mode !== 'client'){   
@@ -79,9 +84,7 @@ LaunchPlatform.prototype.stop = function () {
         var v = this.getCurrentForceVector();
         // Cancel launches with 0 force / direction
         if (v.x != 0 || v.y != 0) {
-            var s = new Ship({ engine: this.engine });
-            s.setPosition(new THREE.Vector2(this.position.x, this.position.y));
-            s.setDirection(v.clone());
+            var s = new Ship({ engine: this.engine, position: {x: this.position.x, y: this.position.y}, direction: {x: v.x, y: v.y} });
             this.engine.level.addSpaceObject(s);
             this.shipsLaunched += 1;
             Lacuna.gameState.totalShipsLaunched += 1;

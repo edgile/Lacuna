@@ -4,19 +4,23 @@
 *   @extends SpaceObject
 */
 function Reward(config) {
-    this.type = "Reward";
-    this.influencesGravity = false;
-    this.influencedByGravity = false;
-    this.static = true;
-    this.shapes = [{ type: 'circle', color: 'violet', center: { x: 0, y: 0 }, radius: 2, fill: false}];
-    this.points = 100;
-
+    helpers.applyIf(Reward.defaultConfig, config);
     SpaceObject.call(this, config);
+
+    this.shapes = [{ type: 'circle', color: 'violet', center: { x: 0, y: 0 }, radius: 2, fill: false}];
 };
 
 Reward.inheritsFrom(SpaceObject);
 
-Reward.prototype.setRandomValues = function () {
+Reward.defaultConfig = {
+    type: 'reward',
+    name: 'Reward',
+    points: 100,
+    position: { x: 0, y: 0 },
+    static: true,
+    canCollide: true,
+    influencesGravitationalField: false,
+    influencedByGravity: false,
+    status: SpaceObject.statusEnum.active
 };
-
 SpaceObjects.reward = Reward;

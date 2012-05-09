@@ -58,15 +58,4 @@ GravitationRule.prototype.getDistanceGravitationFactor = function (distance) {
     return 1 / Math.pow(distance, 1.5);
 };
 
-/* Experiment to have gravitational force follow a Gaussian curve */
-GravitationRule.prototype.getDistanceGravitationFactor1 = function (distance) {
-    var deviation = 25;
-    var mean = 0;
-
-    var factor1 = 1 / deviation * Math.sqrt(Math.PI * 2);
-    var factor2 = Math.pow(Math.E, (-1 / 2) * Math.pow((distance - mean) / deviation, 2));
-
-    return factor1 * factor2;
-};
-
 Rules.register('gravitationrule', GravitationRule);

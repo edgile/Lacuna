@@ -2,7 +2,7 @@
     type: 'lacunalevel',
     id: 'l_0103',
     gameId: Lacuna.gameId,
-    title: 'Level 3 word 1',
+    title: 'Level 3',
     world: '01',
     level: '03',
     thumbnail: '',

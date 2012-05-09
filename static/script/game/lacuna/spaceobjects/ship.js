@@ -4,20 +4,13 @@
 *   @extends SpaceObject
 */
 var Ship = function(config){
-	SpaceObject.call(this, config);
+    this.tail = { type: 'polyline', position: { x: 0, y: 0 }, width: 2, color: 'yellow', points: new PolyLine() };
 
-	// Game logic fields
-	this.type = 'ship';
-	this.position = this.position || new THREE.Vector2(0,0);
-    this.maxTailLength = 250;
-    this.influencedByGravity = true;
-    this.influencesGravitationalField = false;
-    this.setStatus(Ship.statusEnum.accelerating);
-    this.setMass(3000);
-    this.setDensity(1);
+    helpers.applyIf(Ship.defaultConfig, config);
+    SpaceObject.call(this, config);
+
     // Visible elements fields 
     this.modelIndex = 1;
-    this.tail = {type: 'polyline', position: {x: 0, y: 0}, width: 2, color: 'yellow', points: new PolyLine()};
     this.ship = {type: 'circle', color: 'yellow', center: {x: 0, y: 0}, radius: this.getRadius(), fill: true};
     this.flightShapes = [
         this.ship,
@@ -35,6 +28,21 @@ Ship.inheritsFrom(SpaceObject);
 
 Ship.statusEnum = { finished: 0, accelerating: 1, flying: 2, crashing: 3, landing: 4, landed: 5 };
 Ship.statusTimespan = { accelerating: 0, crashing: 5 };
+
+Ship.defaultConfig = {
+    type: 'ship',
+    name: 'Ship',
+    maxTailLength: 250,
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    density: 1,
+    mass: 3000,
+    static: false,
+    canCollide: true,
+    influencesGravitationalField: false,
+    influencedByGravity: true,
+    status: Ship.statusEnum.accelerating
+};
 
 Ship.prototype.update = function (timeLapse) {
     // Update the status of the ship
@@ -73,7 +81,7 @@ Ship.prototype.update = function (timeLapse) {
 
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
-    if (this.position) {
+    if (this.position && this.position instanceof THREE.Vector2) {
   	  if (this.tail.points.points.length == 0 || (this.tail.points.points.length > 0 && this.position.distanceTo(this.tail.points.points[this.tail.points.points.length - 1]) > 3)) {
 	      this.tail.points.addPoint(this.position.clone());
 	  }

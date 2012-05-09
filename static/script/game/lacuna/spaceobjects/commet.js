@@ -4,15 +4,25 @@
 *   @extends SpaceObject
 */
 function Commet(config) {
+    helpers.applyIf(Commet.defaultConfig, config);
 	SpaceObject.call(this, config);
-	
-    this.maxSpeed = 1000;
-
-    this.setDensity(1);
-    this.influencedByGravity = true;
 };
 
 Commet.inheritsFrom(SpaceObject);
+
+Commet.defaultConfig = {
+    type: 'commet',
+    name: 'Commet',
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    density: 1,
+    mass: 1,
+    static: false,
+    canCollide: true,
+    influencesGravitationalField: true,
+    influencedByGravity: true,
+    status: SpaceObject.statusEnum.active
+};
 
 Commet.prototype.getGradient = function (context) {
     var gradient = context.createRadialGradient(this.position.x, this.position.y, 0, this.position.x, this.position.y, this.getRadius());
@@ -20,14 +30,6 @@ Commet.prototype.getGradient = function (context) {
     gradient.addColorStop(1, "lightgrey");
 
     return gradient;
-};
-
-Commet.prototype.setRandomValues = function () {
-    this.baseClass.setRandomValues.call(this);
-
-    this.setMass(1);
-    this.setPosition(new THREE.Vector2(Math.random() * this.engine.width, Math.random() * this.engine.height));
-    this.setDirection(new THREE.Vector2(Math.random(), Math.random()).setLength(Math.random() * result.maxSpeed));
 };
 
 Commet.prototype.render = function (context) {

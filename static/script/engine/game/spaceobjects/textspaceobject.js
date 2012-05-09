@@ -4,14 +4,10 @@
 *   @extends SpaceObject
 */
 function TextSpaceObject(config) {
-	this.influencesGravitationalField = false;
-    this.influencedByGravity = false;
-    this.canCollide = false;
-    this.displayTime = 50;
+    helpers.applyIf(TextSpaceObject.defaultConfig, config);
+    SpaceObject.call(this, config);
+
     this.timeDisplayed = 0;
-    this.textSize = 25;
-    this.textColor = "white";
-    this.text = "";
 
     SpaceObject.call(this, config);
 
@@ -21,6 +17,22 @@ function TextSpaceObject(config) {
 };
 
 TextSpaceObject.inheritsFrom(SpaceObject);
+
+TextSpaceObject.defaultConfig = {
+    type: 'textspaceobject',
+    name: 'TextSpaceObject',
+    text: '',
+    textSize: 25,
+    textColor: 'white',
+    displayTime: 100,
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    static: false,
+    canCollide: false,
+    influencesGravitationalField: false,
+    influencedByGravity: false,
+    status: SpaceObject.statusEnum.active
+};
 
 TextSpaceObject.prototype.update = function (timeLapse) {
 	this.timeDisplayed += timeLapse;

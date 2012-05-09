@@ -5,11 +5,7 @@
 */
 function Star(config) {
     // Default values
-    this.type = 'star';
-    this.static = true;
-    this.influencedByGravity = false;
-    this.influencesGravity = true;
-
+    helpers.applyIf(Star.defaultConfig, config);
     SpaceObject.call(this, config);
 
     // Visible elements
@@ -25,6 +21,20 @@ function Star(config) {
 };
 
 Star.inheritsFrom(SpaceObject);
+
+Star.defaultConfig = {
+    type: 'star',
+    name: 'Star',
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
+    density: 1,
+    mass: 1,
+    static: true,
+    canCollide: true,
+    influencesGravitationalField: true,
+    influencedByGravity: false,
+    status: SpaceObject.statusEnum.active
+};
 
 /**
  * Register star as a SpaceObject
