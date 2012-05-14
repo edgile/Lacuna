@@ -15,16 +15,18 @@ function SpaceObject(config) {
 SpaceObject.statusEnum = { finished: 0, active: 1 };
 
 SpaceObject.defaultConfig = {
-    name: '',
-    position: {x: 0, y: 0},
-    direction: {x: 0, y: 0},
+    type: 'spaceobject',
+    name: 'Space object',
+    position: { x: 0, y: 0 },
+    direction: { x: 0, y: 0 },
     density: 1,
     mass: 1,
     static: false,
     canCollide: true,
     influencesGravitationalField: true,
     influencedByGravity: true,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: false }
 };
 
 SpaceObject.prototype.initialize = function () {

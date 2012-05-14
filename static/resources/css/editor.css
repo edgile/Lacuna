@@ -1,0 +1,21 @@
+﻿body.editor
+{
+    background-color: White;
+}
+
+list
+{
+    border-style:double;
+    border-color: Gray;
+    font-family: @Arial Unicode MS;
+    font-size: small;
+    color: black;
+}
+
+h3, p
+{
+    background:'white';
+    font-family:@Arial Unicode MS;
+    font-size: small;
+    color: black;
+}

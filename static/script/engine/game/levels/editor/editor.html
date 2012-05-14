@@ -6,6 +6,7 @@
 	    <title>Level editor</title>
 	    
      	<link rel="stylesheet" href="/resources/css/style.css" type="text/css"/>
+     	<link rel="stylesheet" href="/resources/css/editor.css" type="text/css"/>
    		
    		<!-- iOS device meta tags -->
    		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,12 +16,12 @@
 		
 		<!-- Third party -->
 		<script src="/resources/script/Three.js"></script>
-	    <script src="/resources/script/Stats.js"></script>
 	    <script src="/resources/script/dat.gui.min.js"></script>
 	    
 		<!-- Engine -->
 		<script src="/script/engine/helpers.js"></script>
-		<script src="/script/engine//game/levels/editor/editor.js"></script>
+		<script src="/script/engine/engine.js"></script>
+		<script src="/script/engine/game/levels/editor/editor.js"></script>
     	<script src="/script/engine/renderers/canvas.js"></script>
 		<script src="/script/engine/renderers/webgl.js"></script>
 		<script src="/script/engine/renderers/spritemanager.js"></script>
@@ -71,15 +72,15 @@
 	    
 	    <script type="text/javascript">
 	    	function onLoad(){
-	    		var engine = new Engine({ 
-	    			game: 'lacuna',
-	    			showStats: true
-    			});
-	    	}
+	    		var editor = new Editor({ 
+	    			game: 'lacuna'
+	                });
+            };
 	    </script>
 	    
 	</head>
 	
-	<body onload="onLoad();"></body>
+	<body class="editor" onload="onLoad();">
+    </body>
 
 </html>

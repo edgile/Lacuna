@@ -25,7 +25,8 @@ Planet.defaultConfig = {
     canCollide: true,
     influencesGravitationalField: true,
     influencedByGravity: true,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: false }
 };
 
 SpaceObjects.planet = Planet;

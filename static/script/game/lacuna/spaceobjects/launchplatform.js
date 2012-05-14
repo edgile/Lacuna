@@ -44,7 +44,8 @@ LaunchPlatform.defaultConfig = {
     canCollide: false,
     influencesGravitationalField: false,
     influencedByGravity: false,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: false }
 };
 
 LaunchPlatform.prototype.update = function(time){

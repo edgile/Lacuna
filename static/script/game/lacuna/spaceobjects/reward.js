@@ -21,6 +21,7 @@ Reward.defaultConfig = {
     canCollide: true,
     influencesGravitationalField: false,
     influencedByGravity: false,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: true }
 };
 SpaceObjects.reward = Reward;

@@ -33,7 +33,8 @@ Star.defaultConfig = {
     canCollide: true,
     influencesGravitationalField: true,
     influencedByGravity: false,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: true }
 };
 
 /**

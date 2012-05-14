@@ -3,23 +3,23 @@
 *   @class
 *   @extends SpaceObject
 */
-var Ship = function(config){
-    this.tail = { type: 'polyline', position: { x: 0, y: 0 }, width: 2, color: 'yellow', points: new PolyLine() };
-
+var Ship = function (config) {
     helpers.applyIf(Ship.defaultConfig, config);
     SpaceObject.call(this, config);
 
+    this.previousPosition = null;
+    this.previousTrailDrop = 0
+
     // Visible elements fields 
     this.modelIndex = 1;
-    this.ship = {type: 'circle', color: 'yellow', center: {x: 0, y: 0}, radius: this.getRadius(), fill: true};
+    this.ship = { type: 'circle', color: 'yellow', center: { x: 0, y: 0 }, radius: this.getRadius(), fill: true };
     this.flightShapes = [
-        this.ship,
-        this.tail
+        this.ship
     ];
     this.crashShapes = [
-       {type: 'circle', width: 2, color: 'gray', center: {x: 0, y: 0}, radius: 0},
-       {type: 'circle', width: 2, color: 'gray', center: {x: 0, y: 0}, radius: 0},
-       {type: 'circle', width: 2, color: 'white', center: {x: 0, y: 0}, radius: 0}
+       { type: 'circle', width: 2, color: 'gray', center: { x: 0, y: 0 }, radius: 0 },
+       { type: 'circle', width: 2, color: 'gray', center: { x: 0, y: 0 }, radius: 0 },
+       { type: 'circle', width: 2, color: 'white', center: { x: 0, y: 0 }, radius: 0 }
 	];
     this.shapes = this.flightShapes;
 };
@@ -32,7 +32,9 @@ Ship.statusTimespan = { accelerating: 0, crashing: 5 };
 Ship.defaultConfig = {
     type: 'ship',
     name: 'Ship',
-    maxTailLength: 250,
+    dropTrail: true,
+    dropIntervalInMilliSeconds: 100,
+    trailItemLifeTime: 1500,
     position: { x: 0, y: 0 },
     direction: { x: 0, y: 0 },
     density: 1,
@@ -41,7 +43,8 @@ Ship.defaultConfig = {
     canCollide: true,
     influencesGravitationalField: false,
     influencedByGravity: true,
-    status: Ship.statusEnum.accelerating
+    status: Ship.statusEnum.accelerating,
+    editor: { visible: false }
 };
 
 Ship.prototype.update = function (timeLapse) {
@@ -56,6 +59,7 @@ Ship.prototype.update = function (timeLapse) {
     else if (status == Ship.statusEnum.crashing) {
         this.getDirection().setLength(((Ship.statusTimespan.crashing - this.elapsedTime) / Ship.statusTimespan.crashing) * this.getDirection().length());
     }
+
     // Update the status of the visuals
     if (this.getStatus() == Ship.statusEnum.crashing) {
         this.crashShapes[0].radius = Math.max(0, Ship.statusTimespan.crashing - this.elapsedTime) * 2;
@@ -75,6 +79,14 @@ Ship.prototype.update = function (timeLapse) {
     }
     else {
         this.shapes = this.flightShapes;
+        if (this.dropTrail) {
+            this.previousTrailDrop += timeLapse * 1000 / this.engine.timeFactor;
+            if (this.previousTrailDrop > this.dropIntervalInMilliSeconds) {
+                this.previousTrailDrop = 0;
+                var s = new TrailItem({ engine: this.engine, position: { x: this.position.x, y: this.position.y }, lifeInMilliseconds: this.trailItemLifeTime });
+                this.engine.level.addSpaceObject(s);
+            }
+        }
     }
     this.elapsedTime += timeLapse;
 };
@@ -82,22 +94,16 @@ Ship.prototype.update = function (timeLapse) {
 Ship.prototype.setPosition = function (position) {
     // add previous point to the tail.
     if (this.position && this.position instanceof THREE.Vector2) {
-  	  if (this.tail.points.points.length == 0 || (this.tail.points.points.length > 0 && this.position.distanceTo(this.tail.points.points[this.tail.points.points.length - 1]) > 3)) {
-	      this.tail.points.addPoint(this.position.clone());
-	  }
+        if (this.previousPosition == null || this.position.distanceTo(this.previousPosition) > 3) {
+	        this.previousPosition = this.position.clone();
+	    }
     }
-    this.baseClass.setPosition.call(this, position);
 
-    // limit the length of the tail.
-    if (this.maxTailLength > 0) {
-        while (this.tail.points.getLength() > this.maxTailLength) {
-            this.tail.points.removePoint(0);
-        }
-    }
+    this.baseClass.setPosition.call(this, position);
 };
 
 Ship.prototype.getPreviousPosition = function () {
-    if (this.tail && this.tail.points.points.length > 1) return this.tail.points.points[this.tail.points.points.length - 1];
+    return this.previousPosition;
 };
 
 Ship.prototype.setStatus = function (status) {
@@ -109,7 +115,6 @@ Ship.prototype.setStatus = function (status) {
     }
 
     this.baseClass.setStatus.call(this, status);
-
 
     this.influencedByGravity = status == Ship.statusEnum.flying || status == Ship.statusEnum.accelerating;
     this.canCollide = this.influencedByGravity;

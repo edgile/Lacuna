@@ -27,7 +27,8 @@ Explosion.defaultConfig = {
     canCollide: false,
     influencesGravitationalField: false,
     influencedByGravity: false,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: false }
 };
 
 Explosion.prototype.update = function (timeLapse) {

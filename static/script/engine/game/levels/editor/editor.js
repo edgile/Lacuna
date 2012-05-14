@@ -2,36 +2,53 @@
     Editor engine
     @class
 */
-function Engine(config){
-	// Defaults
-	helpers.apply({
-		level: null,
-		timeFactor : 20,
-		clock: new THREE.Clock(),
-		width: Lacuna.gameWidth,
-		height: Lacuna.gameHeight,
-		renderer: "canvas",
-		backgroundColor: '#000',
-        mode: 'editor',
-		mousePosition: new THREE.Vector2(0,0)
-	}, this);
+function Editor(config){
 	// Process config
 	helpers.apply(config, this);
-	this.initializeControllers();
-	this.level = new Level();
-	this.animate();
+
+	//this.initializeControllers();
+	//this.animate();
+
+	this.test();
+	this.list();
 };
 
+Editor.prototype.list = function () {
+};
+
+Editor.prototype.test = function () {
+    var text = SpaceObject.defaultConfig;
+
+    var gui = new dat.GUI();
+
+    gui.add(text, 'type');
+    gui.add(text, 'name');
+    gui.add(text, 'density');
+    gui.add(text, 'mass');
+    gui.add(text, 'static');
+    gui.add(text, 'canCollide');
+    gui.add(text, 'influencesGravitationalField');
+    gui.add(text, 'influencedByGravity');
+
+    var folder1 = gui.addFolder('Position');
+    folder1.add(text.position, 'x');
+    folder1.add(text.position, 'y');
+    folder1.open();
+
+    var folder2 = gui.addFolder('Direction');
+    folder2.add(text.direction, 'x');
+    folder2.add(text.direction, 'y');
+    folder2.open();
+};
 
 /**
 Starts the main animation loop, should not be called directly.
 @function
 @private
 */
-Engine.prototype.animate = function() {
+Editor.prototype.animate = function () {
     requestAnimationFrame(this.animate.bind(this));
-    var delta = this.clock.getDelta();
-    this.entities = this.level.spaceObjects;
+
     Engine.rendering[this.renderer].apply(this);
 };
 
@@ -40,7 +57,7 @@ Initializes the controllers, should not be called directly.
 @function
 @private
 */
-Engine.prototype.initializeControllers = function(){
+Editor.prototype.initializeControllers = function () {
 	// Currently the system just support two controllers, this should be turned into an array
 	this.buttonDown = false;
 	this.mousePosition = {x: 0, y: 0};
@@ -63,7 +80,7 @@ Registration point for rendering.
 @static
 @type Object
 */
-Engine.rendering = {};
+Editor.rendering = {};
 
 /**
 Registration point for games.
@@ -72,7 +89,7 @@ Registration point for games.
 @static
 @type Object
 */
-Engine.games = {};
+Editor.games = {};
 
 /**
 Stores a value in local storage. Will handle objects, will probably fail when called on the server.
@@ -81,7 +98,7 @@ Stores a value in local storage. Will handle objects, will probably fail when ca
 @static
 @type Object
 */
-Engine.setItem = function(key, value) {
+Editor.setItem = function (key, value) {
     if (typeof value == "object") {
         value = JSON.stringify(value);
     }
@@ -95,7 +112,7 @@ Gets an object from local storage, if no value for key was found defaultValue is
 @static
 @type Object
 */
-Engine.getItem = function(key, defaultValue) {
+Editor.getItem = function (key, defaultValue) {
     var result = null;
     if(typeof localStorage != 'undefined'){
 		result = localStorage.getItem(key);

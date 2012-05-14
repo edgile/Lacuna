@@ -21,7 +21,8 @@ Commet.defaultConfig = {
     canCollide: true,
     influencesGravitationalField: true,
     influencedByGravity: true,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: false }
 };
 
 Commet.prototype.getGradient = function (context) {

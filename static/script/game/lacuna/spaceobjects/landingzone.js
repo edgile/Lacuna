@@ -28,7 +28,8 @@ LandingZone.defaultConfig = {
     canCollide: false,
     influencesGravitationalField: false,
     influencedByGravity: false,
-    status: SpaceObject.statusEnum.active
+    status: SpaceObject.statusEnum.active,
+    editor: { visible: true }
 };
 
 LandingZone.prototype.getRadius = function () {
